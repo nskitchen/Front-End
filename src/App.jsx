@@ -8,6 +8,7 @@ import AdminStaff from './Pages/AdminStaff'
 import AdminOrderPage from './Pages/AdminOrderPage'
 import AdminCompletedOrder from './Pages/AdminCompletedOrder'
 import AdminDashboard from './Pages/AdminDashboard'
+import AdminMenuPage from './Pages/AdminMenuPage'
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
     <Route path='staff' element={<AdminStaff/>}/>
     <Route path='currentorder' element={<AdminOrderPage/>}/>
     <Route path='completedorder' element={<AdminCompletedOrder/>}/>
-    <Route path='menu' element={<AdminCompletedOrder/>}/>
+    <Route path='menu' element={<AdminMenuPage/>}/>
       </Route>
     </Routes>
    </div>
