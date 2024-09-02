@@ -51,20 +51,27 @@ box-sizing:border-box;
   box-shadow: 0 0px 5px 1px rgba(255, 255, 255, 0.532);
 }
 
-.menu-item h3,.icon path{
+.menu-item h3,.icon path,.iconadmin path{
   transition:all cubic-bezier(0.19, 1, 0.22, 1) .5s;
 
 }
 .menu-item:hover h3{
-  color: orange;
+  color: #FF9933;
 }
 .menu-item:hover .icon path {
-  stroke: orange;
-  fill: orange;
+  stroke: #FF9933;
+  fill: #FF9933;
+}
+.menu-item:hover .iconadmin path {
+  stroke: #FF9933;
+  /* fill: orange; */
 }
 
 .icon path {
   stroke: white;
+}
+.iconadmin path{
+  stroke: black;
 }
 .boldf{
   font-weight: 900;
