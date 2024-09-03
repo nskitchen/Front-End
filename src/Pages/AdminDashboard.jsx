@@ -6,7 +6,7 @@ const AdminDashboard = () => {
   return (
     <div className="w-full h-screen bg-[#EEEEEE] flex"
     >
-      <AdminSidebar/>
+      <AdminSidebar data={"dashboard"}/>
       <div className="w-full h-full overflow-y-auto  relative">
         <div className="flex w-full items-center justify-between font-bold text-[#6E39CB] p-7">
           <h1>Nice! We have a lot of orders</h1>

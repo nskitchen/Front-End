@@ -9,6 +9,7 @@ import AdminOrderPage from './Pages/AdminOrderPage'
 import AdminCompletedOrder from './Pages/AdminCompletedOrder'
 import AdminDashboard from './Pages/AdminDashboard'
 import AdminMenuPage from './Pages/AdminMenuPage'
+import Login from './Pages/Login'
 
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
    <div className="w-full relative overflow-hidden">
     <Routes>
       <Route path='/' index element={<Main/>}/>
+      <Route path='/login'  element={<Login/>}/>
+      
       <Route path='/chef'>
       <Route path='home' element={<ChefHome/>}/>
       </Route>

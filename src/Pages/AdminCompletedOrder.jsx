@@ -2,27 +2,28 @@ import React from "react";
 import AdminOrder from "../Components/admin/AdminOrder";
 import AdminSidebar from "../Components/admin/AdminSidebar";
 import CompletedBillCard from "../Components/admin/CompletedBillCard";
+import { NavLink } from "react-router-dom";
 
 const AdminCompletedOrder = () => {
   return (
     <div className="h-screen w-full bg-[#EEEEEE] flex mont">
-      <AdminSidebar />
+      <AdminSidebar data={"order"} />
       <div className="w-full flex flex-col p-7 mont">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-[#6E39CB] text-1.7s boldf">Orders</h1>
         </div>
         <div className="flex w-full items-center justify-between">
           <div className="flex mt-3 gap-3">
-            <button className="flex text-lg p-2 px-3 gap-2 text-black bg-white rounded-md font-medium items-center justify-center">
+            <NavLink to={"/admin/currentorder"} className="flex text-lg p-2 px-3 gap-2 text-black bg-white rounded-md font-medium items-center justify-center">
               Current Orders
-              <span className="h-full w-[1px] bg-white"></span>
-              05
-            </button>
-            <button className="flex text-lg p-2 px-3 gap-2 text-white rounded-md font-medium items-center bg-[#FF8144] justify-center">
-              Completed Orders
               <span className="h-full w-[1px] bg-black"></span>
+              05
+            </NavLink>
+            <NavLink to={"/admin/completedorder"} className="flex text-lg p-2 px-3 gap-2 text-white rounded-md font-medium items-center bg-[#FF8144] justify-center">
+              Completed Orders
+              <span className="h-full w-[1px] bg-white"></span>
               08
-            </button>
+            </NavLink>
             <button className="flex text-lg p-2 px-3 gap-2 text-black bg-white rounded-md font-medium items-center justify-center">
               Order History
             </button>

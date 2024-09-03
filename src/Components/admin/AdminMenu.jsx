@@ -6,6 +6,7 @@ export function IcBaselineDelete(props) {
       xmlns="http://www.w3.org/2000/svg"
       width="1.5vw"
       height="1.5vw"
+      className="cursor-pointer"
       viewBox="0 0 24 24"
       {...props}
     >
@@ -16,7 +17,29 @@ export function IcBaselineDelete(props) {
     </svg>
   );
 }
-const AdminMenu = () => {
+const AdminMenu = ({setedit}) => {
+  const data = [
+    {
+      name:"White Sauce Pasta (Alfraedo sauce)",
+      dets:"Penne pasta, sweet corn, heavy. cream, red pepper, red onion",
+      img:"foodAdminDemo.png"
+    },
+    {
+      name:"White Sauce Pasta (Alfraedo sauce)",
+      dets:"Penne pasta, sweet corn, heavy. cream, red pepper, red onion",
+      img:"foodAdminDemo.png"
+    },
+    {
+      name:"White Sauce Pasta (Alfraedo sauce)",
+      dets:"Penne pasta, sweet corn, heavy. cream, red pepper, red onion",
+      img:"foodAdminDemo.png"
+    },
+    {
+      name:"White Sauce Pasta (Alfraedo sauce)",
+      dets:"Penne pasta, sweet corn, heavy. cream, red pepper, red onion",
+      img:"foodAdminDemo.png"
+    }
+  ]
   return (
     <div className="w-full">
       <div className="flex items-center justify-center gap-6 mont">
@@ -33,16 +56,19 @@ const AdminMenu = () => {
         </div>
       </div>
       <div className="w-full flex flex-col gap-2 p-4 relative overflow-y-auto">
-      <div className="flex items-center justify-between px-4 bg-white rounded-md p-2">
+     {
+      data?.map((i,index)=>(
+        <div key={index} className="flex items-center justify-between px-4 bg-white rounded-md p-2">
         <div className="flex items-center gap-4 justify-center">
           <div className="w-24 h-20 rounded-md bg-red-500 relative overflow-hidden">
-            <img src="/foodAdminDemo.png" className="h-full w-full object-cover" alt="" />
+            <img src={`/${i?.img}`} className="h-full w-full object-cover" alt="" />
           </div>
           <h1 className="text-base font-semibold">
-            White Sauce Pasta (Alfraedo sauce)
+           {i?.name}
             <br />
             <p className="text-xs font-light">
-              Penne pasta, sweet corn, heavy. cream, red pepper, red onion
+           {i?.dets}
+              
             </p>
           </h1>
         </div>
@@ -51,56 +77,12 @@ const AdminMenu = () => {
           <button className="border-[1px] border-black rounded-md px-2 py-1 text-sm">
             Out of Stock
           </button>
-          <i className="ri-pencil-fill"></i>
+          <i className="ri-pencil-fill cursor-pointer" onClick={()=>setedit(i)}></i>
           <IcBaselineDelete/>
         </div>
       </div>
-      <div className="flex items-center justify-between px-4 bg-white rounded-md p-2">
-        <div className="flex items-center gap-4 justify-center">
-          <div className="w-24 h-20 rounded-md bg-red-500 relative overflow-hidden">
-          <img src="/foodAdminDemo.png" className="h-full w-full object-cover" alt="" />
-
-          </div>
-          <h1 className="text-base font-semibold">
-            White Sauce Pasta (Alfraedo sauce)
-            <br />
-            <p className="text-xs font-light">
-              Penne pasta, sweet corn, heavy. cream, red pepper, red onion
-            </p>
-          </h1>
-        </div>
-        <h1 className="font-semibold">₹120</h1>
-        <div className="flex items-center justify-center gap-2">
-          <button className="border-[1px] border-black rounded-md px-2 py-1 text-sm">
-            Out of Stock
-          </button>
-          <i className="ri-pencil-fill"></i>
-          <IcBaselineDelete/>
-        </div>
-      </div>
-      <div className="flex items-center justify-between px-4 bg-white rounded-md p-2">
-        <div className="flex items-center gap-4 justify-center">
-          <div className="w-24 h-20 rounded-md bg-red-500 relative overflow-hidden">
-          <img src="/foodAdminDemo.png" className="h-full w-full object-cover" alt="" />
-
-          </div>
-          <h1 className="text-base font-semibold">
-            White Sauce Pasta (Alfraedo sauce)
-            <br />
-            <p className="text-xs font-light">
-              Penne pasta, sweet corn, heavy. cream, red pepper, red onion
-            </p>
-          </h1>
-        </div>
-        <h1 className="font-semibold">₹120</h1>
-        <div className="flex items-center justify-center gap-2">
-          <button className="border-[1px] border-black rounded-md px-2 py-1 text-sm">
-            Out of Stock
-          </button>
-          <i className="ri-pencil-fill"></i>
-          <IcBaselineDelete/>
-        </div>
-      </div>
+      ))
+     }
       </div>
   
     </div>

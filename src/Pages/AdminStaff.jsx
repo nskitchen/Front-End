@@ -7,8 +7,8 @@ import AddMember from "../Components/admin/AddMember";
 const AdminStaff = () => {
   const [add, setadd] = useState(false);
   return (
-    <div className="h-screen w-full bg-[#EEEEEE] flex">
-      <AdminSidebar />
+    <div className="h-screen w-full bg-[#EEEEEE] flex relative overflow-y-auto">
+      <AdminSidebar data={"staff"} />
       <div className="w-full flex flex-col p-7 mont">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-[#6E39CB] text-1.7s boldf">Staff Members</h1>
