@@ -10,6 +10,10 @@ import AdminCompletedOrder from './Pages/AdminCompletedOrder'
 import AdminDashboard from './Pages/AdminDashboard'
 import AdminMenuPage from './Pages/AdminMenuPage'
 import Login from './Pages/Login'
+import WaiterPageTable from './Pages/Waiter/WaiterPageTable'
+import WaiterMenuPage from './Pages/Waiter/WaiterMenuPage'
+import WaiterSummary from './Pages/Waiter/WaiterSummary'
+import WaiterOrder from './Pages/Waiter/WaiterOrder'
 
 
 function App() {
@@ -30,6 +34,13 @@ function App() {
     <Route path='currentorder' element={<AdminOrderPage/>}/>
     <Route path='completedorder' element={<AdminCompletedOrder/>}/>
     <Route path='menu' element={<AdminMenuPage/>}/>
+      </Route>
+      <Route path='/waiter'>
+    <Route path='table' element={<WaiterPageTable/>}/>
+    <Route path='menu' element={<WaiterMenuPage/>}/>
+    <Route path='summary' element={<WaiterSummary/>}/>
+    <Route path='orderlist' element={<WaiterOrder/>}/>
+  
       </Route>
     </Routes>
    </div>

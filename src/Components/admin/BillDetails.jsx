@@ -5,8 +5,8 @@ export function SolarBagBold(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1vw"
-      height="1vw"
+      width="1rem"
+      height="1rem"
       viewBox="0 0 24 24"
       {...props}
     >
@@ -23,8 +23,8 @@ export function SimpleIconsJusteat(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1vw"
-      height="1vw"
+      width="1rem"
+      height="1rem"
       viewBox="0 0 24 24"
       {...props}
     >
@@ -74,7 +74,7 @@ const BillDetails = () => {
           </h3>
         </div>
       </div>
-      <span className="inline-block w-full h-[1px] bg-gray-200"></span>
+      <span className="inline-block w-full h-[1px] bg-gray-300"></span>
     </div>
   );
 };
