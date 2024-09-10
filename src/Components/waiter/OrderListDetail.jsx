@@ -2,12 +2,12 @@ import React from "react";
 import BillDetails from "../admin/BillDetails";
 import { Divider } from "antd";
 
-const OrderListDetail = () => {
+const OrderListDetail = ({setdetail}) => {
   return (
     <div className="w-full h-full mont">
       <div className="w-full flex items-center justify-between p-4">
         <h1 className="boldf text-2xl">Order Details</h1>
-        <i className="ri-close-large-fill boldf text-xl"></i>
+        <i className="ri-close-large-fill boldf text-xl" onClick={()=>setdetail("")}></i>
       </div>
       <div className="w-full bg-white rounded-xl mont p-3">
         <div className="w-full flex items-center justify-between">

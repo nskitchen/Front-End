@@ -14,7 +14,7 @@ const WaiterOrder = () => {
     <>
       <div className="w-full px-4 h-screen mont">
         {detail.length > 0 && detail ? (
-         <OrderListDetail/>
+         <OrderListDetail setdetail={setdetail}/>
         ) : (
           <>
             <WaiterOrderHeader data={"Order List"} />
@@ -29,7 +29,7 @@ const WaiterOrder = () => {
             </div>
           </>
         )}
-        <WaiterFooter />
+        <WaiterFooter page={"list"} />
       </div>
     </>
   );

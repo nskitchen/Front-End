@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 export function TdesignNotificationFilled(props) {
   return (
     <svg
@@ -23,9 +24,9 @@ const WaiterHeader = ({data}) => {
         <button className="p-2 rounded-md border-[1px] border-black">
           <i className="ri-search-line text-xl"></i>
         </button>
-        <button className="p-2 rounded-md border-[1px] border-black">
+        <NavLink to={"/waiter/notification"} className="p-2 rounded-md border-[1px] border-black" >
             <TdesignNotificationFilled/>
-        </button>
+        </NavLink>
       </div>
     </div>
   );

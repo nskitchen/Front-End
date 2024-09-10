@@ -113,7 +113,7 @@ setopenRemark(true)
           <Divider className="my-2 bg-gray-300" />
         </div>
       </Modal>
-      <WaiterFooter />
+      <WaiterFooter page={"menu"} />
     </div>
   );
 };

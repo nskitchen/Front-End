@@ -18,7 +18,7 @@ const WaiterSummary = () => {
             Send to Kitchen
         </button>
         </div>
-  <WaiterFooter/>
+  <WaiterFooter page={"total"}/>
   </div>
    </>
   )

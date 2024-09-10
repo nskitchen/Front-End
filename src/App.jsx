@@ -14,6 +14,7 @@ import WaiterPageTable from './Pages/Waiter/WaiterPageTable'
 import WaiterMenuPage from './Pages/Waiter/WaiterMenuPage'
 import WaiterSummary from './Pages/Waiter/WaiterSummary'
 import WaiterOrder from './Pages/Waiter/WaiterOrder'
+import NotificationWaiter from './Pages/Waiter/NotificationWaiter'
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
     <Route path='menu' element={<WaiterMenuPage/>}/>
     <Route path='summary' element={<WaiterSummary/>}/>
     <Route path='orderlist' element={<WaiterOrder/>}/>
+    <Route path='notification' element={<NotificationWaiter/>}/>
   
       </Route>
     </Routes>

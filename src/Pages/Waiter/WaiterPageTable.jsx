@@ -22,7 +22,7 @@ const WaiterPageTable = () => {
             <h3>Available</h3>
         </div>
       </div>
-      <WaiterFooter/>
+      <WaiterFooter page={"table"}/>
    </div>
   )
 }

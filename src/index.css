@@ -73,6 +73,11 @@ box-sizing:border-box;
 .iconadmin path{
   stroke: black;
 }
+.waiter path{
+  stroke:#FF9933;
+  fill: #FF9933;
+  
+}
 .boldf{
   font-weight: 900;
 }
