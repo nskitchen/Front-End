@@ -13,10 +13,10 @@ const MenuPage = () => {
   ];
   return (
     <>
-      <div className="w-full h-screen relative flex">
+      <div className="w-full h-screen relative flex max-md:flex-col">
         <img
           src={Menubg}
-          className="h-full w-full absolute top-0 left-0"
+          className="h-full w-full absolute top-0 left-0 max-md:object-cover"
           alt=""
         />
         {/* <div className="overlay h-full w-full absolute top-0 left-0"></div> */}

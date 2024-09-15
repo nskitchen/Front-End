@@ -7,7 +7,7 @@ import Res3 from "../assets/res3.png"
 const AboutRestro = ({setopen}) => {
   return (
     <div className="h-screen w-full bg-transparent flex relative z-20 bg-black">
-      <div className="h-full w-1/2 relative flex items-center justify-center ">
+      <div className="h-full w-1/2 relative flex items-center justify-center max-md:hidden ">
       <div className="flex items-center h-full p-20 gap-3 justify-center">
         <div className="grid grid-cols-1 gap-3">
            <img src={Res1} alt="" />
@@ -16,14 +16,14 @@ const AboutRestro = ({setopen}) => {
          <img src={Res3} className="h-[70%]" alt="" />
       </div>
       </div>
-      <div className="h-full w-1/2 flex flex-col relative items-start justify-center leading-tight">
-        <div className="flex absolute top-[15%] left-0  gap-10 items-center justify-center  z-10 -translate-y-14 pl-5">
-        <button className="btn" onClick={()=>setopen(true)}>About Chef</button>
-        <button className="btn" style={{borderColor:"orange"}} onClick={()=>setopen(false)}>About Restaurant</button>
+      <div className="h-full w-1/2 flex flex-col relative items-start justify-center leading-tight max-md:w-full max-md:p-4 max-md:justify-center">
+        <div className="flex absolute top-[15%] left-0  gap-10 items-center justify-center  z-10 -translate-y-14 pl-5 max-md:top-[25%]">
+        <button className="btn" onClick={()=>setopen(false)}>About Chef</button>
+        <button className="btn" style={{borderColor:"orange"}} onClick={()=>setopen(true)}>About Restaurant</button>
         </div>
-        <h3 className="alex text-2.3s">place you wanna come back</h3>
-        <h1 className="abril text-5.6lg leading-tight">North-South Kitchen</h1>
-        <p className="py-5 mont text-sm w-[38.5rem] text-customGray">
+        <h3 className="alex text-2.3s max-md:text-2xl">place you wanna come back</h3>
+        <h1 className="abril text-5.6lg leading-tight max-md:text-5xl">North-South Kitchen</h1>
+        <p className="py-5 mont text-sm w-[38.5rem] text-customGray  max-md:w-fit">
           To be the premier destination for authentic Indian and international
           cuisine, offering traditional recipes and innovative dishes crafted
           with the finest ingredients.
