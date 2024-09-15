@@ -6,13 +6,13 @@ import Logo from "../assets/logo.png";
 
 const MenuItem = ({ setopen, counter, setcounter, pages }) => {
   return (
-    <div className="w-full relative flex items-center justify-center">
+    <div className="w-full relative flex items-center justify-center max-md:h-screen">
       <i
         className="ri-close-fill absolute top-[5%] left-[10%] text-2xl cursor-pointer"
         onClick={() => setopen(false)}
       ></i>
       <div className="h-[80%] w-[70%] bg-white rounded-2xl flex">
-        <div className="w-1/2 h-full rounded-2xl relative bg-black rounded-r-none overflow-hidden">
+        <div className="w-1/2 h-full rounded-2xl relative bg-black rounded-r-none overflow-hidden max-md:hidden">
           <img
             src="/PastaImg.png"
             className="h-full w-full 
@@ -25,7 +25,7 @@ const MenuItem = ({ setopen, counter, setcounter, pages }) => {
             alt=""
           />
         </div>
-        <div className="h-full w-1/2 relative rounded-r-2xl">
+        <div className="h-full w-1/2 relative rounded-r-2xl max-md:w-full">
           {pages?.map((page, index) => (
             <>
               {index == 0 ? (

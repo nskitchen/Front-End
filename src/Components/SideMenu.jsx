@@ -139,7 +139,7 @@ const data = [
 ];
 const SideMenu = () => {
   return (
-    <div className="side-menu w-20 absolute gap-4 right-5 top-0 h-full flex flex-col items-center justify-between py-20">
+    <div className="side-menu w-20 absolute gap-4 right-5 top-0 h-full flex flex-col items-center justify-between py-20 max-md:w-full max-md:top-[95%]  max-md:flex-wrap max-md:py-0 max-md:px-2 max-md:h-fit max-md:flex-row max-md:right-0">
       {data?.map((index, i) => (
         <div className="menu-item flex flex-col items-center justify-center cursor-pointer">
           {index?.img}
