@@ -22,7 +22,7 @@ const Menu = ({ setopen }) => {
         </div>
       </div>
       <div className="h-full w-1/2 flex items-center justify-center relative z-10 max-md:w-full">
-        <div className="shadow w-[55%] h-[80%] relative rounded-md overflow-hidden">
+        {/* <div className="shadow w-[55%] h-[80%] relative rounded-md overflow-hidden">
           <img
             src={Logo}
             className="absolute top-5 left-5 z-30 h-10 object-contain"
@@ -34,7 +34,8 @@ const Menu = ({ setopen }) => {
             className="absolute h-full w-full object-cover top-0 left-0 z-10"
             alt=""
           />
-        </div>
+        </div> */}
+        <img src="/Menucard.png" className="h-full w-[55%] object-contain" alt="" />
       </div>
     </>
   );
