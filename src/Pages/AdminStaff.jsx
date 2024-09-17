@@ -21,7 +21,7 @@ const AdminStaff = () => {
         </div>
         {add ? (
           <div className="flex w-full h-full gap-4 p-2 pb-1">
-            <AddMember/>
+            <AddMember add={add} setadd={setadd} />
           </div>
         ) : (
           <div className="flex w-full h-full gap-4 p-2 pb-1 mt-2">
