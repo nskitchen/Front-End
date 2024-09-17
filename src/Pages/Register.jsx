@@ -140,7 +140,7 @@ const Register = () => {
             className=" bg-gray-100"
           >
             <Select.Option value="admin">Admin</Select.Option>
-            <Select.Option value="manager">Manager</Select.Option>
+            <Select.Option value="chef">chef</Select.Option>
             <Select.Option value="waiter">Waiter</Select.Option>
             <Select.Option value="deleted">Deleted</Select.Option>
           </Select>
