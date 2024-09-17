@@ -37,6 +37,7 @@ const ChefList = () => {
   return (
     <div className="flex flex-col gap-2 mt-4 w-full ">
       {chefs?.map((i, index) => (
+        <div>
         <div
           key={i._id}
           onClick={() => setselected(index)}
@@ -68,6 +69,12 @@ const ChefList = () => {
           </div>
           <Divider className="absolute bottom-0" />
         </div>
+        <div className="flex items-center justify-center gap-14 max-md:text-xs max-md:gap-4">
+          <button>Delete</button>
+          <button className="text-[#6E39CB]">Edit</button>
+        </div>
+        <Divider className="absolute bottom-0"/>
+      </div>
       ))}
     </div>
   );

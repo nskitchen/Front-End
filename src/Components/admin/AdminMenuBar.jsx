@@ -4,8 +4,8 @@ export function Burger() {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="2vw"
-        height="2vw"
+        width="2rem"
+        height="2rem"
         viewBox="0 0 24 24"
         className="iconadmin"
       >
@@ -26,8 +26,8 @@ export function Burger() {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="2vw"
-        height="2vw"
+        width="2rem"
+        height="2rem"
         viewBox="0 0 32 32"
         {...props}
       >
@@ -43,8 +43,8 @@ export function Burger() {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="2vw"
-        height="2vw"
+        width="2rem"
+        height="2rem"
         viewBox="0 0 24 24"
         {...props}
       >
@@ -60,8 +60,8 @@ export function Burger() {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="2vw"
-        height="2vw"
+        width="2rem"
+        height="2rem"
         viewBox="0 0 256 256"
         {...props}
       >
@@ -77,8 +77,8 @@ export function Burger() {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="2vw"
-        height="2vw"
+        width="2rem"
+        height="2rem"
         viewBox="0 0 64 64"
         {...props}
       >
@@ -98,8 +98,8 @@ export function Burger() {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="2vw"
-        height="2vw"
+        width="2rem"
+        height="2rem"
         viewBox="0 0 24 24"
         {...props}
       >

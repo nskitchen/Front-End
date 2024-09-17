@@ -115,10 +115,10 @@ const AddMember = ({ add, setadd }) => {
           Get your Restaurant up and running faster by adding more members
         </span>
         <div className="flex w-full items-center">
-          <div className="w-1/2 self-start">
+          <div className="w-1/2 self-start max-md:hidden">
             <img src="/cardDetail.png" alt="Card Detail" />
           </div>
-          <div className="flex flex-col gap-2 w-1/2 p-10 h-full items-center justify-center">
+          <div className="flex flex-col gap-2 w-1/2 p-10 h-full items-center justify-center max-md:w-full max-md:p-4">
             <div className="w-full flex flex-col gap-0.5">
               <Input
                 className="mb-0"
