@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: Abril Fatface;
+  src: url("./assets/Font/AbrilFatface-Regular.ttf");
+}
+@font-face {
+  font-family: Montserrat;
+  src: url("./assets/Font/Montserrat-Regular.ttf");
+}
+@font-face {
+  font-family: Alex Brush;
+  src: url("./assets/Font/AlexBrush-Regular.ttf");
+}
+* {
+margin:0;
+padding:0;
+box-sizing:border-box;
+/* color: white; */
+}
+.abril{
+  font-family:Abril Fatface;
+}
+.mont{
+  font-family:Montserrat;
+}
+.alex{
+  font-family:Alex Brush;
+
+}
+.btn{
+  border: 1px solid white;
+  padding:.5vw 1.5vw;
+  border-radius: 50px;
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s;
+}
+.btn:hover{
+  border-color: orange;
+  color: orange;
+  transform: scale(1.05);
+}
+.overlay{
+  background-color: rgba(0, 0, 0, 0.694);
+}
+.over{
+  background-color: rgba(0, 0, 0, 0.523);
+  
+}
+.shadow{
+  box-shadow: 0 0px 5px 1px rgba(255, 255, 255, 0.532);
+}
+
+.menu-item h3,.icon path,.iconadmin path{
+  transition:all cubic-bezier(0.19, 1, 0.22, 1) .5s;
+
+}
+.menu-item:hover h3{
+  color: #FF9933;
+}
+.menu-item:hover .icon path {
+  stroke: #FF9933;
+  fill: #FF9933;
+}
+.menu-item:hover .iconadmin path {
+  stroke: #FF9933;
+  /* fill: orange; */
+}
+
+.icon path {
+  stroke: white;
+}
+.iconadmin path{
+  stroke: black;
+}
+.boldf{
+  font-weight: 900;
+}
+.checkbox{
+  height: 2vw;
+  width: 2vw;
+  /* background-color: black; */
+  border-radius: 5px;
+  border: 2px solid black;
+}
+.checkbox-active{
+  background-color: black;
+}
+
+.billcard::-webkit-scrollbar {
+  width: 4px;
+  height: 1px;
+}
+
+.billcard::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.billcard::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.billcard::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(255, 255, 255, 0.3);
+}
