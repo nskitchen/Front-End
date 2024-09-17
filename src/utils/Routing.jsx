@@ -28,6 +28,7 @@ function Routing() {
           <Route path="/admin">
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="staff" element={<AdminStaff />} />
+            <Route path="edit-chef/:id" element={<AdminStaff />} />
             <Route path="currentorder" element={<AdminOrderPage />} />
             <Route path="completedorder" element={<AdminCompletedOrder />} />
             <Route path="menu" element={<AdminMenuPage />} />
@@ -40,6 +41,7 @@ function Routing() {
           </Route>
         )}
         <Route path="/" index element={<Main />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
