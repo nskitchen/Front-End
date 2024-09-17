@@ -23,30 +23,7 @@ function App() {
   return (
     <>
    <div className="w-full relative overflow-hidden">
-    <Routes>
-      <Route path='/' index element={<Main/>}/>
-      <Route path='/login'  element={<Login/>}/>
-      
-      <Route path='/chef'>
-      <Route path='home' element={<ChefHome/>}/>
-      </Route>
-      <Route path='/admin'>
-    <Route path='dashboard' element={<AdminDashboard/>}/>
-    <Route path='staff' element={<AdminStaff/>}/>
-    <Route path='currentorder' element={<AdminOrderPage/>}/>
-    <Route path='completedorder' element={<AdminCompletedOrder/>}/>
-    <Route path='menu' element={<AdminMenuPage/>}/>
-      </Route>
-      <Route path='/waiter'>
-    <Route path='table' element={<WaiterPageTable/>}/>
-    <Route path='menu' element={<WaiterMenuPage/>}/>
-    <Route path='summary' element={<WaiterSummary/>}/>
-    <Route path='orderlist' element={<WaiterOrder/>}/>
-    <Route path='notification' element={<NotificationWaiter/>}/>
-  
-      </Route>
-      <Route path='/menu' element={<MenuPage/>}/>
-    </Routes>
+    <Routing/>
    </div>
     </>
   )
