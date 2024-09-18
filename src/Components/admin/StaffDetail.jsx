@@ -88,9 +88,9 @@ const StaffDetail = () => {
   }, [id]);
 
   return (
-    <div className="h-full mont w-1/2 bg-white rounded-md flex items-center flex-col p-4 gap-3">
+    <div className="h-full mont w-1/2 bg-white rounded-md flex items-center flex-col p-4 gap-3 max-md:w-full">
       <div className="flex relative items-center justify-start w-full gap-5">
-        <div className="circle relative h-[50px] w-[50px] rounded-full overflow-hidden">
+        <div className="circle relative h-[4rem] w-[4rem] rounded-full ">
           <Image
             className="h-full w-full object-cover rounded-full"
             src={

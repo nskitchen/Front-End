@@ -21,8 +21,8 @@ const MenuEditPage = ({edit,setedit}) => {
             <h1 className='font-semibold'>Edit Item Details</h1>
             <i className="ri-close-line cursor-pointer" onClick={()=>setedit("")}></i>
         </div>
-        <div className="w-full flex mt-12">
-            <div className="w-[70%]  flex flex-col gap-10 h-full justify-center">
+        <div className="w-full flex mt-12 max-md:flex-col-reverse max-md:gap-4">
+            <div className="w-[70%]  flex flex-col gap-10 h-full justify-center max-md:w-full max-md:gap-4">
             <div className='flex flex-col gap-3'>
       <Typography.Text  className='text-base'>Item Name</Typography.Text>
       <Input
@@ -72,11 +72,11 @@ const MenuEditPage = ({edit,setedit}) => {
         Save
     </button>
             </div>
-            <div className='w-[30%] flex flex-col items-center'>
+            <div className='w-[30%] flex flex-col items-center max-md:w-full'>
                 <Image 
                 src={`/${edit?.img}`}
-                height={"10vw"}
-                width={"10vw"}
+                height={"10rem"}
+                width={"10rem"}
                 className='rounded-md object-cover'
                 />
                   <div

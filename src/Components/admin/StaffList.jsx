@@ -8,7 +8,7 @@ const StaffList = () => {
   const [type, settype] = useState("waiter");
   
   return (
-    <div className="w-1/2 bg-white rounded-md h-full p-4 mont">
+    <div className="w-1/2 bg-white rounded-md h-full p-4 mont max-md:w-full">
       <div className="flex items-start justify-between">
         <h1 className="text-xl boldf">
           Staff Management

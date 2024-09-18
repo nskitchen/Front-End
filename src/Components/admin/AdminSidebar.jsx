@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 export function LetsIconsOrderFill(props, { height, width }) {
@@ -86,79 +86,95 @@ export function MaterialSymbolsLightTableBar(props, { height, width }) {
   );
 }
 const AdminSidebar = ({ data }) => {
+  const [open, setopen] = useState(false);
   return (
-    <div className="h-full w-[20vw] relative bg-white flex flex-col items-start pl-5 justify-center gap-5 shrink-0 text-[1.2vw]">
-      <img
-        src="/goldenLogo.png"
-        alt="logo"
-        className="absolute top-10 left-1/2 -translate-x-1/2"
-      />
-      <NavLink
-        to={"/admin/dashboard"}
-        className={`px-4
+    <>
+      <i
+        className="ri-menu-line absolute z-[99999] right-5 top-5 bg-black text-white p-4 px-5 text-base md:hidden rounded-full cursor-pointer"
+        onClick={() => setopen(!open)}
+      ></i>
+      <div
+        className={`h-full w-[20vw] relative bg-white flex flex-col items-start pl-5 justify-center gap-5 shrink-0 text-[1.2vw] max-md:absolute max-md:top-0 ${
+          open ? "max-md:left-0" : "max-md:-left-[100%]"
+        } duration-300 ease-linear z-50 max-md:w-[20rem]`}
+      >
+        <img
+          src="/goldenLogo.png"
+          alt="logo"
+          className="absolute top-10 left-1/2 -translate-x-1/2"
+        />
+        <NavLink
+          to={"/admin/dashboard"}
+          className={`px-4
         flex items-center justify-start  gap-2 ${
           data === "dashboard" ? "bg-[#ff82445f]" : "bg-transparent"
         }  w-[80%] p-2 rounded-md relative transition-all duration-200 eas`}
-      >
-        {data === "dashboard" && (
-          <div className="line absolute h-full w-2 right-[106%] rounded-r-md bg-[#FF8144]"></div>
-        )}
-        <IcBaselineDashboard height="1.5vw" width="1.5vw" />
+        >
+          {data === "dashboard" && (
+            <div className="line absolute h-full w-2 right-[106%] rounded-r-md bg-[#FF8144]"></div>
+          )}
+          <IcBaselineDashboard height="1.3rem" width="1.3rem" />
 
-        <h1 className="mont text-base font-medium">Dashboard</h1>
-      </NavLink>
-      <NavLink
-      to={"/admin/currentorder"}
-   className={`px-4
+          <h1 className="mont text-base font-medium">Dashboard</h1>
+        </NavLink>
+        <NavLink
+          to={"/admin/currentorder"}
+          className={`px-4
     flex items-center justify-start  gap-2 ${
       data === "order" ? "bg-[#ff82445f]" : "bg-transparent"
     }  w-[80%] p-2 rounded-md relative transition-all duration-200 ease-linear`}
-      >
+        >
           {data === "order" && (
-          <div className="line absolute h-full w-2 right-[106%] rounded-r-md bg-[#FF8144]"></div>
-        )}
-        <LetsIconsOrderFill height="1.5vw" width="1.5vw" />
-        <h1 className="mont text-base font-medium">Orders</h1>
-      </NavLink>
-      <NavLink
-     to={"/admin/staff"}
-     className={`px-4
+            <div className="line absolute h-full w-2 right-[106%] rounded-r-md bg-[#FF8144]"></div>
+          )}
+          <LetsIconsOrderFill height="1.3rem" width="1.3rem" />
+          <h1 className="mont text-base font-medium">Orders</h1>
+        </NavLink>
+        <NavLink
+          to={"/admin/staff"}
+          className={`px-4
       flex items-center justify-start  gap-2 ${
         data === "staff" ? "bg-[#ff82445f]" : "bg-transparent"
       }  w-[80%] p-2 rounded-md relative transition-all duration-200 ease-linear`}
-      >
-         {data === "staff" && (
-          <div className="line absolute h-full w-2 right-[106%] rounded-r-md bg-[#FF8144]"></div>
-        )}
-        <IconParkSolidFileStaff height="1.5vw" width="1.5vw" />
-        <h1 className="mont text-base font-medium">Staff Management</h1>
-      </NavLink>
-      <NavLink
-     to={"/admin/menu"}
-
-  className={`px-4
+        >
+          {data === "staff" && (
+            <div className="line absolute h-full w-2 right-[106%] rounded-r-md bg-[#FF8144]"></div>
+          )}
+          <IconParkSolidFileStaff height="1.3rem" width="1.3rem" />
+          <h1 className="mont text-base font-medium">Staff Management</h1>
+        </NavLink>
+        <NavLink
+          to={"/admin/menu"}
+          className={`px-4
     flex items-center justify-start  gap-2 ${
       data === "menu" ? "bg-[#ff82445f]" : "bg-transparent"
     }  w-[80%] p-2 rounded-md relative transition-all duration-200 ease-linear`}
-      >
-           {data === "menu" && (
-          <div className="line absolute h-full w-2 right-[106%] rounded-r-md bg-[#FF8144]"></div>
-        )}
-        <img
-          src="/menuIcon.png"
-          className="h-[1.5vw] w-[1.5vw] object-cover"
-          alt=""
-        />
-        <h1 className="mont text-base font-medium">Menu Management</h1>
-      </NavLink>
-      <div
-        className="w-full px-4
-        flex items-center justify-start  gap-2"
-      >
-        <MaterialSymbolsLightTableBar height="1.5vw" width="1.5vw" />
-        <h1 className="mont text-base font-medium">Table Management</h1>
+        >
+          {data === "menu" && (
+            <div className="line absolute h-full w-2 right-[106%] rounded-r-md bg-[#FF8144]"></div>
+          )}
+          <img
+            src="/menuIcon.png"
+            className="h-[1.3rem] w-[1.3rem] object-cover"
+            alt=""
+          />
+          <h1 className="mont text-base font-medium">Menu Management</h1>
+        </NavLink>
+        <NavLink
+          to={"/admin/table"}
+          className={`px-4
+        flex items-center justify-start  gap-2 ${
+          data === "table" ? "bg-[#ff82445f]" : "bg-transparent"
+        }  w-[80%] p-2 rounded-md relative transition-all duration-200 ease-linear`}
+        >
+            {data === "table" && (
+            <div className="line absolute h-full w-2 right-[106%] rounded-r-md bg-[#FF8144]"></div>
+          )}
+          <MaterialSymbolsLightTableBar height="1.3rem" width="1.3rem" />
+          <h1 className="mont text-base font-medium">Table Management</h1>
+        </NavLink>
       </div>
-    </div>
+    </>
   );
 };
 
