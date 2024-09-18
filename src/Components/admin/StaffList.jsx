@@ -2,9 +2,11 @@ import { Divider } from "antd";
 import React, { useState } from "react";
 import WaiterList from "./WaiterList";
 import ChefList from "./ChefList";
+import { Link, useParams } from "react-router-dom";
 
 const StaffList = () => {
   const [type, settype] = useState("waiter");
+  
   return (
     <div className="w-1/2 bg-white rounded-md h-full p-4 mont max-md:w-full">
       <div className="flex items-start justify-between">
@@ -26,7 +28,8 @@ const StaffList = () => {
       </div>
       <Divider />
       <div className="flex gap-8 boldf">
-        <button
+        <Link
+          to={"/admin/staff"}
           className={`${
             type === "waiter"
               ? "text-[#FF8144]  border-b-2 border-[#FF8144]"
@@ -35,8 +38,9 @@ const StaffList = () => {
           onClick={() => settype("waiter")}
         >
           Waiter
-        </button>
-        <button
+        </Link>
+        <Link
+          to={"/admin/staff"}
           className={`${
             type === "chef"
               ? "text-[#FF8144]  border-b-2 border-[#FF8144] "
@@ -45,7 +49,7 @@ const StaffList = () => {
           onClick={() => settype("chef")}
         >
           Chef
-        </button>
+        </Link>
       </div>
       {type === "waiter" ? <WaiterList /> : <ChefList />}
     </div>

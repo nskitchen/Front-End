@@ -1,6 +1,6 @@
 import { Divider, Image, Input, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { userAPI } from "../../utils/Axios";
 
 const StaffDetail = () => {
@@ -14,10 +14,10 @@ const StaffDetail = () => {
   const [street, setstreet] = useState("");
   const [zip, setzip] = useState("");
   const [aadharno, setaadharno] = useState("");
+
   const callChefById = async () => {
     try {
       const { data } = await userAPI.get(`/id/${id}`);
-      console.log(data.data.user);
       setchef(data.data.user);
       setfirstName(data.data.user.name?.firstName);
       setlastName(data.data.user.name?.lastName);
@@ -29,6 +29,7 @@ const StaffDetail = () => {
       console.log(error);
     }
   };
+
   const submitChanges = async () => {
     try {
       const userDetails = {
@@ -43,14 +44,47 @@ const StaffDetail = () => {
         role,
         aadharno,
       };
-      const { data } = await userAPI.patch(`/update/${id}`, userDetails);
-      console.log(data);
-      // console.log(userDetails);
+      if (id) {
+        const { data } = await userAPI.patch(`/update/${id}`, userDetails);
+        if (data) {
+          navigate("/admin/staff");
+          setfirstName("");
+          setlastName("");
+          setstreet("");
+          setzip("");
+          setaadharno("");
+          setrole("");
+          setchef({});
+        }
+      }
+
+      navigate("/admin/staff");
+    } catch (error) {}
+  };
+
+  const handleDelete = async () => {
+    try {
+      const { data } = await userAPI.get(`/update-role/${id}`);
+      if (data) {
+        navigate("/admin/staff");
+        setfirstName("");
+        setlastName("");
+        setstreet("");
+        setzip("");
+        setaadharno("");
+        setrole("");
+        setchef({});
+      }
     } catch (error) {}
   };
   useEffect(() => {
-    console.log(id);
-    callChefById();
+    if (id) {
+      callChefById();
+    }
+
+    if (!id) {
+      setchef({});
+    }
   }, [id]);
 
   return (
@@ -87,7 +121,7 @@ const StaffDetail = () => {
         <Input
           placeholder="Name"
           value={firstName}
-            onChange={(e) => setfirstName(e.target.value)}
+          onChange={(e) => setfirstName(e.target.value)}
         />
       </div>
       <div className="flex flex-col w-full ">
@@ -144,17 +178,19 @@ const StaffDetail = () => {
       <div className="flex flex-col w-full">
         <span className="text-gray-400 font-medium text-sm px-3">Job Role</span>
         <Select
-          defaultValue="Waiter"
+          value={role}
           style={{ width: "100%" }}
           onChange={(e) => setrole(e)}
           options={[
             { value: "waiter", label: "Waiter" },
-            { value: "Chef", label: "Chef" },
+            { value: "chef", label: "Chef" },
           ]}
         />
       </div>
       <div className="flex w-full items-end justify-between">
-        <button className="text-red-500">Delete Member</button>
+        <button onClick={() => handleDelete(id)} className="text-red-500">
+          Delete Member
+        </button>
         <button
           onClick={() => submitChanges()}
           className="bg-black text-white p-2 px-7"

@@ -27,10 +27,19 @@ const WaiterList = () => {
 
   const handleDelete = async (id) => {
     try {
-      const { data } = await userAPI.delete(`/delete/${id}`);
-      console.log(data);
-    } catch (error) {}
+      if (id) {
+        const { data } = await userAPI.get(`/update-role/${id}`);
+
+        if (data) {
+          navigate("/admin/staff");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+  
+
   return (
     <div className="flex flex-col gap-2 mt-4 w-full ">
       {waiters &&

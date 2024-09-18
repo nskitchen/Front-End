@@ -1,38 +1,46 @@
 import { Divider } from "antd";
 import React, { useEffect, useState } from "react";
 import { userAPI } from "../../utils/Axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ChefList = () => {
-   
-      const [chefs , setchefs] = useState([])
-      // console.log(chefs);
+  const [chefs, setchefs] = useState([]);
+  // console.log("hello chef",chefs);
+  const navigate = useNavigate()
 
-     
-
-      const [selected, setselected] = useState(0);
-      const callallChef = async()=>{
-        try {
-            const {data} = await userAPI.get("/all")
-            const chefsonly = data.data.users.filter(i=>i.role === "chef")  
-            setchefs(chefsonly)  
-        } catch (error) {
-            console.log(error)
+  const [selected, setselected] = useState(0);
+  const callallChef = async () => {
+    try {
+      const { data } = await userAPI.get("/all");
+    
+      const chefsonly = data.data.users.filter(
+        (i) => i.role === "chef" || i.role === "Chef"
+      );
+      setchefs(chefsonly);
+      console.log("hello chef", chefsonly);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleDelete = async (id) => {
+    try {
+      if (id) {
+        const { data } = await userAPI.get(`/update-role/${id}`);
+    
+        if(data){
+          callallChef()
+          navigate("/admin/staff")
         }
+        
       }
-      const handleDelete = async(id)=>{
-        try {
-            const {data} = await userAPI.delete(`/delete/${id}`)
-        } catch (error) {
-            console.log(error)
-        }
-      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-      useEffect(()=>{
-        callallChef()
-      },[])
-  
-     
+  useEffect(() => {
+    callallChef();
+  }, [selected]);
 
   return (
     <div className="flex flex-col gap-2 mt-4 w-full ">
@@ -64,8 +72,10 @@ const ChefList = () => {
             </h1>
           </div>
           <div className="flex items-center justify-center gap-14">
-            <button onClick={()=>handleDelete(i._id)}>Delete</button>
-            <Link  className="text-[#6E39CB]" to={`/admin/edit-chef/${i._id}`} >Edit</Link>
+            <button onClick={() => handleDelete(i._id)}>Delete</button>
+            <Link className="text-[#6E39CB]" to={`/admin/edit-chef/${i._id}`}>
+              Edit
+            </Link>
           </div>
           <Divider className="absolute bottom-0" />
         </div>
