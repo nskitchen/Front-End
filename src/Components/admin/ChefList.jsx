@@ -5,19 +5,19 @@ import { Link, useNavigate } from "react-router-dom";
 
 const ChefList = () => {
   const [chefs, setchefs] = useState([]);
-  // console.log("hello chef",chefs);
-  const navigate = useNavigate()
+  //    // console.log("hello chef",chefs);
+  const navigate = useNavigate();
 
   const [selected, setselected] = useState(0);
   const callallChef = async () => {
     try {
       const { data } = await userAPI.get("/all");
-    
+
       const chefsonly = data.data.users.filter(
         (i) => i.role === "chef" || i.role === "Chef"
       );
       setchefs(chefsonly);
-      console.log("hello chef", chefsonly);
+      // console.log("hello chef", chefsonly);
     } catch (error) {
       console.log(error);
     }
@@ -26,12 +26,11 @@ const ChefList = () => {
     try {
       if (id) {
         const { data } = await userAPI.get(`/update-role/${id}`);
-    
-        if(data){
-          callallChef()
-          navigate("/admin/staff")
+
+        if (data) {
+          callallChef();
+          navigate("/admin/staff");
         }
-        
       }
     } catch (error) {
       console.log(error);

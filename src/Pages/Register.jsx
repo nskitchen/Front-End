@@ -16,7 +16,7 @@ const Register = () => {
 
   const dispatch = useDispatch();
   const { loginError, isAuthenticated } = useSelector((state) => state.auth);
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
 
   const loginHandler = async () => {
     // Modify the action to also include phone, gender, dob, and aadhar if needed
