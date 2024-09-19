@@ -19,9 +19,12 @@ export const authSlice = createSlice({
     setLoginError: (state, action) => {
       state.loginError = action.payload;
     },
+    setFood: (state, action) => {
+      state.food = action.payload;
+    },
   },
 });
 
-export const { setUser, removeUser, setLoginError } = authSlice.actions;
+export const { setUser, removeUser, setLoginError, setFood } = authSlice.actions;
 
 export default authSlice.reducer;

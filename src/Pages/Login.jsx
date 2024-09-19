@@ -11,7 +11,7 @@ const Login = () => {
   const { loginError, isAuthenticated, user } = useSelector(
     (state) => state.auth
   );
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
 
   const loginHandler = async () => {
     dispatch(loginUser(email, password));
