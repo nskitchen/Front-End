@@ -6,6 +6,7 @@ import AdminOrderPage from "../Pages/AdminOrderPage";
 import AdminCompletedOrder from "../Pages/AdminCompletedOrder";
 import AdminDashboard from "../Pages/AdminDashboard";
 import AdminMenuPage from "../Pages/AdminMenuPage";
+import AdminTable from "../Pages/AdminTable";
 import Login from "../Pages/Login";
 import ProtectedRoute from "../Components/ProtectedRoute";
 import Register from "../Pages/Register";
@@ -32,6 +33,7 @@ function Routing() {
             <Route path="currentorder" element={<AdminOrderPage />} />
             <Route path="completedorder" element={<AdminCompletedOrder />} />
             <Route path="menu" element={<AdminMenuPage />} />
+            <Route path='table' element={<AdminTable/>}/>
           </Route>
         )}
 

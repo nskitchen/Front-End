@@ -12,8 +12,8 @@ export function IcBaselineDelete(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1.5vw"
-      height="1.5vw"
+      width="1.2rem"
+      height="1.2rem"
       className="cursor-pointer"
       viewBox="0 0 24 24"
       {...props}
@@ -29,9 +29,12 @@ export function IcBaselineDelete(props) {
   );
 }
 const AdminMenu = ({ setedit }) => {
+<<<<<<< HEAD
   const dispatch = useDispatch();
   const { food, menu } = useSelector((state) => state.menu);
   // console.log(food);
+=======
+>>>>>>> 1523915678d5c5b156baa10272100ca343877094
   const data = [
     {
       name: "White Sauce Pasta (Alfraedo sauce)",

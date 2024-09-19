@@ -4,7 +4,7 @@ import React from "react";
 const DashBoardPaymentList = ({ data }) => {
   return (
     <>
-      <div className="w-full flex text-xs items-center justify-between p-2 px-3">
+      <div className="w-full flex text-xs items-center justify-between p-2 px-3 max-md:px-0">
         <button className="p-3 bg-black text-white boldf rounded-md px-4 ">
           T1
         </button>
