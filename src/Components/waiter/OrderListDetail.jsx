@@ -3,6 +3,7 @@ import BillDetails from "../admin/BillDetails";
 import { Divider } from "antd";
 
 const OrderListDetail = ({setdetail}) => {
+  
   return (
     <div className="w-full h-full mont">
       <div className="w-full flex items-center justify-between p-4">

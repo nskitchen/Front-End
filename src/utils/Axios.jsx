@@ -27,6 +27,12 @@ export const billingAPI = axios.create({
   withCredentials: true, // Allow credentials (cookies, etc.)
 });
 
+export const tableAPI = axios.create({
+  baseURL: hostName + "/api/v1/tables",
+  timeout: 5000,
+  withCredentials: true, // Allow credentials (cookies, etc.)
+});
+
 export const createUserAPI = axios.create({
   baseURL: hostName + "/api/v1/users",
   timeout: 10000,

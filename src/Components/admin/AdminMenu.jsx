@@ -29,12 +29,9 @@ export function IcBaselineDelete(props) {
   );
 }
 const AdminMenu = ({ setedit }) => {
-<<<<<<< HEAD
   const dispatch = useDispatch();
   const { food, menu } = useSelector((state) => state.menu);
   // console.log(food);
-=======
->>>>>>> 1523915678d5c5b156baa10272100ca343877094
   const data = [
     {
       name: "White Sauce Pasta (Alfraedo sauce)",

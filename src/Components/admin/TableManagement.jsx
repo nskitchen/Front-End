@@ -1,6 +1,7 @@
 import React from "react";
 
 const TableManagement = () => {
+  
   return (
     <div className="w-full h-full relative flex flex-col items-center justify-center">
       <div className="w-full absolute top-0 left-0  flex mont text-black items-center justify-between boldf max-md:top-14">

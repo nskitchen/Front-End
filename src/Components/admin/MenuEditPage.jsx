@@ -94,85 +94,12 @@ const MenuEditPage = ({ edit, setedit }) => {
             Save
           </button>
         </div>
-<<<<<<< HEAD
         <div className="w-[30%] flex flex-col items-center">
           <Image
             src={`/${edit?.img}`}
             height={"10vw"}
             width={"10vw"}
             className="rounded-md object-cover"
-=======
-        <div className="w-full flex mt-12 max-md:flex-col-reverse max-md:gap-4">
-            <div className="w-[70%]  flex flex-col gap-10 h-full justify-center max-md:w-full max-md:gap-4">
-            <div className='flex flex-col gap-3'>
-      <Typography.Text  className='text-base'>Item Name</Typography.Text>
-      <Input
-        defaultValue={edit?.name}
-      />
-    </div>
-    <div className='flex flex-col gap-3'>
-      <Typography.Text className='text-base'>Item Description</Typography.Text>
-      <Input
-        defaultValue={edit?.dets}
-      />
-    </div>
-    <div className='flex flex-col gap-3'>
-      <Typography.Text className='text-base'>Select Item Category</Typography.Text>
-      <Select
-      defaultValue="Pasta"
-      style={{
-        width: 120,
-      }}
-      options={[
-        {
-          value: 'pasta',
-          label: 'Pasta',
-        },
-        {
-            value: 'burger',
-            label: 'Burger',
-          },
-          {
-            value: 'sandwich',
-            label: 'Sandwich',
-          },
-          {
-            value: 'pizza',
-            label: 'Pizza',
-          },
-      ]}
-    />
-    </div>
-    <div className='flex flex-col gap-3'>
-      <Typography.Text className='text-base'>Enter Amount</Typography.Text>
-      <Input
-        defaultValue={"200"}
-      />
-    </div>
-    <button className='px-8 p-2 bg-[#FF8144] w-fit text-white text-lg rounded-md'>
-        Save
-    </button>
-            </div>
-            <div className='w-[30%] flex flex-col items-center max-md:w-full'>
-                <Image 
-                src={`/${edit?.img}`}
-                height={"10rem"}
-                width={"10rem"}
-                className='rounded-md object-cover'
-                />
-                  <div
-          onClick={openfile}
-          className="div flex items-center justify-center p-2 rounded-md px-4 mt-10 gap-2 text-base border-[1px] border-black font-semibold"
-        >
-          Upload Item Image
-          <input
-            type="file"
-            name="img"
-            accept=".png, .jpg, .jpeg .avif"
-            ref={file}
-            onChange={(e) => uploadImage(e)}
-            className="hidden"
->>>>>>> 1523915678d5c5b156baa10272100ca343877094
           />
           <div
             onClick={openfile}

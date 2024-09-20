@@ -5,7 +5,7 @@ export const menuSlice = createSlice({
   initialState: {
     isAuthenticated: false,
     menu: null,
-    food: 'All',
+    food: 'all',
     category: null,
   },
   reducers: {

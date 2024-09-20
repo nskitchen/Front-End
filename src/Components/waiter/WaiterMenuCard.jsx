@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import QuantityButton from "./QuantityButton";
+import { useSelector } from "react-redux";
 export function IconParkOutlineMallBag(props) {
   return (
     <svg
@@ -40,14 +41,17 @@ export function HugeiconsCommentAdd01(props) {
     </svg>
   );
 }
-const WaiterMenuCard = ({ handleRemark }) => {
+
+
+const WaiterMenuCard = ({ handleRemark, item}) => {
+  
   return (
     <div className="w-full border-2 p-4 rounded-xl flex flex-col gap-3">
-      <h1 className="text-lg boldf">White Sauce Pasta (Alfraedo sauce)</h1>
+        <h1 className="text-lg boldf">{item.name}</h1>
       <p className="text-base">
-        Penne pasta, sweet corn, heavy. cream, red pepper, red onion
+        {item.description}
       </p>
-      <h1 className="boldf text-lg">₹120</h1>
+      <h1 className="boldf text-lg">₹ {item.price}</h1>
       <div className="flex">
         <button className="flex border-2 items-center justify-center gap-2 p-2 px-4 rounded-lg">
           Parcel <IconParkOutlineMallBag />
@@ -55,8 +59,10 @@ const WaiterMenuCard = ({ handleRemark }) => {
         <button className="flex border-2 items-center justify-center gap-2 p-3 rounded-lg ml-4">
           <HugeiconsCommentAdd01 onClick={handleRemark} />
         </button>
+        <>{item.quantity}</>
         <div className="ml-auto">
-          <QuantityButton />
+          <QuantityButton itemId={item._id} />
+          {/* <QuantityButton orderId={currentOrder._id} itemId={item._id} /> */}
         </div>
       </div>
     </div>
