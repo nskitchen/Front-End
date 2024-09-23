@@ -1,73 +1,46 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setTables, setOrdersToTable } from "../../store/actions/tableActions";
+import { setTableNumber } from "../../store/slices/tableSlice";
+import { CreateNewOrders, getAllOrdersss } from "../../store/actions/orderActions";
+import { getMenu } from "../../store/actions/menuActions";
+import { setOrderID } from "../../store/slices/orderSlice";
 const WaiterTable = () => {
-  const t = [
-    {
-      table: "1",
-      available: true,
-      myOrder: true,
-    },
-    {
-      table: "2",
-      available: true,
-      myOrder: false,
-    },
-    {
-      table: "3",
-      available: true,
-      myOrder: true,
-    },
-    {
-      table: "3",
-      available: true,
-      myOrder: true,
-    },
-    
-    {
-      table: "4",
-      available: true,
-      myOrder: false,
-    },
-    {
-      table: "5",
-      available: true,
-      myOrder: false,
-    },
-    {
-      table: "6",
-      available: true,
-      myOrder: false,
-    },
-    {
-      table: "7",
-      available: false,
-      myOrder: true,
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    },
-    {
-      table: "8",
-      available: true,
-      myOrder: false,
-    },
-    {
-      table: "9",
-      available: true,
-      myOrder: true,
-    },
-    {
-      table: "10",
-      available: true,
-      myOrder: true,
-    },
-    {
-      table: "11",
-      available: false,
-    },
-    {
-      table: "12",
-      available: false,
-    },
-  ];
+  const { tables } = useSelector((state) => state.tables);
+  const { user } = useSelector((state) => state.auth);
+  const { food } = useSelector((state) => state.menu);
+ 
+
+  useEffect(() => {
+    dispatch(setTables())
+    dispatch(getAllOrdersss());;
+    dispatch(getMenu(food));
+
+  }, []);
+
+  const handleTableClick = (table) => {
+    dispatch(setTableNumber(table.tableNumber));
+    if(table.isBooked === false && table.user != user._id){
+      dispatch(setOrdersToTable(table._id, user));
+      dispatch(CreateNewOrders({table: table.tableNumber, user: user._id}));
+      
+      navigate(`/waiter/menu/${table.tableNumber}`);
+    }
+    else if(table.isBooked === true && table.user === user._id){
+      dispatch(setOrderID(table._id));
+      navigate(`/waiter/menu/${table.tableNumber}`);
+    }
+    else{
+      alert("Table is already booked");
+    }
+    // Add your desired action here
+  };
+
+  
   return (
     <div className="w-full mont h-full">
       <div className="mt-[0.5vh] flex items-center justify-between">
@@ -75,19 +48,31 @@ const WaiterTable = () => {
         <h4 className="font-light">6 Available</h4>
       </div>
       <div className="w-[85%] py-10  grid grid-cols-3 gap-5 gap-x-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[54%] overflow-y-auto ">
-        {t?.map((i, index) => (
+        {tables?.map((table, index) => (
           <div
-            className={`h-[20vw] w-[20vw] flex rounded-lg items-center justify-center border-[1px] border-black ${
-              i?.available
-                ? `${i?.myOrder ? "bg-[#9747FF]" : "bg-transparent"}`
-                : "bg-[#DBDBDB] cursor-not-allowed pointer-events-none text-white border-none"
-            }`}
+            key={index}
+            className={`h-[20vw] w-[20vw] flex rounded-lg items-center justify-center border-[1px] border-black 
+              
+              ${
+                table.user === user._id
+                  ? table.isBooked
+                    ? "bg-[#9747FF] text-white" // Dark blue for tables booked by the current user
+                    : "bg-white" // White for unbooked tables assigned to the current user
+                  : table.user
+                    ? "bg-gray-400 cursor-not-allowed text-white border-none" // Gray for tables used by other users
+                    : "bg-white" // White for unassigned tables
+              }`}
+              onClick={() => handleTableClick(table)}
           >
-            <h1 className="text-2xl boldf">T{i?.table}</h1>
+            {table?.isBooked ? (
+              <h1 className="text-2xl bold">T {table?.tableNumber}</h1>
+            ) : (
+              <h1 className="text-2xl bold">T {table?.tableNumber}</h1>
+            )}
+            
           </div>
         ))}
       </div>
-  
     </div>
   );
 };

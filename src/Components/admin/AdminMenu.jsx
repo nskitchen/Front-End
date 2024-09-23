@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import AdminMenuBar from "./AdminMenuBar";
 import { useDispatch, useSelector } from "react-redux";
-import { getMenu } from "../../store/actions/menuActions";
+import { getMenu, getUpdateOutOfStock } from "../../store/actions/menuActions";
 import { setFood } from "../../store/slices/menuSlice";
 import { getDeleteMenuById } from "../../store/actions/menuActions";
+import MenuEditPage from "./MenuEditPage";
 
 export function IcBaselineDelete(props) {
   const { i } = props;
   // console.log(i);
+  const { food } = useSelector((state) => state.menu);
+  console.log(food);
   const dispatch = useDispatch();
+
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -19,8 +24,11 @@ export function IcBaselineDelete(props) {
       {...props}
       onClick={() => {
         dispatch(getDeleteMenuById(i._id, i.category));
+        dispatch(getMenu(food));
+        dispatch(setFood(food));
       }}
     >
+
       <path
         fill="black"
         d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
@@ -29,43 +37,27 @@ export function IcBaselineDelete(props) {
   );
 }
 const AdminMenu = ({ setedit }) => {
-<<<<<<< HEAD
+  
   const dispatch = useDispatch();
   const { food, menu } = useSelector((state) => state.menu);
-  // console.log(food);
-=======
->>>>>>> 1523915678d5c5b156baa10272100ca343877094
-  const data = [
-    {
-      name: "White Sauce Pasta (Alfraedo sauce)",
-      dets: "Penne pasta, sweet corn, heavy. cream, red pepper, red onion",
-      img: "foodAdminDemo.png",
-    },
-    {
-      name: "White Sauce Pasta (Alfraedo sauce)",
-      dets: "Penne pasta, sweet corn, heavy. cream, red pepper, red onion",
-      img: "foodAdminDemo.png",
-    },
-    {
-      name: "White Sauce Pasta (Alfraedo sauce)",
-      dets: "Penne pasta, sweet corn, heavy. cream, red pepper, red onion",
-      img: "foodAdminDemo.png",
-    },
-    {
-      name: "White Sauce Pasta (Alfraedo sauce)",
-      dets: "Penne pasta, sweet corn, heavy. cream, red pepper, red onion",
-      img: "foodAdminDemo.png",
-    },
-  ];
+  
 
-  // console.log(menu);
+  const handleOutOfStock = (id) => {
+    console.log(id);
+    dispatch(getUpdateOutOfStock(id, { isAvailable: false }));
+    dispatch(getMenu(food));
+  };
+
+
 
   useEffect(() => {
+
     dispatch(getMenu(food));
     dispatch(setFood(food));
   }, [food]);
 
   return (
+  <>
     <div className="w-full">
       <div className="flex ">
         <AdminMenuBar />
@@ -73,7 +65,7 @@ const AdminMenu = ({ setedit }) => {
       <div className="flex items-center mont justify-between p-4 mt-5">
         <h1 className="text-base boldf">{food} </h1>
         <div className="flex items-start gap-2">
-          <button className="font-extralight flex items-center gap-1 text-xs p-2 bg-[#22222224]">
+          <button onClick={()=>setedit(true)} className="font-extralight flex items-center gap-1 text-xs p-2 bg-[#22222224]">
             <i className="ri-add-line"></i>
             Add New
           </button>
@@ -103,9 +95,10 @@ const AdminMenu = ({ setedit }) => {
               </div>
               <h1 className="font-semibold">₹{i?.price}</h1>
               <div className="flex items-center justify-center gap-2">
-                <button className="border-[1px] border-black rounded-md px-2 py-1 text-sm">
+                <button onClick={() => handleOutOfStock(i._id)} className={`border-[1px] border-black rounded-md px-2 py-1 text-sm ${i?.isAvailable ? 'bg-green-500' : 'bg-red-500'}`}>
                   Out of Stock
                 </button>
+
                 <i
                   className="ri-pencil-fill cursor-pointer"
                   onClick={() => setedit(i)}
@@ -116,6 +109,7 @@ const AdminMenu = ({ setedit }) => {
           ))}
       </div>
     </div>
+    </>
   );
 };
 

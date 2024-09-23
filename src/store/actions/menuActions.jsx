@@ -66,3 +66,14 @@ export const getDeleteMenuById = (id, category) => async (dispatch) => {
     console.error("Error fetching menu by id:", error);
   }
 };
+
+
+
+export const getUpdateOutOfStock = (id, data2) => async (dispatch) => {
+  try {
+    const { data } = await menuAPI.put(`/${id}`, data2);
+  } catch (error) {
+
+    console.error("Error fetching menu by id:", error);
+  }
+};

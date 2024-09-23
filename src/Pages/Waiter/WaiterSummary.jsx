@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import WaiterHeader from '../../Components/waiter/WaiterHeader'
 import WaiterFooter from '../../Components/waiter/WaiterFooter'
 import SummaryWaiter from '../../Components/waiter/SummaryWaiter'
 
+
 const WaiterSummary = () => {
+
   return (
    <>
   <div className="w-full px-4 h-screen relative">

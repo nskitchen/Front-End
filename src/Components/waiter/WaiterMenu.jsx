@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import WaiterMenuCard from "./WaiterMenuCard";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { setCurrentOrder } from "../../store/slices/orderSlice";
 export function EmojioneV1ForkAndKnife(props) {
   return (
     <svg
@@ -45,11 +48,25 @@ export function MaterialSymbolsLightClose(props) {
   );
 }
 const WaiterMenu = ({ showModal, isModalOpen }) => {
+  const dispatch = useDispatch();
+
+  const { tableNumber } = useSelector((state) => state.tables);
+  const { allOrders } = useSelector((state) => state.orders);
+  const { id } = useParams();
+
+
+  
+  useEffect(() => {
+    // dispatch(setCurrentOrder(hello));
+    const hello = allOrders?.find((order) => order.table === parseInt(id));
+  dispatch(setCurrentOrder(hello));
+  }, []);
+
   return (
     <div className="w-full mont relative overflow-hidden">
       <div className="mt-4 flex items-center justify-between">
         <h1 className="text-lg font-semibold">Select Item</h1>
-        <h4 className="font-semibold text-[#9747FF]">Table 1</h4>
+        <h4 className="font-semibold text-[#9747FF]">Table {tableNumber}</h4>
       </div>
       <div className="flex py-6 gap-3 items-center w-full">
         <div className="flex items-center p-3 rounded-md gap-2 border-[1px] border-black w-fit ">
@@ -71,8 +88,8 @@ const WaiterMenu = ({ showModal, isModalOpen }) => {
             </>
           ) : (
             <>
-            <MaterialSymbolsLightClose/>
-            Close
+              <MaterialSymbolsLightClose />
+              Close
             </>
           )}
         </button>
