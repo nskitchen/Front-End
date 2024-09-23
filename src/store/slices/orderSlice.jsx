@@ -21,6 +21,7 @@ export const orderSlice = createSlice({
     setAllOrders: (state, action) => {
       state.allOrders = action.payload;
     },
+ 
   },
 });
 

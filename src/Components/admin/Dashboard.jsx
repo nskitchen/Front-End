@@ -1,9 +1,11 @@
 import { Divider } from "antd";
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import DashBoardOrderList from "./DashBoardOrderList";
 import { data } from "autoprefixer";
 import DashBoardPaymentList from "./DashBoardPaymentList";
 import DashboardDishes from "./DashboardDishes";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllOrdersss } from "../../store/actions/orderActions";
 export function SolarBellBold(props) {
   return (
     <svg
@@ -67,7 +69,26 @@ const d = [
   },
 ];
 const Dashboard = () => {
+  const dispatch = useDispatch()
+
+const {allOrders} = useSelector((state)=>state.orders)
+const {food} = useSelector((state)=>state.menu)
+
+const pendingOrders = allOrders && allOrders.filter((order)=>order.status === "pending")
+const completedOrders = allOrders && allOrders.filter((order)=>order.status === "completed")
+
+console.log(completedOrders)
+useLayoutEffect(()=>{
+  dispatch(getAllOrdersss())
+},[])
+
+// useEffect(()=>{
+
+//   dispatch(getAllOrdersss(food))
+// },[])
   return (
+
+
     <div className="w-full h-full flex p-7 mont relative max-md:flex-col">
       <div className="flex flex-col w-[70%] max-md:w-full">
         <div className="grid grid-cols-3 gap-4 max-md:grid-cols-1">
@@ -88,14 +109,15 @@ const Dashboard = () => {
               </div>
             </div>
             <h1 className="text-3xl leading-tight gap-0 flex flex-col mt-2">
-              86
+              {allOrders && allOrders.length}
               <br />
               <span className="text-xs ">
+
                 <span className="text-[#FF8144]">+2.5% </span>
                 than usual
               </span>
             </h1>
-          </div>{" "}
+          </div>
           <div className="w-full h-[20vh] max-md:h-fit max-md:p-5 rounded-lg bg-white p-7 boldf text-black flex flex-col items-start justify-between">
             <div className="w-full flex items-start justify-between max-md:flex-col max-md:justify-center">
               <h1 className="text-lg">Waiting List</h1>
@@ -127,9 +149,9 @@ const Dashboard = () => {
               </div>
             </div>
             <Divider className="bg-gray-200 my-3" />
-            {d?.map((i, index) => (
+            {/* {d?.map((i, index) => (
               <DashBoardOrderList data={i} key={index} />
-            ))}
+            ))} */}
             {/* <DashBoardOrderList />
             <DashBoardOrderList /> */}
           </div>
@@ -146,10 +168,13 @@ const Dashboard = () => {
               </div>
             </div>
             <Divider className="bg-gray-200 my-3" />
-            <DashBoardPaymentList />
-            <DashBoardPaymentList />
-            <DashBoardPaymentList />
-            <DashBoardPaymentList />
+            {
+              completedOrders && completedOrders.map((order)=>(
+                <DashBoardPaymentList key={order._id} order={order}/>
+              ))
+            }
+
+          
           </div>
         </div>
       </div>
@@ -167,7 +192,7 @@ const Dashboard = () => {
           <DashboardDishes />
           <DashboardDishes />
           <DashboardDishes />
-          <DashboardDishes />
+          {/* <DashboardDishes /> */}
         </div>
         <div className="h-[40vh] w-[90%] max-md:w-full bg-white rounded-xl p-4 relative max-md:overflow-y-auto">
           <div className="w-full flex items-end justify-between">

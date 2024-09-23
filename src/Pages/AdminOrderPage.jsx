@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AdminOrder from "../Components/admin/AdminOrder";
 import AdminSidebar from "../Components/admin/AdminSidebar";
 import BillCard from "../Components/admin/BillCard";
 import { NavLink } from "react-router-dom";
+import { getAllOrdersss } from "../store/actions/orderActions";
+import { useDispatch, useSelector } from "react-redux";
 
 const AdminOrderPage = ({data}) => {
+  const dispatch = useDispatch()
+  const {allOrders} = useSelector((state)=>state.orders)
+  const currentOrders = allOrders?.filter((i)=>i.status==="pending")
+  
+  console.log(allOrders);
+  useEffect(()=>{
+
+    dispatch(getAllOrdersss())
+  },[])
+
   return (
+
     <div className="h-screen w-full bg-[#EEEEEE] flex mont">
       <AdminSidebar data={"order"} />
       <div className="w-full flex flex-col p-7 mont">
@@ -48,12 +61,14 @@ const AdminOrderPage = ({data}) => {
             <h1>5</h1>
           </div>
           <div className="grid grid-cols-3 gap-4 relative overflow-y-auto pr-4 max-md:grid-cols-1 max-md:w-full max-md:p-0">
-             <BillCard/>    
-             <BillCard/>    
-             <BillCard/>    
-             <BillCard/>    
-             <BillCard/>    
+             
+             {
+              currentOrders?.map((i)=>(
+                <BillCard key={i._id} data={i}/>
+              ))
+             } 
    
+
           </div>
       </div>
     </div>

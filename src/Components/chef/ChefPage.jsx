@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ChefCard from "./ChefCard";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllOrdersss } from "../../store/actions/orderActions";
 
 const ChefPage = () => {
+
+  const {allOrders} = useSelector((state) => state.orders);
+  console.log(allOrders);
+
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(getAllOrdersss())
+  }, []);
   return (
     <div className="w-full text-black min-h-screen bg-[#EEEEEE] px-12 max-md:px-6">
+
       <nav className="flex items-center justify-between  py-4">
         <h1
           className="mont text-2.3s max-md:text-xl"
@@ -26,9 +39,14 @@ const ChefPage = () => {
         <h3>Status</h3>
       </div>
       <div className="flex flex-col py-10 gap-10">
-        <ChefCard />
-        <ChefCard />
-        <ChefCard />
+        {
+          allOrders && allOrders.map((order) => (
+            <ChefCard key={order._id} order={order} />
+          ))
+        }
+        
+
+        
       </div>
     </div>
   );

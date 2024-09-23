@@ -78,10 +78,7 @@ const ChefList = () => {
           </div>
           <Divider className="absolute bottom-0" />
         </div>
-        <div className="flex items-center justify-center gap-14 max-md:text-xs max-md:gap-4">
-          <button>Delete</button>
-          <button className="text-[#6E39CB]">Edit</button>
-        </div>
+        
         <Divider className="absolute bottom-0"/>
       </div>
       ))}

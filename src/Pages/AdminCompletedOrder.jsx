@@ -1,10 +1,17 @@
-import React from "react";
-import AdminOrder from "../Components/admin/AdminOrder";
+import React, { useEffect } from "react";
 import AdminSidebar from "../Components/admin/AdminSidebar";
 import CompletedBillCard from "../Components/admin/CompletedBillCard";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 const AdminCompletedOrder = () => {
+  const {allOrders} = useSelector((state)=>state.orders)
+  const completedOrders = allOrders?.filter((i)=>i.status==="completed")
+ 
+
+
+
   return (
     <div className="h-screen w-full bg-[#EEEEEE] flex mont">
       <AdminSidebar data={"order"} />
@@ -47,12 +54,14 @@ const AdminCompletedOrder = () => {
           <h1>8</h1>
         </div>
         <div className="grid grid-cols-3 gap-4 relative overflow-y-auto pr-4 max-md:grid-cols-1 max-md:p-0">
-          <CompletedBillCard />
-          <CompletedBillCard />
-          <CompletedBillCard />
-          <CompletedBillCard />
-          <CompletedBillCard />
+          
+          {
+            completedOrders?.map((i)=>(
+              <CompletedBillCard key={i._id} data={i}/>
+            ))
+          }
         </div>
+
       </div>
     </div>
   );

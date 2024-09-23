@@ -47,6 +47,7 @@ export const registerUser = (data) => async (dispatch) => {
 export const getCurrentUser = () => async (dispatch) => {
   try {
     const { data } = await userAPI.get("/info");
+    console.log(data)
     dispatch(setUser(data.data.user));
   } catch (error) {
     console.error("Error fetching user info:", error);

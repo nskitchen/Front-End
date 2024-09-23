@@ -43,7 +43,7 @@ function Routing() {
           </Route>
         )}
 
-        {isAuthenticated && user.role === "waiter" && (
+        {isAuthenticated && (user.role === "admin" || user.role === "waiter") && (
           <Route path="/waiter">
             <Route path="addtable" element={<WaiterPageTable />} />
             <Route path="menu/:id" element={<WaiterMenuPage />} />

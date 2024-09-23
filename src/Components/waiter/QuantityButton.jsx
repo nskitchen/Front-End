@@ -4,18 +4,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrentOrder } from "../../store/slices/orderSlice";
 
 const QuantityButton = ({ itemId }) => {
+  console.log(itemId);
   const [count, setCount] = useState(0);
   const dispatch = useDispatch();
 
-  const { currentOrder } = useSelector((state) => state.orders);
-  console.log(currentOrder);
+  const { currentOrder, setOrderID } = useSelector((state) => state.orders);
+  console.log("asdasdasdasdasdas",setOrderID);
+
   const handleIncrement = () => {
     setCount((prevCount) => prevCount + 1);
+    dispatch(addToCart({ setOrderID, itemId, quantity: count + 1 }));
   };
+
 
   const handleDecrement = () => {
     if (count > 0) {
       setCount((prevCount) => prevCount - 1);
+      dispatch(addToCart({ orderId: setOrderID, itemId, quantity: count - 1 }));
     }
   };
 
