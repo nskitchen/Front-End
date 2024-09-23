@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { useState } from "react";
 
 export function Burger() {
   return (
@@ -113,37 +114,57 @@ export function Beverages(props) {
 }
 const data = [
   {
+    name: "All",
+  },
+  {
+    name: "Club Sandwich/ Wraps",
+  },
+  {
+    name: "Pasta",
+  },
+  {
+    name: "Pizza",
+  },
+  {
+    name: "Snacks",
+  },
+
+  {
     name: "Burger",
     img: <Burger className="icon" />,
   },
   {
-    name: "Sandwich",
-    img: <Sandwich className="icon" />,
-  },
-  {
-    name: "Pasta",
-    img: <Pasta className="icon" />,
-  },
-  {
-    name: "Pizza",
-    img: <Pizza className="icon" />,
-  },
-  {
-    name: "Snacks",
-    img: <Snacks className="icon" />,
+    name: "Soups",
   },
   {
     name: "Beverages",
-    img: <Beverages className="icon" />,
+  },
+  {
+    name: "Salad",
+  },
+  {
+    name: "Raita",
+  },
+  {
+    name: "Dal",
+  },
+  {
+    name: "Main Course",
   },
 ];
 const SideMenu = () => {
+  const [selected, setselected] = useState(0);
   return (
-    <div className="side-menu w-20 absolute gap-4 right-5 top-0 h-full flex flex-col items-center justify-between py-20 max-md:w-full max-md:top-[95%]  max-md:flex-wrap max-md:py-0 max-md:px-2 max-md:h-fit max-md:flex-row max-md:right-0">
-      {data?.map((index, i) => (
-        <div className="menu-item flex flex-col items-center justify-center cursor-pointer">
-          {index?.img}
-          <h3>{index.name}</h3>
+    <div className="side-menu w-30 absolute gap-4 left-5 top-0 h-full flex flex-col items-start justify-between py-20 max-md:w-full max-md:top-[95%]  max-md:flex-wrap max-md:py-0 max-md:px-2 max-md:h-fit max-md:flex-row max-md:right-0">
+      {data?.map((i, index) => (
+        <div
+          key={index}
+          onClick={() => setselected(index)}
+          className={`menu-item w-fit flex flex-col items-center justify-center cursor-pointer ${
+            selected === index ? "bg-[#FF8144] text-white" : "bg-white text-black"
+          }     text-sm p-1 px-4 rounded-md `}
+        >
+          <h3>{i.name}</h3>
         </div>
       ))}
     </div>
@@ -151,3 +172,4 @@ const SideMenu = () => {
 };
 
 export default SideMenu;
+

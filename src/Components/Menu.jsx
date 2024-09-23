@@ -35,7 +35,11 @@ const Menu = ({ setopen }) => {
             alt=""
           />
         </div> */}
-        <img src="/Menucard.png" className="h-full w-[55%] object-contain" alt="" />
+        <img
+          src="/Menucard.png"
+          className="h-full w-[55%] object-contain"
+          alt=""
+        />
       </div>
     </>
   );
