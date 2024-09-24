@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 const ChefList = () => {
   const [chefs, setchefs] = useState([]);
-  //    // console.log("hello chef",chefs);
   const navigate = useNavigate();
 
   const [selected, setselected] = useState(0);
@@ -17,7 +16,6 @@ const ChefList = () => {
         (i) => i.role === "chef" || i.role === "Chef"
       );
       setchefs(chefsonly);
-      // console.log("hello chef", chefsonly);
     } catch (error) {
       console.log(error);
     }

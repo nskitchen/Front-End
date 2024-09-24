@@ -41,3 +41,12 @@ export const createUserAPI = axios.create({
     "Content-Type": "multipart/form-data", // For file uploads
   },
 });
+
+export const addMenuItems = axios.create({
+  baseURL: hostName + "/api/v1/menus",
+  timeout: 10000,
+  withCredentials: true, // Allow credentials (cookies, etc.)
+  headers: {
+    "Content-Type": "multipart/form-data", // For file uploads
+  },
+});

@@ -50,16 +50,14 @@ export function MaterialSymbolsLightClose(props) {
 const WaiterMenu = ({ showModal, isModalOpen }) => {
   const dispatch = useDispatch();
 
-  const { tableNumber } = useSelector((state) => state.tables);
+  const {tableNumber} = useSelector((state) => state.tables);
   const { allOrders } = useSelector((state) => state.orders);
   const { id } = useParams();
-
-
   
   useEffect(() => {
     // dispatch(setCurrentOrder(hello));
     const hello = allOrders?.find((order) => order.table === parseInt(id));
-  dispatch(setCurrentOrder(hello));
+    dispatch(setCurrentOrder(hello));
   }, []);
 
   return (

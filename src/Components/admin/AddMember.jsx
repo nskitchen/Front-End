@@ -70,7 +70,6 @@ const AddMember = ({ add, setadd }) => {
   };
 
   const uploadData = async () => {
-    // console.log("uploading");
     const form = new FormData();
     form.append("firstName", formData.name.split(" ")[0]);
     form.append("lastName", formData.name.split(" ")[1]);
@@ -86,7 +85,6 @@ const AddMember = ({ add, setadd }) => {
 
     try {
       const response = await createUserAPI.post("/create", form);
-      //    // console.log("Image uploaded successfully:", response.data);
       setadd(!add);
     } catch (error) {
       if (error.response.data.message == "Email already Exists") {
@@ -103,7 +101,6 @@ const AddMember = ({ add, setadd }) => {
     setFormErrors(errors);
     if (Object.keys(errors).length === 0) {
       uploadData();
-      // console.log("SUccess");
     }
   };
   return (

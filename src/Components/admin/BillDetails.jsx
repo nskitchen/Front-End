@@ -35,45 +35,30 @@ export function SimpleIconsJusteat(props) {
     </svg>
   );
 }
-const BillDetails = () => {
+const BillDetails = ({details,count}) => {
   return (
-    <div className="w-full text-xs">
-      <div className="flex items-center  gap-2 pb-2">
-        <h3 className="boldf">Order#351</h3>
+    <div className="w-full mt-2 text-xs">
+      <div className="flex items-center gap-2 pb-2">
+        <h3 className="bold">Order #{details.orderId}</h3>
         <span className="h-3 w-[1px] bg-black"></span>
-        <h3>01 Serve</h3>
+        <h3>{count} Serve</h3>
       </div>
-      <div className="flex w-full items-start justify-between">
-        <h1 className="w-[40%] text-sm">White Sauce Pasta (Alfraedo sauce)</h1>
-        <div className="flex w-[40%] px-1 items-center justify-between gap-3 ">
-          <h3>01</h3>
-          <h3>
-            <SolarBagBold />
-          </h3>
-          <h3>₹ 149</h3>
-          <h3>
-            {/* <div className="text-center h-5 w-5 rounded-full bg-green-500 text-white flex items-center justify-center">
-              <i className="ri-check-double-line"></i>
-            </div> */}
-            <i className="ri-timer-line text-base mr-0.5"></i>
-          </h3>
+      {details.items.map((orderDetails,idx)=>(
+        <div key={idx} className="flex w-full mt-1 items-start justify-between">
+          <h1 className="w-[45%] text-sm">{orderDetails.id.name}</h1>
+          <div className="flex w-[45%] px-1 items-center justify-between gap-3 ">
+            <h3 className="w-[10%]">{orderDetails.count}</h3>
+            <h3 className="w-[10%]">
+              {orderDetails.parcel ? <SolarBagBold /> : <SimpleIconsJusteat/>}
+            </h3>
+            <h3 className="w-[70%] text-center">₹ {orderDetails.id.price * orderDetails.count}</h3>
+            <h3 className="w-[10%]">
+              {orderDetails.status == "pending" ? <i className="ri-timer-line text-base mr-0.5"></i> : <i className="ri-checkbox-circle-fill text-base text-green-600"></i>}
+            </h3>
+          </div>
         </div>
-      </div>
-      <div className="flex w-full items-start justify-between">
-        <h1 className="w-[40%] text-sm">White Sauce Pasta (Alfraedo sauce)</h1>
-        <div className="flex w-[40%] px-1 items-center justify-between gap-3 ">
-          <h3>01</h3>
-          <h3>
-            <SimpleIconsJusteat />
-          </h3>
-          <h3>₹ 149</h3>
-          <h3>
-            <div className="text-center h-5 w-5 rounded-full bg-green-500 text-white flex items-center justify-center">
-              <i className="ri-check-double-line"></i>
-            </div>
-          </h3>
-        </div>
-      </div>
+      ))}
+
       <span className="inline-block w-full h-[1px] bg-gray-200"></span>
     </div>
   );

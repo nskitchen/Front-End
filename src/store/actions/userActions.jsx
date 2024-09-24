@@ -1,19 +1,19 @@
 import { setLoginError, setUser } from "../slices/userSlice";
 import { userAPI } from "../../utils/Axios";
 
-export const refreshToken = () => async (dispatch) => {
-  try {
-    const response = await userAPI.put("/tokens/refresh");
-    // console.log(response);
-    // dispatch(getCurrentUser(true));
-  } catch (error) {
-    console.error("Error refreshing token:", error);
-  }
-};
+// export const refreshToken = () => async (dispatch) => {
+//   try {
+//     const response = await userAPI.put("/tokens/refresh");
+//     // console.log(response);
+//     // dispatch(getCurrentUser(true));
+//   } catch (error) {
+//     console.error("Error refreshing token:", error);
+//   }
+// };
 
 export const loginUser = (email, password) => async (dispatch) => {
   try {
-    const { data } = await userAPI.post("/login", { email, password });
+    await userAPI.post("/login", { email, password });
     // console.log(data.data.user);
     dispatch(getCurrentUser());
   } catch (error) {
@@ -24,7 +24,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 
 export const logoutUser = () => async (dispatch) => {
   try {
-    const response = await userAPI.post("/logout");
+    await userAPI.post("/logout");
     // console.log(response);
     dispatch(setIsAuthenticated(false));
   } catch (error) {

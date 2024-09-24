@@ -91,8 +91,8 @@ const WaiterFooter = ({ page }) => {
         <h3 className={`${page === "table" && "text-[#FF9933]"}`}>Tables</h3>
       </NavLink>
       <NavLink
-        to={`/waiter/menu/${tableNumber}`}
-        className="flex flex-col items-center justify-center"
+        to={`/waiter/menu`}
+        className={`${tableNumber ? "" : "pointer-events-none"} flex flex-col items-center justify-center`}
       >
         {page === "menu" ? (
           <img
@@ -110,7 +110,7 @@ const WaiterFooter = ({ page }) => {
 
         <h3 className={`${page === "menu" && "text-[#FF9933]"}`}>Menu</h3>
       </NavLink>
-      <NavLink to={"/waiter/summary"} className="flex flex-col items-center justify-center">
+      <NavLink to={"/waiter/summary"} className={`${tableNumber ? "" : "pointer-events-none"} flex flex-col items-center justify-center`}>
         <IconParkSolidTransactionOrder className={`${page === "total" && "waiter"}`} />
         <h3 className={`${page === "total" && "text-[#FF9933]"}`}>Total</h3>
       </NavLink>

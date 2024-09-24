@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import QuantityButton from "./QuantityButton";
+import { useDispatch, useSelector } from "react-redux";
+import { setCartItems } from "../../store/slices/orderSlice";
 export function HugeiconsCommentAdd01(props) {
   return (
     <svg
@@ -21,27 +23,40 @@ export function HugeiconsCommentAdd01(props) {
     </svg>
   );
 }
-const SummaryCard = ({handleRemark}) => {
+const SummaryCard = ({item,handleRemark}) => {
+  const [cartItem, setCartItem] = useState(false)
+  const {cart} = useSelector(state => state.orders)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if(item){
+      const parcel = cart.find((foundItem) => foundItem.id === item._id) || '';
+      setCartItem(parcel); // Set remark to the found remark or empty if not found
+    }
+  }, [cart,item]);
+
+  const deleteItem = (id)=>{
+    dispatch(setCartItems(cart.filter((itm)=>itm.id != id)))
+  }
   return (
     <div className="w-full h-fit border-2 p-2 rounded-xl flex flex-col gap-3">
       <div className="flex items-start justify-between">
         <h1 className="text-lg w-[80%] font-semibold">
-          White Sauce Pasta (Alfraedo sauce)
+          {cartItem.name}
         </h1>
-        <i class="ri-close-large-line"></i>
+        <i onClick={() => deleteItem(cartItem.id)} class="ri-close-large-line"></i>
       </div>
-      <h4 className="text-base font-medium">No salt, no mushroom</h4>
+      <h4 className="text-base font-medium">{cartItem.remark || " "}</h4>
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center justify-between">
-          <QuantityButton />
+          <QuantityButton menuItem={item} />
           <button className="flex border-2 items-center justify-center gap-2 p-3 rounded-lg ml-4">
-            <HugeiconsCommentAdd01 onClick={handleRemark} />
+            <HugeiconsCommentAdd01 onClick={()=>handleRemark(item)} />
           </button>
         </div>
         <div className="flex items-center text-lg justify-between gap-2">
-          <h1 className="boldf">₹120</h1>
-          <span className="w-[1px] h-3 bg-black"></span>
-          <h1 className="text-[#9747FF] boldf">Parcel</h1>
+          <h1 className="bold">₹{cartItem.price * cartItem.count}</h1>
+          {cartItem.parcel && <><span className="w-[1px] h-3 bg-black"></span> <h1 className="text-[#9747FF] boldf">Parcel</h1></>}
+          
         </div>
       </div>
     </div>

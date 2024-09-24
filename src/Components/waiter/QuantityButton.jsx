@@ -1,29 +1,54 @@
 import React, { useEffect, useState } from "react";
 import { addToCart } from "../../store/actions/orderActions";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentOrder } from "../../store/slices/orderSlice";
+import { setCartItems } from "../../store/slices/orderSlice";
 
-const QuantityButton = ({ itemId }) => {
-  console.log(itemId);
+const QuantityButton = ({ menuItem }) => {
   const [count, setCount] = useState(0);
   const dispatch = useDispatch();
 
-  const { currentOrder, setOrderID } = useSelector((state) => state.orders);
-  console.log("asdasdasdasdasdas",setOrderID);
+  const { cart } = useSelector((state) => state.orders);
+
+  useEffect(() => {
+    if(menuItem){
+      const count = cart.find((foundItem) => foundItem.id === menuItem._id)?.count || 0;
+      setCount(count); // Set remark to the found remark or empty if not found
+    }
+  }, [menuItem,cart]);
 
   const handleIncrement = () => {
-    setCount((prevCount) => prevCount + 1);
-    dispatch(addToCart({ setOrderID, itemId, quantity: count + 1 }));
-  };
+    const existingItem = cart.find((item) => item.id === menuItem._id);
 
+    if (existingItem) {
+      const updatedCart = cart.map((item) =>
+        item.id === menuItem._id ? { ...item, count: count + 1 } : item
+      );
+      dispatch(setCartItems(updatedCart));
+    } else {
+      const newItem = { id: menuItem._id, count: 1,price:menuItem.price,name:menuItem.name  };
+      dispatch(setCartItems([...cart, newItem]));
+    }
+    setCount(count+1)
+  };
 
   const handleDecrement = () => {
-    if (count > 0) {
-      setCount((prevCount) => prevCount - 1);
-      dispatch(addToCart({ orderId: setOrderID, itemId, quantity: count - 1 }));
+    // Find if the item already exists in the cart
+    const existingItem = cart.find((item) => item.id === menuItem._id);
+    
+    if (existingItem && existingItem.count > 1) {
+      // If item exists and count is more than 1, decrement its count
+      const updatedCart = cart.map((item) =>
+        item.id === menuItem._id ? { ...item, count: count - 1 } : item
+      );
+      dispatch(setCartItems(updatedCart));
+      
+    } else if (existingItem && existingItem.count === 1) {
+      const updatedCart = cart.filter((item) => item.id !== menuItem._id);
+      dispatch(setCartItems(updatedCart));
     }
-  };
+    setCount(count-1)
 
+  };
   return (
     <button className="flex border-2 items-center justify-center gap-2 p-3 rounded-lg">
       <div
