@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WaiterOrderHeader from "../../Components/waiter/WaiterOrderHeader";
 import WaiterFooter from "../../Components/waiter/WaiterFooter";
 import BillCard from "../../Components/admin/BillCard";
 import OrderBillCard from "../../Components/waiter/OrderBillCard";
 import OrderListDetail from "../../Components/waiter/OrderListDetail";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllOrdersss } from "../../store/actions/orderActions";
 
 const WaiterOrder = () => {
+  const dispatch = useDispatch()
   const [detail, setdetail] = useState("");
+  const {allOrders} = useSelector(state => state.orders)
+
   const handleDetailOpen = (dets)=>{
     setdetail(dets);
   }
+  useEffect(()=>{
+    dispatch(getAllOrdersss())
+  },[])
+
   return (
     <>
       <div className="w-full px-4 h-screen mont">
-        {detail.length > 0 && detail ? (
-         <OrderListDetail setdetail={setdetail}/>
+        {detail ? (
+         <OrderListDetail details={detail} setdetail={setdetail}/>
         ) : (
           <>
             <WaiterOrderHeader data={"Order List"} />
@@ -23,9 +32,9 @@ const WaiterOrder = () => {
               <h3>03</h3>
             </div>
             <div className="flex h-full flex-col gap-3 py-2 overflow-y-auto pb-48">
-              <OrderBillCard handleDetailOpen={handleDetailOpen}  />
-              <OrderBillCard handleDetailOpen={handleDetailOpen} />
-              <OrderBillCard handleDetailOpen={handleDetailOpen} />
+              {allOrders.map((data,idx)=>(
+                <OrderBillCard key={idx} order={data} handleDetailOpen={handleDetailOpen}  />
+              ))}
             </div>
           </>
         )}

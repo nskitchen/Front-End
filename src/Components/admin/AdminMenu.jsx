@@ -1,30 +1,27 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import AdminMenuBar from "./AdminMenuBar";
 import { useDispatch, useSelector } from "react-redux";
 import { getMenu, getUpdateOutOfStock } from "../../store/actions/menuActions";
 import { setFood } from "../../store/slices/menuSlice";
 import { getDeleteMenuById } from "../../store/actions/menuActions";
-import MenuEditPage from "./MenuEditPage";
 
 export function IcBaselineDelete(props) {
   const { i } = props;
-  // console.log(i);
   const { food } = useSelector((state) => state.menu);
-  console.log(food);
   const dispatch = useDispatch();
 
 
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1.2rem"
-      height="1.2rem"
+      width="1.4rem"
+      height="1.4rem"
       className="cursor-pointer"
       viewBox="0 0 24 24"
       {...props}
       onClick={() => {
         dispatch(getDeleteMenuById(i._id, i.category));
-        dispatch(getMenu(food));
+        dispatch(getMenu());
         dispatch(setFood(food));
       }}
     >
@@ -36,23 +33,22 @@ export function IcBaselineDelete(props) {
     </svg>
   );
 }
+
 const AdminMenu = ({ setedit }) => {
   
   const dispatch = useDispatch();
   const { food, menu } = useSelector((state) => state.menu);
   
 
-  const handleOutOfStock = (id) => {
-    console.log(id);
-    dispatch(getUpdateOutOfStock(id, { isAvailable: false }));
-    dispatch(getMenu(food));
+  const handleOutOfStock = (id,status) => {
+    dispatch(getUpdateOutOfStock(id, { isAvailable:  !status}));
+    dispatch(getMenu());
   };
 
 
 
   useEffect(() => {
-
-    dispatch(getMenu(food));
+    dispatch(getMenu());
     dispatch(setFood(food));
   }, [food]);
 
@@ -62,14 +58,13 @@ const AdminMenu = ({ setedit }) => {
       <div className="flex ">
         <AdminMenuBar />
       </div>
-      <div className="flex items-center mont justify-between p-4 mt-5">
-        <h1 className="text-base boldf">{food} </h1>
+      <div className="flex items-center justify-between px-7 py-5 mt-5">
+        <h1 className="font-semibold capitalize">{food}</h1>
         <div className="flex items-start gap-2">
           <button onClick={()=>setedit(true)} className="font-extralight flex items-center gap-1 text-xs p-2 bg-[#22222224]">
             <i className="ri-add-line"></i>
             Add New
-          </button>
-          {/* <h1 className="font-semibold text-sm">06</h1> */}
+          </button>             
         </div>
       </div>
       <div className="w-full flex flex-col gap-2 p-4 relative overflow-y-auto">
@@ -79,10 +74,10 @@ const AdminMenu = ({ setedit }) => {
               key={index}
               className="flex items-center justify-between px-4 bg-white rounded-md p-2"
             >
-              <div className="flex items-center gap-4 justify-center">
+              <div className="flex w-1/3 items-center gap-4 justify-left">
                 <div className="w-24 h-20 rounded-md bg-red-500 relative overflow-hidden">
                   <img
-                    src={`${i?.imges}`}
+                    src={`${i?.image}`}
                     className="h-full w-full object-cover"
                     alt=""
                   />
@@ -90,20 +85,21 @@ const AdminMenu = ({ setedit }) => {
                 <h1 className="text-base font-semibold">
                   {i?.name}
                   <br />
-                  <p className="text-xs font-light">{i?.dets}</p>
+                  <p className="text-xs font-light">{i?.description}</p>
                 </h1>
               </div>
-              <h1 className="font-semibold">₹{i?.price}</h1>
-              <div className="flex items-center justify-center gap-2">
-                <button onClick={() => handleOutOfStock(i._id)} className={`border-[1px] border-black rounded-md px-2 py-1 text-sm ${i?.isAvailable ? 'bg-green-500' : 'bg-red-500'}`}>
+              <h1 className="w-1/3 text-center text-xl font-semibold">₹{i?.price}</h1>
+              <div className="flex w-1/3 items-center justify-end gap-3">
+                <button onClick={() => handleOutOfStock(i._id,i?.isAvailable)} className={`border-[0.1rem] h-[42px] font-medium rounded-md px-5 py-1 text-base ${i?.isAvailable ? 'text-[#828282] border-[#aaaaaa] ' : 'text-red-500 border-red-400'}`}>
                   Out of Stock
                 </button>
-
                 <i
-                  className="ri-pencil-fill cursor-pointer"
+                  className="bg-neutral-200 w-[52px] h-[42px] flex justify-center rounded items-center text-2xl ri-pencil-fill cursor-pointer"
                   onClick={() => setedit(i)}
                 ></i>
-                <IcBaselineDelete i={i} />
+                <div className="bg-neutral-200 w-[52px] h-[42px] flex justify-center rounded items-center text-2xl">
+                <IcBaselineDelete  i={i} />
+                </div>
               </div>
             </div>
           ))}

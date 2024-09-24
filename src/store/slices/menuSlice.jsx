@@ -7,6 +7,14 @@ export const menuSlice = createSlice({
     menu: null,
     food: 'all',
     category: null,
+    menuCategory:[
+      { name: "Burger"},
+      { name: "Sandwich"},
+      { name: "Pasta"},
+      { name: "Pizza"},
+      { name: "Snacks"},
+      { name: "Beverages"},
+    ]
   },
   reducers: {
     setFood: (state, action) => {

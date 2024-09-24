@@ -6,7 +6,6 @@ import { getAllOrdersss } from "../../store/actions/orderActions";
 const ChefPage = () => {
 
   const {allOrders} = useSelector((state) => state.orders);
-  console.log(allOrders);
 
   const dispatch = useDispatch();
 

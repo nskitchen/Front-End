@@ -77,7 +77,6 @@ const {food} = useSelector((state)=>state.menu)
 const pendingOrders = allOrders && allOrders.filter((order)=>order.status === "pending")
 const completedOrders = allOrders && allOrders.filter((order)=>order.status === "completed")
 
-console.log(completedOrders)
 useLayoutEffect(()=>{
   dispatch(getAllOrdersss())
 },[])

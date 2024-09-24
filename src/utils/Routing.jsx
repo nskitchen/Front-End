@@ -8,15 +8,14 @@ import AdminDashboard from "../Pages/AdminDashboard";
 import AdminMenuPage from "../Pages/AdminMenuPage";
 import AdminTable from "../Pages/AdminTable";
 import Login from "../Pages/Login";
-import ProtectedRoute from "../Components/ProtectedRoute";
 import Register from "../Pages/Register";
 import { useSelector } from "react-redux";
 import WaiterPageTable from "../Pages/Waiter/WaiterPageTable";
 import WaiterMenuPage from "../Pages/Waiter/WaiterMenuPage";
-import WaiterTable from "../Components/waiter/WaiterTable";
 import MenuPage from "../Pages/Menu/MenuPage";
 import WaiterSummary from "../Pages/Waiter/WaiterSummary";
 import OrderListDetail from "../Components/waiter/OrderListDetail";
+import WaiterOrder from "../Pages/Waiter/WaiterOrder";
 
 function Routing() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
@@ -46,9 +45,9 @@ function Routing() {
         {isAuthenticated && (user.role === "admin" || user.role === "waiter") && (
           <Route path="/waiter">
             <Route path="addtable" element={<WaiterPageTable />} />
-            <Route path="menu/:id" element={<WaiterMenuPage />} />
+            <Route path="menu" element={<WaiterMenuPage />} />
             <Route path="summary" element={<WaiterSummary />} />
-            <Route path="orderlist" element={<OrderListDetail />} />
+            <Route path="orderlist" element={<WaiterOrder />} />
           </Route>
         )}
         <Route path="/" index element={<Main />} />

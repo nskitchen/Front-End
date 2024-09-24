@@ -2,8 +2,7 @@ import { Divider } from "antd";
 import React from "react";
 
 const DashBoardPaymentList = (order) => {
-  console.log(order);
-  console.log(order);
+  
   return (
     <>
       <div className="w-full flex text-xs items-center justify-between p-2 px-3 max-md:px-0">

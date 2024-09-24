@@ -1,6 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import QuantityButton from "./QuantityButton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { setCartItems } from "../../store/slices/orderSlice";
+
 export function IconParkOutlineMallBag(props) {
   return (
     <svg
@@ -43,30 +46,60 @@ export function HugeiconsCommentAdd01(props) {
 }
 
 
-const WaiterMenuCard = ({ handleRemark, item}) => {
-  
+const WaiterMenuCard = ({handleRemark,item}) => {
+  const { cart } = useSelector((state) => state.orders);
+  const dispatch = useDispatch()
+  const [parcel, setParcel] = useState(false)
+
+  useEffect(() => {
+    if(item){
+      const parcel = cart.find((foundItem) => foundItem.id === item._id)?.parcel || '';
+      setParcel(parcel); // Set remark to the found remark or empty if not found
+    }
+  }, [item,cart]);
+
+  const parcelToggle = ()=>{
+    const existingItem = cart.find((foundItem) => foundItem.id === item._id);
+
+    if (existingItem) {
+      const updatedCart = cart.map((foundItem) =>
+        foundItem.id === item._id ? { ...foundItem, parcel: !foundItem.parcel} : foundItem
+      );
+      setParcel(!existingItem.parcel)
+      dispatch(setCartItems(updatedCart));
+    } else {
+      const newItem = { id: item._id, count: 1,price:item.price,parcel:true,name:item.name };
+      dispatch(setCartItems([...cart, newItem]));
+      setParcel(true)
+    }
+  }
+
   return (
     <div className="w-full border-2 p-4 rounded-xl flex flex-col gap-3">
         <h1 className="text-lg boldf">{item.name}</h1>
       <p className="text-base">
         {item.description}
       </p>
-      <h1 className="boldf text-lg">₹ {item.price}</h1>
+      <h1 className="bold text-lg">₹ {item.price}</h1>
       <div className="flex">
-        <button className="flex border-2 items-center justify-center gap-2 p-2 px-4 rounded-lg">
+        <button className={`${parcel ? "bg-[#9747FF] text-white" : ""} flex border-2 items-center justify-center gap-2 p-2 px-4 rounded-lg`} onClick={()=>parcelToggle()}>
           Parcel <IconParkOutlineMallBag />
         </button>
         <button className="flex border-2 items-center justify-center gap-2 p-3 rounded-lg ml-4">
-          <HugeiconsCommentAdd01 onClick={handleRemark} />
+          <HugeiconsCommentAdd01 onClick={()=>handleRemark(item)} />
         </button>
         <>{item.quantity}</>
         <div className="ml-auto">
-          <QuantityButton itemId={item._id} />
+          <QuantityButton menuItem={item} />
           {/* <QuantityButton orderId={currentOrder._id} itemId={item._id} /> */}
         </div>
       </div>
     </div>
   );
 };
+
+WaiterMenuCard.propsTypes = {
+  item:PropTypes.object.isRequired
+}
 
 export default WaiterMenuCard;

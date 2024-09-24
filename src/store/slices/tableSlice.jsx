@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const tableSlice = createSlice({
   name: "tables",
   initialState: {
-    tables: null,
+    tables: [],
     currentTable: null,
     tableNumber: null,
   },
