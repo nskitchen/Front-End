@@ -1,3 +1,4 @@
+
 import React from "react";
 import MenuCard from "./MenuCard";
 import DishPage from "./DishPage";
@@ -8,7 +9,7 @@ const MenuItem = ({ setopen, counter, setcounter, pages }) => {
   return (
     <div className="w-full relative flex items-center justify-center max-md:h-screen">
       <i
-        className="ri-close-fill absolute top-[5%] left-[10%] text-2xl cursor-pointer"
+        className="ri-close-fill absolute top-[5%] right-[10%] text-2xl cursor-pointer bg-[#DBDCDE80] text-white p-2 px-3 rounded-full"
         onClick={() => setopen(false)}
       ></i>
       <div className="h-[80%] w-[70%] bg-white rounded-2xl flex">

@@ -2,19 +2,20 @@ import { Checkbox } from "antd";
 import React from "react";
 import ChefCheckbox from "./ChefCheckbox";
 
-const ChefCard = () => {
+const ChefCard = ({order}) => {
   return (
     <div className="-full flex flex-col gap-2">
+
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-center">
           <div className="w-20 border-r-2 border-black max-md:w-12">
             <span className="rounded-md bg-[#FF9933] flex items-center justify-center text-[1.2vw] text-white mont boldf h-[3vw] w-[3vw] max-md:h-[8vw] max-md:w-[8vw] max-md:text-base ">
-              T5
+              {order.table}
             </span>
           </div>
-          <h1 className="text-2xl mont boldf pl-3 max-md:hidden">Order#351</h1>
+          <h1 className="text-2xl mont boldf pl-3 max-md:hidden">Order #{order._id}</h1>
           <div className="flex flex-col md:hidden pl-3">
-            <h1 className="text-lg mont boldf ">Order#351</h1>
+            <h1 className="text-lg mont boldf ">Order  #{order._id}</h1>
             <h3 className="font-medium text-sm mont">08:054 PM</h3>
           </div>
         </div>

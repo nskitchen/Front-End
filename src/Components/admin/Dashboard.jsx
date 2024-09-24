@@ -1,15 +1,17 @@
 import { Divider } from "antd";
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import DashBoardOrderList from "./DashBoardOrderList";
 import { data } from "autoprefixer";
 import DashBoardPaymentList from "./DashBoardPaymentList";
 import DashboardDishes from "./DashboardDishes";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllOrdersss } from "../../store/actions/orderActions";
 export function SolarBellBold(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1.3vw"
-      height="1.3vw"
+      width="1.3rem"
+      height="1.3rem"
       viewBox="0 0 24 24"
       {...props}
     >
@@ -24,8 +26,8 @@ export function LetsIconsOrderFill(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1.3vw"
-      height="1.3vw"
+      width="1.3rem"
+      height="1.3rem"
       viewBox="0 0 24 24"
       {...props}
     >
@@ -43,8 +45,8 @@ export function MaterialSymbolsTimer(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1.3vw"
-      height="1.3vw"
+      width="1.3rem"
+      height="1.3rem"
       viewBox="0 0 24 24"
       {...props}
     >
@@ -67,12 +69,30 @@ const d = [
   },
 ];
 const Dashboard = () => {
+  const dispatch = useDispatch()
+
+const {allOrders} = useSelector((state)=>state.orders)
+const {food} = useSelector((state)=>state.menu)
+
+const pendingOrders = allOrders && allOrders.filter((order)=>order.status === "pending")
+const completedOrders = allOrders && allOrders.filter((order)=>order.status === "completed")
+
+useLayoutEffect(()=>{
+  dispatch(getAllOrdersss())
+},[])
+
+// useEffect(()=>{
+
+//   dispatch(getAllOrdersss(food))
+// },[])
   return (
-    <div className="w-full h-full flex p-7 mont relative">
-      <div className="flex flex-col w-[70%]">
-        <div className="grid grid-cols-3 gap-4">
-          <div className="w-full h-[20vh] rounded-lg bg-[#FF8144] p-7 boldf text-white flex flex-col items-start justify-between">
-            <div className="w-full flex items-start justify-between">
+
+
+    <div className="w-full h-full flex p-7 mont relative max-md:flex-col">
+      <div className="flex flex-col w-[70%] max-md:w-full">
+        <div className="grid grid-cols-3 gap-4 max-md:grid-cols-1">
+          <div className="w-full h-[20vh] max-md:h-fit max-md:p-5 rounded-lg bg-[#FF8144] p-7 boldf text-white flex flex-col items-start justify-between">
+            <div className="w-full flex items-start justify-between max-md:flex-col max-md:justify-center">
               <h1 className="text-lg">New Orders</h1>
               <div className="h-9 w-9 bg-white rounded-md flex items-center justify-center">
                 <SolarBellBold />
@@ -80,24 +100,25 @@ const Dashboard = () => {
             </div>
             <h1 className="text-3xl">16</h1>
           </div>
-          <div className="w-full h-[20vh] rounded-lg bg-white p-7 boldf text-black flex flex-col items-start justify-between">
-            <div className="w-full flex items-start justify-between">
+          <div className="w-full h-[20vh] max-md:h-fit max-md:p-5 rounded-lg bg-white p-7 boldf text-black flex flex-col items-start justify-between">
+            <div className="w-full flex items-start justify-between max-md:flex-col max-md:justify-center">
               <h1 className="text-lg">Total Orders</h1>
               <div className="h-9 w-9 bg-[#ff82445c] rounded-md flex items-center justify-center">
                 <LetsIconsOrderFill />
               </div>
             </div>
             <h1 className="text-3xl leading-tight gap-0 flex flex-col mt-2">
-              86
+              {allOrders && allOrders.length}
               <br />
               <span className="text-xs ">
+
                 <span className="text-[#FF8144]">+2.5% </span>
                 than usual
               </span>
             </h1>
-          </div>{" "}
-          <div className="w-full h-[20vh] rounded-lg bg-white p-7 boldf text-black flex flex-col items-start justify-between">
-            <div className="w-full flex items-start justify-between">
+          </div>
+          <div className="w-full h-[20vh] max-md:h-fit max-md:p-5 rounded-lg bg-white p-7 boldf text-black flex flex-col items-start justify-between">
+            <div className="w-full flex items-start justify-between max-md:flex-col max-md:justify-center">
               <h1 className="text-lg">Waiting List</h1>
               <div className="h-9 w-9 bg-[#ff82445c] rounded-md flex items-center justify-center">
                 <MaterialSymbolsTimer />
@@ -113,9 +134,9 @@ const Dashboard = () => {
             </h1>
           </div>
         </div>
-        <div className="w-full grid grid-cols-2 gap-4 h-[72%] py-2.5">
+        <div className="w-full grid grid-cols-2 gap-4 h-[72%] py-2.5 max-md:grid-cols-1">
           <div className="w-full bg-white p-3 rounded-lg h-full">
-            <div className="flex w-full items-center justify-between">
+            <div className="flex w-full items-center justify-between max-md:overflow-y-auto">
               <h1 className="text-xl boldf">Order List</h1>
               <div className="flex items-center justify-center border-2 w-40 py-1 p-2 rounded-full text-gray-500">
                 <input
@@ -127,14 +148,14 @@ const Dashboard = () => {
               </div>
             </div>
             <Divider className="bg-gray-200 my-3" />
-            {d?.map((i, index) => (
+            {/* {d?.map((i, index) => (
               <DashBoardOrderList data={i} key={index} />
-            ))}
+            ))} */}
             {/* <DashBoardOrderList />
             <DashBoardOrderList /> */}
           </div>
           <div className="w-full bg-white rounded-lg h-full p-3">
-            <div className="flex w-full items-center justify-between">
+            <div className="flex w-full items-center justify-between max-md:overflow-y-auto">
               <h1 className="text-xl boldf">Payment</h1>
               <div className="flex items-center justify-center border-2 w-40 py-1 p-2 rounded-full text-gray-500">
                 <input
@@ -146,19 +167,22 @@ const Dashboard = () => {
               </div>
             </div>
             <Divider className="bg-gray-200 my-3" />
-            <DashBoardPaymentList />
-            <DashBoardPaymentList />
-            <DashBoardPaymentList />
-            <DashBoardPaymentList />
+            {
+              completedOrders && completedOrders.map((order)=>(
+                <DashBoardPaymentList key={order._id} order={order}/>
+              ))
+            }
+
+          
           </div>
         </div>
       </div>
-      <div className="h-full w-[30%] flex flex-col gap-3 items-center">
-        <button className="text-white uppercase bg-[#9747FF] w-[90%] boldf flex items-center justify-center gap-2 p-5 rounded-md">
+      <div className="h-full w-[30%] flex flex-col gap-3 items-center max-md:w-full">
+        <button className="text-white uppercase bg-[#9747FF] w-[90%] max-md:w-full boldf flex items-center justify-center gap-2 p-5 rounded-md">
           <i className="ri-add-line"></i>
           Create New Orders
         </button>
-        <div className="h-[40vh] w-[90%] bg-white rounded-xl p-4 ">
+        <div className="h-[40vh] w-[90%] max-md:w-full bg-white rounded-xl p-4 max-md:overflow-y-auto">
           <div className="w-full flex items-end justify-between">
             <h1 className="text-xl font-bold ">Popular Dishes</h1>
             <h3 className="text-[#9747FF] text-sm">View all</h3>
@@ -167,43 +191,36 @@ const Dashboard = () => {
           <DashboardDishes />
           <DashboardDishes />
           <DashboardDishes />
-          <DashboardDishes />
+          {/* <DashboardDishes /> */}
         </div>
-        <div className="h-[40vh] w-[90%] bg-white rounded-xl p-4 ">
+        <div className="h-[40vh] w-[90%] max-md:w-full bg-white rounded-xl p-4 relative max-md:overflow-y-auto">
           <div className="w-full flex items-end justify-between">
             <h1 className="text-xl font-bold ">Out of Stock</h1>
             <h3 className="text-[#9747FF] text-sm">View all</h3>
           </div>
           <Divider className="my-2 bg-gray-200" />
-        <div>
-        <div className="w-full">
-            <h1 className="boldf text-lg">Item Name</h1>
-            <h4 className="text-xs mt-1 font-extralight">
-              Category of item
-            </h4>
+          <div>
+            <div className="w-full">
+              <h1 className="boldf text-lg">Item Name</h1>
+              <h4 className="text-xs mt-1 font-extralight">Category of item</h4>
+            </div>
+            <Divider className="bg-gray-200 my-1" />
           </div>
-          <Divider className="bg-gray-200 my-1"/>
-        </div>
-        <div>
-        <div className="w-full">
-            <h1 className="boldf text-lg">Item Name</h1>
-            <h4 className="text-xs mt-1 font-extralight">
-              Category of item
-            </h4>
+          <div>
+            <div className="w-full">
+              <h1 className="boldf text-lg">Item Name</h1>
+              <h4 className="text-xs mt-1 font-extralight">Category of item</h4>
+            </div>
+            <Divider className="bg-gray-200 my-1" />
           </div>
-          <Divider className="bg-gray-200 my-1"/>
-        </div>
-        <div>
-        <div className="w-full">
-            <h1 className="boldf text-lg">Item Name</h1>
-            <h4 className="text-xs mt-1 font-extralight">
-              Category of item
-            </h4>
+          <div>
+            <div className="w-full">
+              <h1 className="boldf text-lg">Item Name</h1>
+              <h4 className="text-xs mt-1 font-extralight">Category of item</h4>
+            </div>
+            <Divider className="bg-gray-200 my-1" />
           </div>
-          <Divider className="bg-gray-200 my-1"/>
         </div>
-        </div>
-        
       </div>
     </div>
   );

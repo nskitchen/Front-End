@@ -1,5 +1,6 @@
 import { Divider } from "antd";
 import React from "react";
+import { useSelector } from "react-redux";
 
 export function SolarBagBold(props) {
   return (
@@ -36,6 +37,8 @@ export function SimpleIconsJusteat(props) {
   );
 }
 const CompletedDetail = () => {
+
+
   return (
     <div className="w-full text-xs">
       <div className="flex items-center  gap-2 pb-2">

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 export function MaterialSymbolsLightTableBar(props, { height, width }) {
   return (
@@ -74,10 +75,12 @@ export function LetsIconsOrderFill(props, { height, width }) {
 }
 
 const WaiterFooter = ({ page }) => {
+  const {tableNumber} = useSelector((state) => state.tables);
+  // console.log(tableNumber);
   return (
     <div className="flex bg-white w-full left-0 fixed bottom-0 py-4 p-2 mont font-semibold items-center justify-between px-10 z-10">
       <NavLink
-        to={"/waiter/table"}
+        to={"/waiter/addtable"}
         className="flex flex-col items-center justify-center"
       >
         <MaterialSymbolsLightTableBar
@@ -88,8 +91,8 @@ const WaiterFooter = ({ page }) => {
         <h3 className={`${page === "table" && "text-[#FF9933]"}`}>Tables</h3>
       </NavLink>
       <NavLink
-        to={"/waiter/menu"}
-        className="flex flex-col items-center justify-center"
+        to={`/waiter/menu`}
+        className={`${tableNumber ? "" : "pointer-events-none"} flex flex-col items-center justify-center`}
       >
         {page === "menu" ? (
           <img
@@ -107,7 +110,7 @@ const WaiterFooter = ({ page }) => {
 
         <h3 className={`${page === "menu" && "text-[#FF9933]"}`}>Menu</h3>
       </NavLink>
-      <NavLink to={"/waiter/summary"} className="flex flex-col items-center justify-center">
+      <NavLink to={"/waiter/summary"} className={`${tableNumber ? "" : "pointer-events-none"} flex flex-col items-center justify-center`}>
         <IconParkSolidTransactionOrder className={`${page === "total" && "waiter"}`} />
         <h3 className={`${page === "total" && "text-[#FF9933]"}`}>Total</h3>
       </NavLink>

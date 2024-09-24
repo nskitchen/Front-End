@@ -2,7 +2,8 @@ import { Divider } from "antd";
 import React from "react";
 import BillDetails from "./BillDetails";
 
-const BillCard = () => {
+const BillCard = ({data}) => {
+  console.log(data.user);
   return (
     <div className="w-full bg-white mont p-3">
       <div className="w-full flex items-center justify-between">
