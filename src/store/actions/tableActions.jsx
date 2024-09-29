@@ -4,16 +4,27 @@ import { setTable } from "../slices/tableSlice";
 export const setTables = () => async (dispatch) => {
     try {
       const { data } = await tableAPI.get(`/`);
-      const tables = Array.from({ length: 12 }, (_, index) => {
-        const id = index + 1;    
-        const tableData = data.data.find((table) => table.id === id);
-        return {
-          number: id,
-          status: tableData ? tableData.status : "available",
-        };
-      });
-      dispatch(setTable(tables));    
+      dispatch(setTable(data.data));    
     } catch (error) {
       console.error("Error fetching menu by id:", error);
     }
-  };
+};
+ 
+export const addTable = (tableNumber) => async (dispatch) => {
+  try {
+    if(!tableNumber) return
+    await tableAPI.put('/create', { number: tableNumber  });
+    dispatch(setTables());
+  } catch (error) {
+    console.error("Error adding table:", error);
+  }
+};
+
+export const removeTable = (tableNumber) => async (dispatch) => {
+  try {
+    await tableAPI.delete(`/remove/${tableNumber}`);
+    dispatch(setTables());
+  } catch (error) {
+    console.error("Error removing table:", error);
+  }
+};

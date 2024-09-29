@@ -3,18 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 export const menuSlice = createSlice({
   name: "menu",
   initialState: {
-    isAuthenticated: false,
     menu: null,
     food: 'all',
     category: null,
-    menuCategory:[
-      { name: "Burger"},
-      { name: "Sandwich"},
-      { name: "Pasta"},
-      { name: "Pizza"},
-      { name: "Snacks"},
-      { name: "Beverages"},
-    ]
+    menuCategory:[]
   },
   reducers: {
     setFood: (state, action) => {
@@ -26,10 +18,13 @@ export const menuSlice = createSlice({
     setCategory: (state, action) => {
       state.category = action.payload;
     },  
+    setMenuCategory: (state, action) => {
+      state.menuCategory = action.payload;
+    },  
    
   },
 });
 
-export const { setFood , setMenu, setCategory } = menuSlice.actions;
+export const { setFood , setMenu,setMenuCategory, setCategory } = menuSlice.actions;
 
 export default menuSlice.reducer;

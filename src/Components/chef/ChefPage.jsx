@@ -39,13 +39,13 @@ const ChefPage = () => {
       </div>
       <div className="flex flex-col py-10 gap-10">
         {
-          allOrders && allOrders.map((order) => (
-            <ChefCard key={order._id} order={order} />
-          ))
-        }
-        
-
-        
+          allOrders && allOrders.map((order) => {
+            console.log(order)
+            if(order.status == "pending"){
+              return <ChefCard key={order._id} order={order} />
+            }
+          })
+        }  
       </div>
     </div>
   );

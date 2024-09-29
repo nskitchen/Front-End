@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { addToCart } from "../../store/actions/orderActions";
 import { useDispatch, useSelector } from "react-redux";
 import { setCartItems } from "../../store/slices/orderSlice";
 

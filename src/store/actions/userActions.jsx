@@ -14,9 +14,9 @@ import { userAPI } from "../../utils/Axios";
 export const loginUser = (email, password) => async (dispatch) => {
   try {
     await userAPI.post("/login", { email, password });
-    // console.log(data.data.user);
     dispatch(getCurrentUser());
   } catch (error) {
+    console.log(error)
     dispatch(setLoginError(error.response.data.message));
     console.error("Error refreshing token:", error);
   }

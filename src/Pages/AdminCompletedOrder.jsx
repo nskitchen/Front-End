@@ -1,16 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AdminSidebar from "../Components/admin/AdminSidebar";
 import CompletedBillCard from "../Components/admin/CompletedBillCard";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import BillReceipt from "../Components/admin/BillReceipt";
+import { getAllOrdersss } from "../store/actions/orderActions";
 
 
 const AdminCompletedOrder = () => {
   const {allOrders} = useSelector((state)=>state.orders)
   const completedOrders = allOrders?.filter((i)=>i.status==="completed")
- 
+  const currentOrders = allOrders?.filter((i)=>i.status==="pending")
+  const [showBill, setShowBill] = useState("")
+  const dispatch = useDispatch()
 
-
+  useEffect(()=>{
+    dispatch(getAllOrdersss())
+  },[])
 
   return (
     <div className="h-screen w-full bg-[#EEEEEE] flex mont">
@@ -24,12 +30,12 @@ const AdminCompletedOrder = () => {
             <NavLink to={"/admin/currentorder"} className="flex text-lg p-2 px-3 gap-2 text-black bg-white rounded-md font-medium items-center justify-center">
               Current Orders
               <span className="h-full w-[1px] bg-black"></span>
-              05
+              {currentOrders.length}
             </NavLink>
             <NavLink to={"/admin/completedorder"} className="flex text-lg p-2 px-3 gap-2 text-white rounded-md font-medium items-center bg-[#FF8144] justify-center">
               Completed Orders
               <span className="h-full w-[1px] bg-white"></span>
-              08
+              {completedOrders?.length}
             </NavLink>
             <button className="flex text-lg p-2 px-3 gap-2 text-black bg-white rounded-md font-medium items-center justify-center max-md:translate-x-1/2 max-md:my-2">
               Order History
@@ -54,10 +60,10 @@ const AdminCompletedOrder = () => {
           <h1>8</h1>
         </div>
         <div className="grid grid-cols-3 gap-4 relative overflow-y-auto pr-4 max-md:grid-cols-1 max-md:p-0">
-          
+          {showBill && <BillReceipt order={showBill} setShowBillReceipt={setShowBill}/>}
           {
             completedOrders?.map((i)=>(
-              <CompletedBillCard key={i._id} data={i}/>
+              <CompletedBillCard setShowBill={setShowBill} key={i._id} data={i}/>
             ))
           }
         </div>

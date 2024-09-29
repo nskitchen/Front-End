@@ -44,14 +44,18 @@ const WaiterMenuPage = () => {
   }, [food]);
 
   return (
-    <div className="h-screen w-full px-4 relative overflow-y-auto mont pb-40">
+    <div className="h-screen w-full m-auto max-w-[600px] px-4 relative overflow-y-auto mont pb-40">
       <WaiterHeader data={"Menu"} />
       <WaiterMenu showModal={showModal} isModalOpen={isModalOpen} />
-      <div className="flex flex-col gap-2  items-start w-full">
-        {menu?.map((item,idx) => (
-          <WaiterMenuCard key={idx} handleRemark={handleRemark} item={item}/>
-        ))}
-        <div className="h-16 w-screen bottom-20 left-0 bg-black flex items-center justify-between fixed text-white px-8 py-4">
+      <div className="flex  flex-col gap-2  items-start w-full">
+        {menu?.map((item,idx) => {
+        if(item.isAvailable){
+          return(
+            <WaiterMenuCard key={idx} handleRemark={handleRemark} item={item}/>
+          )
+        }
+        })}
+        <div className="h-16 m-auto max-w-[600px] w-screen bottom-20 left-1/2 -translate-x-1/2 bg-black flex items-center justify-between fixed text-white px-8 py-4">
           <h3>Total</h3>
           <span className="h-full w-[1px] inline-block bg-white"></span>
           <h3>{cart.reduce((acc,red)=>(acc+red.count),0)} Item</h3>

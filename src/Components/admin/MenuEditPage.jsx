@@ -9,11 +9,12 @@ import { addMenuItems } from "../../utils/Axios";
 
 const MenuEditPage = ({ edit, setedit }) => {
     const { menuCategory } = useSelector((state) => state.menu);
+    console.log(menuCategory)
     const dispatch = useDispatch();
     const [formErrors, setFormErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [image, setImage] = useState(edit?.image);
-
+  
     const [menuForm, setMenuForm] = useState({
         name: edit.name || "",
         description: edit.description || "",

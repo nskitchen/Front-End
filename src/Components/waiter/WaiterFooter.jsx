@@ -76,9 +76,10 @@ export function LetsIconsOrderFill(props, { height, width }) {
 
 const WaiterFooter = ({ page }) => {
   const {tableNumber} = useSelector((state) => state.tables);
+  const {cart} = useSelector((state) => state.orders);
   // console.log(tableNumber);
   return (
-    <div className="flex bg-white w-full left-0 fixed bottom-0 py-4 p-2 mont font-semibold items-center justify-between px-10 z-10">
+    <div className="flex bg-white justify-center w-full max-w-[600px] m-auto left-1/2 -translate-x-1/2 fixed bottom-0 py-4 p-2 mont font-semibold items-center justify-between px-10 z-10">
       <NavLink
         to={"/waiter/addtable"}
         className="flex flex-col items-center justify-center"
@@ -110,7 +111,7 @@ const WaiterFooter = ({ page }) => {
 
         <h3 className={`${page === "menu" && "text-[#FF9933]"}`}>Menu</h3>
       </NavLink>
-      <NavLink to={"/waiter/summary"} className={`${tableNumber ? "" : "pointer-events-none"} flex flex-col items-center justify-center`}>
+      <NavLink to={"/waiter/summary"} className={`${tableNumber && cart.length > 0 ? "" : "pointer-events-none"} flex flex-col items-center justify-center`}>
         <IconParkSolidTransactionOrder className={`${page === "total" && "waiter"}`} />
         <h3 className={`${page === "total" && "text-[#FF9933]"}`}>Total</h3>
       </NavLink>

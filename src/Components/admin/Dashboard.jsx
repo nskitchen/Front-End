@@ -1,11 +1,13 @@
 import { Divider } from "antd";
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import DashBoardOrderList from "./DashBoardOrderList";
 import { data } from "autoprefixer";
 import DashBoardPaymentList from "./DashBoardPaymentList";
 import DashboardDishes from "./DashboardDishes";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrdersss } from "../../store/actions/orderActions";
+import { getMenu, getPopularDishes } from "../../store/actions/menuActions";
+import { useNavigate } from "react-router-dom";
 export function SolarBellBold(props) {
   return (
     <svg
@@ -69,40 +71,46 @@ const d = [
   },
 ];
 const Dashboard = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch()  
+  const { allOrders } = useSelector((state) => state.orders)
+  const [popular, setPopular] = useState([])
+  const pendingOrders = allOrders && allOrders.filter((order) => order.status === "pending")
+  const completedOrders = allOrders && allOrders.filter((order) => order.status === "completed")
+  const {menu} = useSelector((state)=>state.menu)
+  const nav = useNavigate()
 
-const {allOrders} = useSelector((state)=>state.orders)
-const {food} = useSelector((state)=>state.menu)
+  const viewAllOutOfStock = () => {
+    dispatch(getMenu(null,null,true))
+    nav("/admin/menu")
+  }
 
-const pendingOrders = allOrders && allOrders.filter((order)=>order.status === "pending")
-const completedOrders = allOrders && allOrders.filter((order)=>order.status === "completed")
+  useLayoutEffect(() => {
+    dispatch(getAllOrdersss())
+    dispatch(getMenu(null,null,false))
 
-useLayoutEffect(()=>{
-  dispatch(getAllOrdersss())
-},[])
+    async function getPopular(){
+      setPopular(await getPopularDishes())
+    }
+    getPopular()
 
-// useEffect(()=>{
+  }, [dispatch])
 
-//   dispatch(getAllOrdersss(food))
-// },[])
   return (
-
-
     <div className="w-full h-full flex p-7 mont relative max-md:flex-col">
       <div className="flex flex-col w-[70%] max-md:w-full">
         <div className="grid grid-cols-3 gap-4 max-md:grid-cols-1">
           <div className="w-full h-[20vh] max-md:h-fit max-md:p-5 rounded-lg bg-[#FF8144] p-7 boldf text-white flex flex-col items-start justify-between">
             <div className="w-full flex items-start justify-between max-md:flex-col max-md:justify-center">
-              <h1 className="text-lg">New Orders</h1>
+              <h1 className="text-lg">Orders <br /> Preparing</h1>
               <div className="h-9 w-9 bg-white rounded-md flex items-center justify-center">
                 <SolarBellBold />
               </div>
             </div>
-            <h1 className="text-3xl">16</h1>
+            <h1 className="text-3xl">{pendingOrders.length}</h1>
           </div>
           <div className="w-full h-[20vh] max-md:h-fit max-md:p-5 rounded-lg bg-white p-7 boldf text-black flex flex-col items-start justify-between">
             <div className="w-full flex items-start justify-between max-md:flex-col max-md:justify-center">
-              <h1 className="text-lg">Total Orders</h1>
+              <h1 className="text-lg">Total <br /> Orders</h1>
               <div className="h-9 w-9 bg-[#ff82445c] rounded-md flex items-center justify-center">
                 <LetsIconsOrderFill />
               </div>
@@ -110,33 +118,24 @@ useLayoutEffect(()=>{
             <h1 className="text-3xl leading-tight gap-0 flex flex-col mt-2">
               {allOrders && allOrders.length}
               <br />
-              <span className="text-xs ">
-
-                <span className="text-[#FF8144]">+2.5% </span>
-                than usual
-              </span>
             </h1>
           </div>
           <div className="w-full h-[20vh] max-md:h-fit max-md:p-5 rounded-lg bg-white p-7 boldf text-black flex flex-col items-start justify-between">
             <div className="w-full flex items-start justify-between max-md:flex-col max-md:justify-center">
-              <h1 className="text-lg">Waiting List</h1>
+              <h1 className="text-lg">Payment <br /> Pending</h1>
               <div className="h-9 w-9 bg-[#ff82445c] rounded-md flex items-center justify-center">
                 <MaterialSymbolsTimer />
               </div>
             </div>
             <h1 className="text-3xl leading-tight gap-0 flex flex-col mt-2">
-              09
+              {completedOrders.length}
               <br />
-              <span className="text-xs ">
-                <span className="text-[#FF8144]">+3.2% </span>
-                than usual
-              </span>
             </h1>
           </div>
         </div>
-        <div className="w-full grid grid-cols-2 gap-4 h-[72%] py-2.5 max-md:grid-cols-1">
+        <div className="w-full grid grid-cols-2 gap-4 h-[70%] py-2.5 max-md:grid-cols-1">
           <div className="w-full bg-white p-3 rounded-lg h-full">
-            <div className="flex w-full items-center justify-between max-md:overflow-y-auto">
+            <div className="flex w-full h-[10%] items-center justify-between max-md:overflow-y-auto">
               <h1 className="text-xl boldf">Order List</h1>
               <div className="flex items-center justify-center border-2 w-40 py-1 p-2 rounded-full text-gray-500">
                 <input
@@ -147,15 +146,18 @@ useLayoutEffect(()=>{
                 <i className="ri-search-line"></i>
               </div>
             </div>
-            <Divider className="bg-gray-200 my-3" />
-            {/* {d?.map((i, index) => (
-              <DashBoardOrderList data={i} key={index} />
-            ))} */}
+            <div className="h-[90%] overflow-scroll">
+              <Divider className="bg-gray-200 mt-3 mb-1" />
+              {pendingOrders.length > 0 && pendingOrders.reverse().map((i, index) => (
+                <DashBoardOrderList data={i} key={index} />
+              ))}
+              {pendingOrders.length == 0 && <h1 className="text-center opacity-30 text-lg mt-5">No Orders to show</h1>}
+            </div>
             {/* <DashBoardOrderList />
             <DashBoardOrderList /> */}
           </div>
           <div className="w-full bg-white rounded-lg h-full p-3">
-            <div className="flex w-full items-center justify-between max-md:overflow-y-auto">
+            <div className="flex h-[10%] w-full items-center justify-between max-md:overflow-y-auto">
               <h1 className="text-xl boldf">Payment</h1>
               <div className="flex items-center justify-center border-2 w-40 py-1 p-2 rounded-full text-gray-500">
                 <input
@@ -166,60 +168,48 @@ useLayoutEffect(()=>{
                 <i className="ri-search-line"></i>
               </div>
             </div>
-            <Divider className="bg-gray-200 my-3" />
-            {
-              completedOrders && completedOrders.map((order)=>(
-                <DashBoardPaymentList key={order._id} order={order}/>
-              ))
-            }
-
-          
+            <div className={`h-[90%] overflow-scroll`}>
+              <Divider className="bg-gray-200 mt-3 mb-1" />
+              {completedOrders.length > 0 && completedOrders.map((i, index) => (
+                <DashBoardPaymentList order={i} key={index} />
+              ))}
+              {completedOrders.length == 0 && <h1 className="text-center opacity-30 text-lg mt-5">No Orders to show</h1>}
+            </div>
           </div>
         </div>
       </div>
       <div className="h-full w-[30%] flex flex-col gap-3 items-center max-md:w-full">
-        <button className="text-white uppercase bg-[#9747FF] w-[90%] max-md:w-full boldf flex items-center justify-center gap-2 p-5 rounded-md">
+        <button onClick={()=>nav("/waiter/addtable")} className="text-white uppercase bg-[#9747FF] w-[90%] max-md:w-full boldf flex items-center justify-center gap-2 p-5 rounded-md">
           <i className="ri-add-line"></i>
           Create New Orders
         </button>
-        <div className="h-[40vh] w-[90%] max-md:w-full bg-white rounded-xl p-4 max-md:overflow-y-auto">
+        <div className="h-[37%] w-[90%] max-md:w-full bg-white rounded-xl p-4 overflow-hidden">
           <div className="w-full flex items-end justify-between">
             <h1 className="text-xl font-bold ">Popular Dishes</h1>
-            <h3 className="text-[#9747FF] text-sm">View all</h3>
           </div>
-          <Divider className="my-2 bg-gray-200" />
-          <DashboardDishes />
-          <DashboardDishes />
-          <DashboardDishes />
+          <div className="h-[90%] overflow-scroll">
+            <Divider className="my-2 bg-gray-200" />
+            {popular.map((dish,idx)=>(
+              <DashboardDishes key={idx} number={idx+1} dish={dish}/>
+            ))}
+          </div>
           {/* <DashboardDishes /> */}
         </div>
         <div className="h-[40vh] w-[90%] max-md:w-full bg-white rounded-xl p-4 relative max-md:overflow-y-auto">
           <div className="w-full flex items-end justify-between">
             <h1 className="text-xl font-bold ">Out of Stock</h1>
-            <h3 className="text-[#9747FF] text-sm">View all</h3>
+            <h3 onClick={viewAllOutOfStock} className="text-[#9747FF] text-sm">View all</h3>
           </div>
           <Divider className="my-2 bg-gray-200" />
-          <div>
+          {menu && menu.filter((item)=>item.isAvailable == false).map((item,idx)=>(
+          <div key={idx}>
             <div className="w-full">
-              <h1 className="boldf text-lg">Item Name</h1>
-              <h4 className="text-xs mt-1 font-extralight">Category of item</h4>
+              <h1 className="boldf text-lg">{item.name}</h1>
+              <h4 className="text-xs mt-1 font-extralight">{item.category}</h4>
             </div>
             <Divider className="bg-gray-200 my-1" />
           </div>
-          <div>
-            <div className="w-full">
-              <h1 className="boldf text-lg">Item Name</h1>
-              <h4 className="text-xs mt-1 font-extralight">Category of item</h4>
-            </div>
-            <Divider className="bg-gray-200 my-1" />
-          </div>
-          <div>
-            <div className="w-full">
-              <h1 className="boldf text-lg">Item Name</h1>
-              <h4 className="text-xs mt-1 font-extralight">Category of item</h4>
-            </div>
-            <Divider className="bg-gray-200 my-1" />
-          </div>
+          ))}
         </div>
       </div>
     </div>

@@ -3,10 +3,13 @@ import BillDetails from "../admin/BillDetails";
 import { Divider } from "antd";
 import { setTableNumber } from "../../store/slices/tableSlice";
 import {useDispatch,useSelector} from "react-redux"
+import { useNavigate } from "react-router-dom";
+import { checkoutOrder } from "../../store/actions/orderActions";
 
 const OrderListDetail = ({ details, setdetail }) => {
   
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const totalPrice = details.orders.reduce((total, perOrder) => {
     return total + perOrder.items.reduce((sum, item) => sum + Number(item.count) * Number(item.id.price), 0);
@@ -18,9 +21,14 @@ const OrderListDetail = ({ details, setdetail }) => {
 
   const addMoreHandler = () => {
     dispatch(setTableNumber(details.table));
+    navigate("/waiter/menu")
   }
 
-  console.log(totalQuantity)
+  const checkoutHandler = async()=>{
+    await dispatch(checkoutOrder(details._id))
+    setdetail("")
+  }
+
   return (
     <div className="w-full h-full mont">
       <div className="w-full flex items-center justify-between py-4">
@@ -71,7 +79,7 @@ const OrderListDetail = ({ details, setdetail }) => {
               <i className="ri-add-large-line"></i>
               <h1 onClick={addMoreHandler}>Add more item</h1>
             </button>
-            <button className="border-2 text-gray-300 p-2 rounded-md">
+            <button onClick={checkoutHandler} className="border-2 text-gray-300 p-2 rounded-md">
               Checkout
             </button>
           </div>

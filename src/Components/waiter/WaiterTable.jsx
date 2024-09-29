@@ -19,11 +19,11 @@ const WaiterTable = () => {
 
   const handleTableClick = (table) => {
     if(table.status === "available"){
-      dispatch(setTableNumber(table.number));
+      dispatch(setTableNumber(table.id));
       navigate(`/waiter/menu`);
     }
     else if(table.status === "reorder"){
-      dispatch(setTableNumber(table.number));
+      dispatch(setTableNumber(table.id));
       navigate(`/waiter/menu`);
     }
   };
@@ -37,9 +37,9 @@ const WaiterTable = () => {
       <div className="w-[85%] py-10  grid grid-cols-3 gap-5 gap-x-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[50%] overflow-y-auto ">
           {tables.map((table,idx)=>(
             <div
-              key={idx} onClick={()=>handleTableClick(table)} className={`h-[20vw] w-[20vw] flex rounded-lg items-center justify-center border-[1px] border-black 
+              key={idx} onClick={()=>handleTableClick(table)} className={`h-[20vw] w-[20vw] max-h-28 max-w-28 flex rounded-lg items-center justify-center border-[1px] border-black 
                 ${table.status == "available" ? "bg-white" : table.status == "reorder" ? "bg-[#9747FF] text-white" : "bg-neutral-300 pointer-events-none text-white border-none"}`}>
-                <h1 className="text-2xl font-bold">T {table.number}</h1>
+                <h1 className="text-2xl font-bold">T {table.id}</h1>
             </div>
           ))}
       </div>

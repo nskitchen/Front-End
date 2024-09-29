@@ -1,17 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import BillDetails from '../admin/BillDetails'
 import { Divider } from 'antd'
+import {useDispatch,useSelector} from "react-redux"
+import { checkoutOrder, getAllOrdersss } from "../../store/actions/orderActions";
 
 const OrderBillCard = ({ order, handleDetailOpen }) => {
-
   console.log(order)
+  const dispatch = useDispatch()
+
   const totalPrice = order.orders.reduce((total, perOrder) => {
     return total + perOrder.items.reduce((sum, item) => sum + Number(item.count) * Number(item.id.price), 0);
   }, 0).toLocaleString('en-IN')
 
   const totalQuantity = order.orders.reduce((total, perOrder) => {
     return total + perOrder.items.reduce((sum, item) => sum + Number(item.count), 0);
-  }, 0).toLocaleString('en-IN')
+  }, 0)
+
+  useEffect(()=>{
+    dispatch(getAllOrdersss())
+  },[dispatch])
+
+  const checkoutHandler = async(event)=>{
+    event.stopPropagation()
+    await dispatch(checkoutOrder(order._id))
+    dispatch(getAllOrdersss())
+  }
+
+  const status = order.orders.every(item=>item.status === "served")
 
   return (
     <div onClick={() => handleDetailOpen(order)} className="w-full bg-white rounded-xl mont p-3 border-2">
@@ -53,7 +68,7 @@ const OrderBillCard = ({ order, handleDetailOpen }) => {
             Total {totalQuantity} Items
           </span>
         </h1>
-        <button className="border-2 text-gray-300 p-2 rounded-md">
+        <button onClick={(e) => checkoutHandler(e)} className={`${status ? "text-white bg-black" : "pointer-events-none text-gray-300 border-gray-300"} border-2  p-2 rounded-md`}>
           Checkout
         </button>
       </div>

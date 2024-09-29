@@ -7,14 +7,11 @@ import { setTables } from '../store/actions/tableActions'
 const AdminTable = () => {
   const dispatch = useDispatch();
   const { tables } = useSelector((state) => state.tables);
-  const {food} = useSelector((state)=>state.menu)
-
-  console.log(tables);
-
+  console.log(tables)
   useEffect(() => {
-    dispatch(setTables(food))
-
+    dispatch(setTables())
   }, []);
+
   return (
     <div className="w-full h-screen bg-[#EEEEEE] flex">
       <AdminSidebar data={"table"} />

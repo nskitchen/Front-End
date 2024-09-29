@@ -11,15 +11,12 @@ export const tableSlice = createSlice({
     setTable: (state, action) => {
       state.tables = action.payload;
     },
-    setCurrentTable: (state, action) => {
-      state.currentTable = action.payload;
-    },
     setTableNumber: (state, action) => {
       state.tableNumber = action.payload;
     },
   },
 });
 
-export const { setTable, setCurrentTable, setTableNumber } = tableSlice.actions;
+export const { setTable, setTableNumber } = tableSlice.actions;
 
 export default tableSlice.reducer;

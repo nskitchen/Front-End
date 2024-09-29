@@ -6,7 +6,7 @@ import WaiterFooter from '../../Components/waiter/WaiterFooter'
 const WaiterPageTable = () => {
 
     return (
-        <div className="w-full px-4 h-screen relative">
+        <div className="w-full max-w-[600px] m-auto px-4 h-screen relative">
             <WaiterHeader data="Create Order" />
             <WaiterTable />
             <div className="w-full py-3 bg-[#2222220D] flex items-center justify-center gap-6 absolute bottom-24 left-0 mont text-base">

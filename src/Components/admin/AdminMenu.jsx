@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import AdminMenuBar from "./AdminMenuBar";
 import { useDispatch, useSelector } from "react-redux";
-import { getMenu, getUpdateOutOfStock } from "../../store/actions/menuActions";
+import { getCategory, getMenu, getUpdateOutOfStock } from "../../store/actions/menuActions";
 import { setFood } from "../../store/slices/menuSlice";
 import { getDeleteMenuById } from "../../store/actions/menuActions";
 
@@ -34,7 +34,7 @@ export function IcBaselineDelete(props) {
   );
 }
 
-const AdminMenu = ({ setedit }) => {
+const AdminMenu = ({outOfStock ,setcategory, setedit }) => {
   
   const dispatch = useDispatch();
   const { food, menu } = useSelector((state) => state.menu);
@@ -42,21 +42,21 @@ const AdminMenu = ({ setedit }) => {
 
   const handleOutOfStock = (id,status) => {
     dispatch(getUpdateOutOfStock(id, { isAvailable:  !status}));
-    dispatch(getMenu());
+    dispatch(getMenu(null,null,outOfStock));
   };
-
-
-
+  
+  console.log(outOfStock)
   useEffect(() => {
-    dispatch(getMenu());
+    dispatch(getMenu(null,null,outOfStock));
     dispatch(setFood(food));
-  }, [food]);
+    dispatch(getCategory())
+  }, [dispatch]);
 
   return (
   <>
     <div className="w-full">
       <div className="flex ">
-        <AdminMenuBar />
+        <AdminMenuBar outOfStock={outOfStock} setcategory={setcategory}/>
       </div>
       <div className="flex items-center justify-between px-7 py-5 mt-5">
         <h1 className="font-semibold capitalize">{food}</h1>

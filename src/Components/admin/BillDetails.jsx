@@ -53,7 +53,7 @@ const BillDetails = ({details,count}) => {
             </h3>
             <h3 className="w-[70%] text-center">₹ {orderDetails.id.price * orderDetails.count}</h3>
             <h3 className="w-[10%]">
-              {orderDetails.status == "pending" ? <i className="ri-timer-line text-base mr-0.5"></i> : <i className="ri-checkbox-circle-fill text-base text-green-600"></i>}
+              {orderDetails.status == "completed" || orderDetails.status == "served" ? <i className="ri-checkbox-circle-fill text-base text-green-600"></i> : <i className="ri-timer-line text-base mr-0.5"></i> }
             </h3>
           </div>
         </div>

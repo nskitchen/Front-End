@@ -16,17 +16,15 @@ import MenuPage from "../Pages/Menu/MenuPage";
 import WaiterSummary from "../Pages/Waiter/WaiterSummary";
 import OrderListDetail from "../Components/waiter/OrderListDetail";
 import WaiterOrder from "../Pages/Waiter/WaiterOrder";
+import Notification from "../Pages/Waiter/Notification";
 
 function Routing() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
-
   return (
     <>
       <Routes>
-        {isAuthenticated && user.role === "chef" && (
-          <Route path="/chef">
-            <Route path="home" element={<ChefHome />} />
-          </Route>
+        {isAuthenticated && (user.role === "admin" || user.role === "chef") && (
+          <Route path="/chef" element={<ChefHome />}/>
         )}
 
         {isAuthenticated && user.role === "admin" && (
@@ -48,6 +46,7 @@ function Routing() {
             <Route path="menu" element={<WaiterMenuPage />} />
             <Route path="summary" element={<WaiterSummary />} />
             <Route path="orderlist" element={<WaiterOrder />} />
+            <Route path="notification" element={<Notification />} />
           </Route>
         )}
         <Route path="/" index element={<Main />} />

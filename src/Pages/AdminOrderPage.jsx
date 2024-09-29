@@ -5,20 +5,19 @@ import BillCard from "../Components/admin/BillCard";
 import { NavLink } from "react-router-dom";
 import { getAllOrdersss } from "../store/actions/orderActions";
 import { useDispatch, useSelector } from "react-redux";
+import BillReceipt from "../Components/admin/BillReceipt";
 
 const AdminOrderPage = ({data}) => {
   const dispatch = useDispatch()
   const {allOrders} = useSelector((state)=>state.orders)
   const currentOrders = allOrders?.filter((i)=>i.status==="pending")
+  const comletedOrders = allOrders?.filter((i)=>i.status==="completed")
   
-  console.log(allOrders);
   useEffect(()=>{
-
     dispatch(getAllOrdersss())
   },[])
 
   return (
-
     <div className="h-screen w-full bg-[#EEEEEE] flex mont">
       <AdminSidebar data={"order"} />
       <div className="w-full flex flex-col p-7 mont">
@@ -26,16 +25,17 @@ const AdminOrderPage = ({data}) => {
           <h1 className="text-[#6E39CB] text-1.7s boldf">Orders</h1>
         </div>
         <div className="flex w-full items-center justify-between flex-wrap">
+
           <div className="flex mt-3 gap-3  max-md:grid max-md:grid-cols-2 max-md:place-items-center max-md:place-content-center">
             <NavLink to={"/admin/currentorder"} className="flex text-lg p-2 px-3 gap-2 text-white rounded-md font-medium items-center bg-[#FF8144] justify-center">
               Current Orders
               <span className="h-full w-[1px] bg-white"></span>
-              05
+              {currentOrders.length}
             </NavLink>
             <NavLink to={"/admin/completedorder"} className="flex text-lg p-2 px-3 gap-2 text-black bg-white rounded-md font-medium items-center justify-center">
               Completed Orders
               <span className="h-full w-[1px] bg-black"></span>
-              08
+              {comletedOrders.length}
             </NavLink>
             <button className="flex text-lg p-2 px-3 gap-2 text-black bg-white rounded-md font-medium items-center justify-center max-md:translate-x-1/2 max-md:my-2">
               Order History
@@ -61,14 +61,9 @@ const AdminOrderPage = ({data}) => {
             <h1>5</h1>
           </div>
           <div className="grid grid-cols-3 gap-4 relative overflow-y-auto pr-4 max-md:grid-cols-1 max-md:w-full max-md:p-0">
-             
-             {
-              currentOrders?.map((i)=>(
-                <BillCard key={i._id} data={i}/>
-              ))
-             } 
-   
-
+            {currentOrders?.map((i)=>(
+              <BillCard key={i._id} data={i}/>
+            ))} 
           </div>
       </div>
     </div>

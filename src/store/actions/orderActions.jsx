@@ -1,9 +1,7 @@
-import { useSelector } from "react-redux";
-import { orderAPI } from "../../utils/Axios";
-import { setAllOrders, setOrderID } from "../slices/orderSlice";
-import { useNavigate } from "react-router-dom";
+import { billingAPI, orderAPI } from "../../utils/Axios";
+import { setAllOrders } from "../slices/orderSlice";
 
-export const CreateNewOrders = ( data2) => async (dispatch,getValue) => {
+export const CreateNewOrders = () => async (dispatch,getValue) => {
     try {
         const cart = getValue().orders.cart
         const table = getValue().tables.tableNumber
@@ -19,9 +17,10 @@ export const CreateNewOrders = ( data2) => async (dispatch,getValue) => {
     }
 };
 
-export const getAllOrdersss = () => async (dispatch) => {
+export const getAllOrdersss = (type) => async (dispatch) => {
     try {
-        const {data} = await orderAPI.get("/allorder");
+        const params = {type: type}
+        const {data} = await orderAPI.get("/allorder",{params});
         dispatch(setAllOrders(data.data.orders));
     } catch (error) {
 
@@ -30,11 +29,30 @@ export const getAllOrdersss = () => async (dispatch) => {
 
 }
 
-export const addToCart = (orderId) => async (dispatch) => {
+export const checkoutOrder = (orderId) => async (dispatch) => {
     try {
-        console.log(orderId.setOrderID);
-        const {data} = await orderAPI.put(`/${orderId.setOrderID}`,{menuItem: orderId.itemId, quantity: orderId.quantity });
+        const {data} = await orderAPI.post(`/checkout`,{id:orderId});
         console.log(data);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const completeOrder = (orderId,itemId,id) => async (dispatch) => {
+    try {
+        const {data} = await orderAPI.put(`/completed-order/${id}`,{orderId,itemId});
+        dispatch(getAllOrdersss());
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const serveOrder = (orderId,itemId,id) => async (dispatch) => {
+    try {
+        const {data} = await orderAPI.put(`/served-order/${id}`,{orderId,itemId});
+        dispatch(getAllOrdersss());
+        
     } catch (error) {
         console.log(error);
     }
