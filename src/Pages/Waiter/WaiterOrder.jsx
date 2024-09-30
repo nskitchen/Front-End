@@ -5,7 +5,7 @@ import BillCard from "../../Components/admin/BillCard";
 import OrderBillCard from "../../Components/waiter/OrderBillCard";
 import OrderListDetail from "../../Components/waiter/OrderListDetail";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllOrdersss } from "../../store/actions/orderActions";
+import { getUserOrders } from "../../store/actions/orderActions";
 
 const WaiterOrder = () => {
   const dispatch = useDispatch()
@@ -16,7 +16,7 @@ const WaiterOrder = () => {
     setdetail(dets);
   }
   useEffect(()=>{
-    dispatch(getAllOrdersss())
+    dispatch(getUserOrders())
   },[])
 
   return (

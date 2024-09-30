@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { serveOrder } from '../../store/actions/orderActions';
+import {  getUserOrders, serveOrder } from '../../store/actions/orderActions';
 
 const NotificationCheckBox = ({orderId,itemId,id}) => {
 
@@ -15,6 +15,7 @@ const NotificationCheckBox = ({orderId,itemId,id}) => {
             const newTimer = setTimeout(() => {
                 dispatch(serveOrder(orderId, itemId, id))
             }, 1000);
+            dispatch(getUserOrders())
             setTimer(newTimer);
         } else {
             console.log("Timer cancelled");

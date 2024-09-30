@@ -6,6 +6,7 @@ import Routing from "./utils/Routing";
 
 function App() {
   const dispatch = useDispatch();
+  
   useEffect(() => {
     dispatch(getCurrentUser());
   }, []);

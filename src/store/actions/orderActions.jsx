@@ -23,10 +23,18 @@ export const getAllOrdersss = (type) => async (dispatch) => {
         const {data} = await orderAPI.get("/allorder",{params});
         dispatch(setAllOrders(data.data.orders));
     } catch (error) {
-
         console.log(error);
     }
+}
 
+export const getUserOrders = (type) => async (dispatch) => {
+    try {
+        const params = {type: type}
+        const {data} = await orderAPI.get("/userorder",{params});
+        dispatch(setAllOrders(data.data.orders));
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export const checkoutOrder = (orderId) => async (dispatch) => {

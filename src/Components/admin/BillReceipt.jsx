@@ -7,10 +7,11 @@ import { generateBill } from '../../store/actions/billActions'
 const BillReceipt = ({setShowBillReceipt,order}) => {
   const dispatch = useDispatch()
   const [paymentMethod, setPaymentMethod] = useState('cash')
+  console.log(paymentMethod)
 
   const itemPrice = order.orders.reduce((orderSum, orderItem) => {
     return orderSum + orderItem.items.reduce((itemSum, item) => {
-      return itemSum + Number(item.id.price); // Assuming `item.id.price` is the price you want
+      return itemSum + Number(item.id.price * item.count); // Assuming `item.id.price` is the price you want
     }, 0);
   }, 0);
 
@@ -20,7 +21,7 @@ const BillReceipt = ({setShowBillReceipt,order}) => {
   const [serviceCharge,setServiceCharge] = useState(8)
 
   const handleGenerateBill = () => {
-    dispatch(generateBill(totalPrice,cgst,sgst,serviceCharge,paymentMethod,order))
+    dispatch(generateBill({total:totalPrice,cgst:totalPrice*cgst/100,sgst:totalPrice*sgst/100,serviceCharge:totalPrice*serviceCharge/100,paymentMethod,order}))
     setShowBillReceipt(false)
   }
 
@@ -42,15 +43,15 @@ const BillReceipt = ({setShowBillReceipt,order}) => {
                   <div className='h-[95%]'>
                     <div className=' h-[10%] flex mb-[5%] justify-between'>
                       <div className='flex items-center gap-2'>
-                        <p className='h-12 w-12 text-white bg-black rounded flex items-center justify-center'>T10</p>
+                        <p className='h-12 w-12 text-white bg-black rounded flex items-center justify-center'>T{order.table}</p>
                         <div className='flex flex-col gap-1'>
                           <p className='font-semibold text-sm'>Anurag Sarkar</p>
                           <p className='text-gray-500 text-xs'>Bill no #{order.billId + new Date().toLocaleDateString("en-GB").split("/").join("")}</p>
                         </div>
                       </div>
                       <div className='flex flex-col justify-center gap-1'>
-                        <p className='text-gray-500 text-xs'>Wed. July 12, 2024</p>
-                        <p className='text-gray-500 text-xs'>12:30 PM</p>
+                        <p className='text-gray-500 text-xs'>{new Date().toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}</p>
+                        <p className='text-gray-500 text-xs'>{new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</p>
                       </div>
                     </div>
                     <div className='bg-neutral-100 h-[87%] p-[5%]'>
@@ -100,7 +101,7 @@ const BillReceipt = ({setShowBillReceipt,order}) => {
               <div className='w-[45%] flex flex-col justify-between'>
                 <div className='flex flex-col gap-2'>
                   <p className="text-base">Select Payment Method</p>
-                  <Select value={paymentMethod} onChange={setPaymentMethod} className=" bg-gray-100">
+                  <Select value={paymentMethod} onChange={(e)=>setPaymentMethod(e)} className=" bg-gray-100">
                     <Select.Option value="cash"><i className="ri-money-rupee-circle-line"></i> Cash</Select.Option>
                     <Select.Option value="online"><i className="ri-qr-code-line"></i> Online</Select.Option>
                     <Select.Option value="card"><i className='ri-bank-card-line'></i> Card</Select.Option>

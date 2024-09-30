@@ -16,6 +16,7 @@ const Login = () => {
   const loginHandler = async () => {
     dispatch(loginUser(email, password));
   };
+  
   useEffect(() => {
     if (user?.role === "chef") {
       navigate("/chef/home");

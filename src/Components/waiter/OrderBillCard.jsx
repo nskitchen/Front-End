@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import BillDetails from '../admin/BillDetails'
 import { Divider } from 'antd'
 import {useDispatch,useSelector} from "react-redux"
-import { checkoutOrder, getAllOrdersss } from "../../store/actions/orderActions";
+import { checkoutOrder, getAllOrdersss, getUserOrders } from "../../store/actions/orderActions";
 
 const OrderBillCard = ({ order, handleDetailOpen }) => {
   console.log(order)
@@ -17,13 +17,13 @@ const OrderBillCard = ({ order, handleDetailOpen }) => {
   }, 0)
 
   useEffect(()=>{
-    dispatch(getAllOrdersss())
+    dispatch(getUserOrders())
   },[dispatch])
 
   const checkoutHandler = async(event)=>{
     event.stopPropagation()
     await dispatch(checkoutOrder(order._id))
-    dispatch(getAllOrdersss())
+    dispatch(getUserOrders())
   }
 
   const status = order.orders.every(item=>item.status === "served")

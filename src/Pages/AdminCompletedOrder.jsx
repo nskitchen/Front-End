@@ -37,9 +37,9 @@ const AdminCompletedOrder = () => {
               <span className="h-full w-[1px] bg-white"></span>
               {completedOrders?.length}
             </NavLink>
-            <button className="flex text-lg p-2 px-3 gap-2 text-black bg-white rounded-md font-medium items-center justify-center max-md:translate-x-1/2 max-md:my-2">
+            {/* <button className="flex text-lg p-2 px-3 gap-2 text-black bg-white rounded-md font-medium items-center justify-center max-md:translate-x-1/2 max-md:my-2">
               Order History
-            </button>
+            </button> */}
           </div>
           <div className="flex items-center justify-center gap-4 rounded-md max-md:w-full">
             <button className="p-2 border-2 bg-white px-3 text-gray-400">

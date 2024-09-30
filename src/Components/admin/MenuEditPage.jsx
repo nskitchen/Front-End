@@ -7,9 +7,9 @@ import { addMenuItems } from "../../utils/Axios";
 
 // import { getUpdateMenuById } from "../../store/actions/menuActions";
 
-const MenuEditPage = ({ edit, setedit }) => {
+const MenuEditPage = ({ edit, setedit, setAddItem }) => {
+
     const { menuCategory } = useSelector((state) => state.menu);
-    console.log(menuCategory)
     const dispatch = useDispatch();
     const [formErrors, setFormErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -78,7 +78,6 @@ const MenuEditPage = ({ edit, setedit }) => {
         form.append("isSpecial", menuForm.isSpecial);
         form.append("image", image);
 
-        console.log(Boolean(edit))
         if(edit){
           await addMenuItems.put(`/update/${edit._id}`,form)
         }else{
@@ -97,8 +96,8 @@ const MenuEditPage = ({ edit, setedit }) => {
         <div className="w-full h-screen absolute mont px-10 left-0 top-0 flex justify-center items-center overflow-hidden bg-[#0000008a]">
             <div className="w-2/3 min-h-2/3 rounded mont p-10 relative overflow-hidden bg-white">
                 <div className="flex w-full text-xl items-center justify-between p-2 ">
-                    <h1 className="font-semibold">Edit Item Details</h1>
-                    <i className="ri-close-line cursor-pointer" onClick={() => setedit(false)}></i>
+                    <h1 className="font-semibold">{edit ? "Edit" : "Create"} Item Details</h1>
+                    <i className="ri-close-line cursor-pointer" onClick={() => {setedit(false),setAddItem(false)}}></i>
                 </div>
                 <div className="w-full flex mt-12">
                     <div className="w-[70%] flex flex-col gap-5 h-full justify-center">
@@ -122,8 +121,8 @@ const MenuEditPage = ({ edit, setedit }) => {
                                 }}
                                 value={menuForm.category}
                                 options={menuCategory?.map((index) => ({
-                                    value: index.name,
-                                    label: index.name,
+                                    value: index,
+                                    label: index,
                                 }))}
                             />
                             <small className="text-red-600">{formErrors.category}</small>

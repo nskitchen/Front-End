@@ -51,6 +51,6 @@ export const getCurrentUser = () => async (dispatch) => {
     dispatch(setUser(data.data.user));
   } catch (error) {
     console.error("Error fetching user info:", error);
-    dispatch(setLoginError("Failed to fetch user information"));
+    // dispatch(setLoginError("Failed to fetch user information"));
   }
 };

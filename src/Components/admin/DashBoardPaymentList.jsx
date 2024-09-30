@@ -1,8 +1,9 @@
 import { Divider } from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const DashBoardPaymentList = ({order}) => {
-  console.log(order)
+  const navigate = useNavigate()
   const totalQuantity = order.orders.reduce((total, perOrder) => {
     return total + perOrder.items.reduce((sum, item) => sum + Number(item.count), 0);
   }, 0)
@@ -18,7 +19,7 @@ const DashBoardPaymentList = ({order}) => {
           <br />
           <span className="text-sm font-extralight">Order #{order.billId} | {totalQuantity} Items</span>
         </h1>
-        <button className="p-2 px-3 rounded-md border-[1px] border-black">
+        <button onClick={()=>navigate(`/admin/completedorder`)} className="p-2 px-3 rounded-md border-[1px] border-black">
           Pay Now
         </button>
         {/* <button className="bg-[#dab268a7] p-1 px-2 ">{data?.status}</button> */}

@@ -14,7 +14,7 @@ const ChefCheckbox = ({ id, orderId, itemId }) => {
       console.log("Timer started");
       const newTimer = setTimeout(() => {
         dispatch(completeOrder(orderId, itemId, id))
-      }, 1000);
+      }, 10000);
       setTimer(newTimer);
     } else {
       console.log("Timer cancelled");

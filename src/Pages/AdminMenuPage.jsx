@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 
 const AdminMenuPage = () => {
   const [edit, setedit] = useState("");
+  const [addItem, setAddItem] = useState("");
   const [addCategory, setAddCategory] = useState(false);
   const [outOfStock, setOutOfStock] = useState(false)
 
@@ -33,12 +34,12 @@ const AdminMenuPage = () => {
             <AddCategoryPage edit={addCategory} setedit={setAddCategory} />
           </div>
         }
-        {edit ? (
+        {edit || addItem ? (
           <div className="fixed inset-0 z-50">
-            <MenuEditPage edit={edit} setedit={setedit} />
+            <MenuEditPage edit={edit} setAddItem={setAddItem} setedit={setedit} />
           </div>
         ) : (
-          <AdminMenu outOfStock={outOfStock} setedit={setedit} setcategory={setAddCategory} />
+          <AdminMenu outOfStock={outOfStock} setAddItem={setAddItem} setedit={setedit} setcategory={setAddCategory} />
         )}
       </div>
     </div>

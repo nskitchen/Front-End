@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import NotificationCard from '../../Components/waiter/NotificationCard'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllOrdersss } from '../../store/actions/orderActions'
+import { getUserOrders } from '../../store/actions/orderActions'
 
 const Notification = () => {
     const nav = useNavigate()
@@ -10,7 +10,7 @@ const Notification = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getAllOrdersss())
+        dispatch(getUserOrders())
     }, [])
     return (    
         <div className='w-screen max-w-[600px] m-auto mont h-screen p-5 py-6'>

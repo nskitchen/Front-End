@@ -7,7 +7,7 @@ const ChefCard = ({ order }) => {
   return (
     <>
       {order.orders.map((individualOrder) => {
-        if(individualOrder.status !== "completed"){
+        if(individualOrder.status == "pending"){
         return(
         <div key={individualOrder._id} className="-full flex flex-col gap-2">
           <div className="flex items-center justify-between">

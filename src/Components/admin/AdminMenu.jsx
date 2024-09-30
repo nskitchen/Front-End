@@ -34,7 +34,7 @@ export function IcBaselineDelete(props) {
   );
 }
 
-const AdminMenu = ({outOfStock ,setcategory, setedit }) => {
+const AdminMenu = ({outOfStock ,setAddItem,setcategory, setedit }) => {
   
   const dispatch = useDispatch();
   const { food, menu } = useSelector((state) => state.menu);
@@ -61,7 +61,7 @@ const AdminMenu = ({outOfStock ,setcategory, setedit }) => {
       <div className="flex items-center justify-between px-7 py-5 mt-5">
         <h1 className="font-semibold capitalize">{food}</h1>
         <div className="flex items-start gap-2">
-          <button onClick={()=>setedit(true)} className="font-extralight flex items-center gap-1 text-xs p-2 bg-[#22222224]">
+          <button onClick={()=>setAddItem(true)} className="font-extralight flex items-center gap-1 text-xs p-2 bg-[#22222224]">
             <i className="ri-add-line"></i>
             Add New
           </button>             

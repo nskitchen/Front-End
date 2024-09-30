@@ -8,11 +8,23 @@ const ChefPage = () => {
   const {allOrders} = useSelector((state) => state.orders);
 
   const dispatch = useDispatch();
-
-
+  console.log(allOrders)
   useEffect(() => {
-    dispatch(getAllOrdersss())
-  }, []);
+    let intervalId;
+
+    const fetchOrders = () => {
+      dispatch(getAllOrdersss());
+    };
+
+    fetchOrders(); // Initial fetch
+    intervalId = setInterval(fetchOrders, 30000); // Fetch every 30 seconds
+
+    return () => {
+      clearInterval(intervalId); // Clear interval on unmount
+    };
+  }, [dispatch]);
+
+  
   return (
     <div className="w-full text-black min-h-screen bg-[#EEEEEE] px-12 max-md:px-6">
 
@@ -26,7 +38,7 @@ const ChefPage = () => {
         <h3 className="text-xl mont max-md:text-base">
           Total Orders{" "}
           <span className="text-[#FF8144]" style={{ fontWeight: "900" }}>
-            15
+            {allOrders.filter(order => order.status === "pending").reduce((acc,order)=>acc+order.orders.length,0)}
           </span>
         </h3>
       </nav>
@@ -40,7 +52,6 @@ const ChefPage = () => {
       <div className="flex flex-col py-10 gap-10">
         {
           allOrders && allOrders.map((order) => {
-            console.log(order)
             if(order.status == "pending"){
               return <ChefCard key={order._id} order={order} />
             }
