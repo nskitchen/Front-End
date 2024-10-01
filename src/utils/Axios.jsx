@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Axios instance for User API
-const hostName = "https://plankton-app-t3x8j.ondigitalocean.app/"
+const hostName = "https://plankton-app-t3x8j.ondigitalocean.app"
 export const userAPI = axios.create({
   baseURL: hostName + "/api/v1/users",
   timeout: 5000,
