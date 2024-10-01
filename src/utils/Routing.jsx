@@ -17,6 +17,7 @@ import WaiterSummary from "../Pages/Waiter/WaiterSummary";
 import OrderListDetail from "../Components/waiter/OrderListDetail";
 import WaiterOrder from "../Pages/Waiter/WaiterOrder";
 import Notification from "../Pages/Waiter/Notification";
+import MenuItems from "../Pages/Menu/MenuItems";
 
 function Routing() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
@@ -50,6 +51,7 @@ function Routing() {
           </Route>
         )}
         <Route path="/" index element={<Main />} />
+        <Route path="/menu" element={<MenuItems/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

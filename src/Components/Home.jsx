@@ -7,16 +7,16 @@ const Home = () => {
     <div className="h-screen w-full relative flex items-center justify-center flex-col gap-10">
       <div className="header w-full flex items-center justify-between px-10 py-4 absolute top-0 left-0 z-30 max-md:px-2">
         <img src={Logo} className="h-10 object-contain" alt="" />
-        <div className="flex gap-0 max-md:gap-3">
-          <div className="flex items-center justify-center gap-1 max-md:text-xs">
+        <div className="flex gap-5">
+          <div className="flex items-center justify-center gap-3 max-md:text-xs">
             <i className="ri-phone-fill text-1.7s max-md:text-xs"></i>
             <div className="flex flex-col text-base max-md:text-xs">
               <h3>Call us at</h3>
-              <h3>+91 82828 28282</h3>
+              <h3 className="font-bold">+91 82828 28282</h3>
             </div>
           </div>
-          <div className="flex items-center justify-center gap-1 ">
-            <i class="ri-map-pin-2-fill text-1.7s max-md:text-xs"></i>
+          <div className="flex items-center justify-center gap-3 ">
+            <i className="ri-map-pin-2-fill text-1.7s max-md:text-xs"></i>
             <h3 className="w-[60%] text-base max-md:text-xs max-md:w-20">
               NSK restaurant Bhopal.
             </h3>
