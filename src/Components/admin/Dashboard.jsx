@@ -182,7 +182,7 @@ const Dashboard = () => {
         <button onClick={()=>nav("/waiter/addtable")} className="text-white uppercase bg-[#9747FF] w-[90%] max-md:w-full boldf flex items-center justify-center gap-2 px-5 py-2 rounded-md">
           Create New Orders
         </button>
-        <button onClick={()=>nav("/waiter/addtable")} className="text-white uppercase bg-[#9747FF] w-[90%] max-md:w-full boldf flex items-center justify-center gap-2 px-5 py-2 rounded-md">
+        <button onClick={()=>nav("/chef")} className="text-white uppercase bg-[#9747FF] w-[90%] max-md:w-full boldf flex items-center justify-center gap-2 px-5 py-2 rounded-md">
           Go to Chef
         </button>
         <div className="h-[35%] w-[90%] max-md:w-full bg-white rounded-xl p-4 overflow-hidden">
