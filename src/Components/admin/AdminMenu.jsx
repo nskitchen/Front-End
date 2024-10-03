@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategory, getMenu, getUpdateOutOfStock } from "../../store/actions/menuActions";
 import { setFood } from "../../store/slices/menuSlice";
 import { getDeleteMenuById } from "../../store/actions/menuActions";
+import { Popconfirm } from "antd";
 
 export function IcBaselineDelete(props) {
   const { i } = props;
@@ -19,11 +20,7 @@ export function IcBaselineDelete(props) {
       className="cursor-pointer"
       viewBox="0 0 24 24"
       {...props}
-      onClick={() => {
-        dispatch(getDeleteMenuById(i._id, i.category));
-        dispatch(getMenu());
-        dispatch(setFood(food));
-      }}
+
     >
 
       <path
@@ -39,6 +36,11 @@ const AdminMenu = ({outOfStock ,setAddItem,setcategory, setedit }) => {
   const dispatch = useDispatch();
   const { food, menu } = useSelector((state) => state.menu);
   
+  const handleDelete = (i) => {
+    dispatch(getDeleteMenuById(i._id, i.category));
+    dispatch(getMenu());
+    dispatch(setFood(food));
+  };
 
   const handleOutOfStock = (id,status) => {
     dispatch(getUpdateOutOfStock(id, { isAvailable:  !status}));
@@ -97,9 +99,17 @@ const AdminMenu = ({outOfStock ,setAddItem,setcategory, setedit }) => {
                   className="bg-neutral-200 w-[52px] h-[42px] flex justify-center rounded items-center text-2xl ri-pencil-fill cursor-pointer"
                   onClick={() => setedit(i)}
                 ></i>
-                <div className="bg-neutral-200 w-[52px] h-[42px] flex justify-center rounded items-center text-2xl">
-                <IcBaselineDelete  i={i} />
-                </div>
+                <Popconfirm
+                  title="Delete Item"
+                  description="Are you sure to delete this item?"
+                  onConfirm={() => handleDelete(i)}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <div  className="bg-neutral-200 w-[52px] h-[42px] flex justify-center rounded items-center text-2xl">
+                    <IcBaselineDelete  i={i} />
+                  </div>
+                </Popconfirm>
               </div>
             </div>
           ))}

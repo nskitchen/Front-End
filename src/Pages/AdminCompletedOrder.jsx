@@ -37,14 +37,15 @@ const AdminCompletedOrder = () => {
               <span className="h-full w-[1px] bg-white"></span>
               {completedOrders?.length}
             </NavLink>
+            <NavLink to={"/admin/allorders"} className="flex text-lg p-2 px-3 gap-2 text-black bg-white rounded-md font-medium items-center justify-center">
+              Order History  
+            </NavLink>
             {/* <button className="flex text-lg p-2 px-3 gap-2 text-black bg-white rounded-md font-medium items-center justify-center max-md:translate-x-1/2 max-md:my-2">
               Order History
             </button> */}
           </div>
           <div className="flex items-center justify-center gap-4 rounded-md max-md:w-full">
-            <button className="p-2 border-2 bg-white px-3 text-gray-400">
-              <i className="ri-filter-3-line"></i>
-            </button>
+           
             <div className="flex items-center justify-center border-2 gap-2 bg-white p-2 rounded-md px-4 w-fit">
               <input
                 type="text"
@@ -57,7 +58,7 @@ const AdminCompletedOrder = () => {
         </div>
         <div className="flex w-full py-8 px-4 text-xl items-center justify-between boldf text-black max-md:py-2">
           <h1>Completed Orders</h1>
-          <h1>8</h1>
+          <h1>{completedOrders.length}</h1>
         </div>
         <div className="grid grid-cols-3 gap-4 relative overflow-y-auto pr-4 max-md:grid-cols-1 max-md:p-0">
           {showBill && <BillReceipt order={showBill} setShowBillReceipt={setShowBill}/>}

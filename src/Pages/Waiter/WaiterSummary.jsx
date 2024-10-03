@@ -17,7 +17,7 @@ const WaiterSummary = () => {
   const handleSubmit = async () => {
     const success = await dispatch(CreateNewOrders())
     if (success) {
-      navigate("/waiter/addtable"); // Replace with your desired route
+      navigate("/waiter/orderlist"); // Replace with your desired route
       dispatch(setCartItems([]))
       dispatch(setTableNumber(""))
     } else {

@@ -7,8 +7,6 @@ import PropTypes from "prop-types";
 import { addMenuItems } from "../../utils/Axios";
 import { getCategory, updateCategory } from "../../store/actions/menuActions";
 
-// import { getUpdateMenuById } from "../../store/actions/menuActions";
-
 const AddCategoryPage = ({ edit, setedit }) => {
    
     const dispatch = useDispatch()

@@ -1,17 +1,21 @@
 import { Divider } from "antd";
 import React, { useEffect, useState } from "react";
 import { userAPI } from "../../utils/Axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { deleteUser } from "../../store/actions/userActions";
+import { useDispatch } from "react-redux";
 
 const ChefList = () => {
+  const location = useLocation();
+  const dispatch = useDispatch()
   const [chefs, setchefs] = useState([]);
   const navigate = useNavigate();
 
   const [selected, setselected] = useState(0);
+
   const callallChef = async () => {
     try {
       const { data } = await userAPI.get("/all");
-
       const chefsonly = data.data.users.filter(
         (i) => i.role === "chef" || i.role === "Chef"
       );
@@ -20,34 +24,27 @@ const ChefList = () => {
       console.log(error);
     }
   };
-  const handleDelete = async (id) => {
-    try {
-      if (id) {
-        const { data } = await userAPI.get(`/update-role/${id}`);
 
-        if (data) {
-          callallChef();
-          navigate("/admin/staff");
-        }
-      }
-    } catch (error) {
-      console.log(error);
+  const handleDelete = async (id) => {
+    const res = await dispatch(deleteUser(id))
+    if(res){
+      navigate("/admin/staff")
     }
   };
 
   useEffect(() => {
     callallChef();
-  }, [selected]);
+    console.log("userFetched")
+  }, [location]);
 
   return (
     <div className="flex flex-col gap-2 mt-4 w-full ">
       {chefs?.map((i, index) => (
-        <div>
+        <div key={i._id}>
         <div
-          key={i._id}
           onClick={() => setselected(index)}
           className={`w-full  flex px-4 py-2 transition-all duration-150 ease-linear cursor-pointer mont ${
-            selected === index ? "border-2  border-[#9747FF]" : ""
+            selected === index ? "border-2  border-[#9747FF]" : "border-2 border-[#9747ff00]"
           }  rounded-md items-center justify-between relative`}
         >
           <div className="flex items-center justify-center gap-4">
@@ -69,7 +66,15 @@ const ChefList = () => {
             </h1>
           </div>
           <div className="flex items-center justify-center gap-14">
-            <button onClick={() => handleDelete(i._id)}>Delete</button>
+            <Popconfirm
+              title="Delete User"
+              description="Are you sure to delete this user?"
+              onConfirm={() => handleDelete(i._id)}
+              okText="Yes"
+              cancelText="No"
+            >
+              <button>Delete</button>
+            </Popconfirm>
             <Link className="text-[#6E39CB]" to={`/admin/edit-chef/${i._id}`}>
               Edit
             </Link>
@@ -80,6 +85,9 @@ const ChefList = () => {
         <Divider className="absolute bottom-0"/>
       </div>
       ))}
+      {chefs.length === 0 && <div className="flex items-center justify-center w-full h-full">
+        <h1 className="text-lg text-neutral-400 mt-5 font-bold">No Chefs Found</h1>
+      </div>}
     </div>
   );
 };

@@ -5,8 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { addMenuItems } from "../../utils/Axios";
 
-// import { getUpdateMenuById } from "../../store/actions/menuActions";
-
 const MenuEditPage = ({ edit, setedit, setAddItem }) => {
 
     const { menuCategory } = useSelector((state) => state.menu);

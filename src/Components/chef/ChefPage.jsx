@@ -38,7 +38,7 @@ const ChefPage = () => {
         <h3 className="text-xl mont max-md:text-base">
           Total Orders{" "}
           <span className="text-[#FF8144]" style={{ fontWeight: "900" }}>
-            {allOrders.filter(order => order.status === "pending").reduce((acc,order)=>acc+order.orders.length,0)}
+            {allOrders.reduce((acc, order) => { const pendingItemsCount = order.orders.reduce((count, item) => {   return count + item.items.filter(i => i.status === "pending").length; }, 0); return acc + pendingItemsCount; }, 0)}
           </span>
         </h3>
       </nav>

@@ -1,23 +1,35 @@
-import { Divider, Image, Input, Select } from "antd";
+import { Button, Divider, Image, Input, Popconfirm, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { userAPI } from "../../utils/Axios";
+import { deleteUser } from "../../store/actions/userActions";
+import { useDispatch } from "react-redux";
+import { Oval } from "react-loader-spinner";
 
 const StaffDetail = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const { id } = useParams();
   const [chef, setchef] = useState({});
   const [role, setrole] = useState("");
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
-  const [address, setaddress] = useState("");
   const [street, setstreet] = useState("");
   const [zip, setzip] = useState("");
   const [aadharno, setaadharno] = useState("");
+  const [loading, setloading] = useState(false)
 
+  const confirm = async (e) => {
+    const res = await dispatch(deleteUser(id))
+    if(res){
+      navigate("/admin/staff")
+    }
+  };
+ 
   const callChefById = async () => {
     try {
       const { data } = await userAPI.get(`/id/${id}`);
+      console.log(data)
       setchef(data.data.user);
       setfirstName(data.data.user.name?.firstName);
       setlastName(data.data.user.name?.lastName);
@@ -31,6 +43,7 @@ const StaffDetail = () => {
   };
 
   const submitChanges = async () => {
+    setloading(true)
     try {
       const userDetails = {
         name: {
@@ -38,7 +51,7 @@ const StaffDetail = () => {
           lastName,
         },
         address: {
-          street: address,
+          street: street,
           zip,
         },
         role,
@@ -57,26 +70,13 @@ const StaffDetail = () => {
           setchef({});
         }
       }
-
+      setloading(false)
       navigate("/admin/staff");
-    } catch (error) {}
+    } catch (error) {
+      setloading(false)
+    }
   };
 
-  const handleDelete = async () => {
-    try {
-      const { data } = await userAPI.get(`/update-role/${id}`);
-      if (data) {
-        navigate("/admin/staff");
-        setfirstName("");
-        setlastName("");
-        setstreet("");
-        setzip("");
-        setaadharno("");
-        setrole("");
-        setchef({});
-      }
-    } catch (error) {}
-  };
   useEffect(() => {
     if (id) {
       callChefById();
@@ -90,7 +90,7 @@ const StaffDetail = () => {
   return (
     <div className="h-full mont w-1/2 bg-white rounded-md flex items-center flex-col p-4 gap-3 max-md:w-full">
       <div className="flex relative items-center justify-start w-full gap-5">
-        <div className="circle relative h-[4rem] w-[4rem] rounded-full ">
+        <div className="circle overflow-hidden relative h-[4rem] w-[4rem] rounded-full ">
           <Image
             className="h-full w-full object-cover rounded-full"
             src={
@@ -99,7 +99,6 @@ const StaffDetail = () => {
                 : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhCuoop0MD3fNefnFp8SWPdfnsXdOzFBeAQg&s"
             }
           />
-          <i className="ri-circle-fill absolute bottom-0 right-1.5 text-green-500"></i>
         </div>
         <h1 className="text-2xl boldf">
           {chef.name?.firstName ? chef.name?.firstName : "User"}
@@ -168,12 +167,6 @@ const StaffDetail = () => {
           type="text"
           onChange={(e) => setaadharno(e.target.value)}
         />
-        <div className="flex items-start justify-between">
-          <img src="/aadhar.png" alt="aadhar image" />
-          <button className="text-gray-400 font-medium text-base">
-            Delete
-          </button>
-        </div>
       </div>
       <div className="flex flex-col w-full">
         <span className="text-gray-400 font-medium text-sm px-3">Job Role</span>
@@ -188,14 +181,22 @@ const StaffDetail = () => {
         />
       </div>
       <div className="flex w-full items-end justify-between">
-        <button onClick={() => handleDelete(id)} className="text-red-500">
-          Delete Member
-        </button>
+        <Popconfirm
+          title="Delete the task"
+          description="Are you sure to delete this user?"
+          onConfirm={confirm}
+          okText="Yes"
+          cancelText="No"
+          className="text-red-500 p-1 px-3 rounded border border-red-500"
+        >
+          <Button danger>Delete</Button>
+        </Popconfirm>
+
         <button
           onClick={() => submitChanges()}
-          className="bg-black text-white p-2 px-7"
+          className="bg-black flex items-center justify-center rounded text-white p-2 px-7"
         >
-          Save Changes
+         {loading ? <Oval strokeWidth={4} strokeWidthSecondary={4} visible={true} secondaryColor="#dadada" height="20" width="20" color="#ffffff" ariaLabel="oval-loading" /> : "Save Changes"}
         </button>
       </div>
     </div>

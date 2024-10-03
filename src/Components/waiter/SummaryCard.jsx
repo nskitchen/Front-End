@@ -49,8 +49,8 @@ const SummaryCard = ({item,handleRemark}) => {
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center justify-between">
           <QuantityButton menuItem={item} />
-          <button className="flex border-2 items-center justify-center gap-2 p-3 rounded-lg ml-4">
-            <HugeiconsCommentAdd01 onClick={()=>handleRemark(item)} />
+          <button onClick={()=>handleRemark(item)} className="flex border-2 items-center justify-center gap-2 p-3 rounded-lg ml-4">
+            <HugeiconsCommentAdd01  />
           </button>
         </div>
         <div className="flex items-center text-lg justify-between gap-2">

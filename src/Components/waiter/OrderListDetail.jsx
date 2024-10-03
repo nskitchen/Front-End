@@ -29,6 +29,9 @@ const OrderListDetail = ({ details, setdetail }) => {
     setdetail("")
   }
 
+  const status = details.orders.every(item=>item.status === "served")
+  console.log(status)
+
   return (
     <div className="w-full h-full mont">
       <div className="w-full flex items-center justify-between py-4">
@@ -79,7 +82,7 @@ const OrderListDetail = ({ details, setdetail }) => {
               <i className="ri-add-large-line"></i>
               <h1 onClick={addMoreHandler}>Add more item</h1>
             </button>
-            <button onClick={checkoutHandler} className="border-2 text-gray-300 p-2 rounded-md">
+            <button onClick={checkoutHandler}  className={`${status ? "text-white bg-black" : " pointer-events-none text-gray-300 border-gray-300"} border-2  p-2 rounded-md`}>
               Checkout
             </button>
           </div>

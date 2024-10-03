@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import WaiterMenuCard from "./WaiterMenuCard";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { setCurrentOrder } from "../../store/slices/orderSlice";
+import { getMenu, getMenuByName } from "../../store/actions/menuActions";
 export function EmojioneV1ForkAndKnife(props) {
   return (
     <svg
@@ -48,18 +49,15 @@ export function MaterialSymbolsLightClose(props) {
   );
 }
 const WaiterMenu = ({ showModal, isModalOpen }) => {
-  const dispatch = useDispatch();
-
   const {tableNumber} = useSelector((state) => state.tables);
-  const { allOrders } = useSelector((state) => state.orders);
-  const { id } = useParams();
-  
-  useEffect(() => {
-    // dispatch(setCurrentOrder(hello));
-    const hello = allOrders?.find((order) => order.table === parseInt(id));
-    dispatch(setCurrentOrder(hello));
-  }, []);
+  const dispatch = useDispatch()
+  const [search, setSearch] = useState("")
 
+  const handleSearch = (e) => {
+    setSearch(e)
+    dispatch(getMenuByName(e))
+  }
+  
   return (
     <div className="w-full mont relative overflow-hidden">
       <div className="mt-4 flex items-center justify-between">
@@ -67,15 +65,17 @@ const WaiterMenu = ({ showModal, isModalOpen }) => {
         <h4 className="font-semibold text-[#9747FF]">Table {tableNumber}</h4>
       </div>
       <div className="flex py-6 gap-3 items-center w-full">
-        <div className="flex items-center p-3 rounded-md gap-2 border-[1px] border-black w-fit ">
+        <div className="flex items-center p-3 rounded-md gap-2 border-[1px] border-black w-full ">
           <i className="ri-search-line text-[#FF8144]"></i>
           <input
+            value={search}
+            onChange={(e) => handleSearch(e.target.value)}
             type="text"
-            className="w-56 outline-none font-semibold"
+            className="w-full outline-none font-semibold"
             placeholder="Search item"
           />
         </div>
-        <button
+        {/* <button
           className="bg-black flex items-center justify-center p-3 text-white rounded-md relative z-[9999999999]"
           onClick={showModal}
         >
@@ -90,7 +90,7 @@ const WaiterMenu = ({ showModal, isModalOpen }) => {
               Close
             </>
           )}
-        </button>
+        </button> */}
       </div>
       <h3 className="text-base">Select Items from menu</h3>
     </div>
