@@ -28,7 +28,7 @@ const AdminMenuBar = ({outOfStock,setcategory}) => {
       </div>
       <div className="menu-item text-xs flex pl-2 ml-2 items-center justify-center cursor-pointer bg-[#ffffff] rounded-md">
         <i className="ri-add-large-line"></i>
-        <h3 className="text-black text-base px-2 py-1" onClick={()=>setcategory(true)}>Add fd</h3>
+        <h3 className="text-black text-base px-2 py-1" onClick={()=>setcategory(true)}>Add Category</h3>
       </div>
       </div>
     </>

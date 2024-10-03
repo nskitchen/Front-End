@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../store/actions/userActions";
 
 const ChefPage = () => {
-
+  const {user} = useSelector((state) => state.auth);
   const {allOrders} = useSelector((state) => state.orders);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -37,12 +37,18 @@ const ChefPage = () => {
     <div className="w-full text-black min-h-screen bg-[#EEEEEE] px-12 max-md:px-6">
 
       <nav className="flex items-center justify-between  py-4">
+        <div className="flex items-center gap-2">
+         {user.role == "admin" && 
+        <button onClick={()=>navigate("/admin/dashboard")} className="border border-black h-10 w-10 rounded-full">
+          <i className="ri-arrow-left-s-line"></i>
+        </button>}
         <h1
           className="mont text-2.3s max-md:text-xl"
           style={{ fontWeight: "900" }}
-        >
+          >
           Pending Order
         </h1>
+        </div>
         <h3 className="text-xl flex items-center gap-5 mont max-md:text-base">
           <div>
             Total Orders{" "}

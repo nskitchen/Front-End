@@ -26,7 +26,7 @@ const Login = () => {
   
   useEffect(() => {
     if (user?.role === "chef") {
-      navigate("/chef/home");
+      navigate("/chef");
     } else if (user?.role === "admin") {
       navigate("/admin/dashboard");
     } else if (user?.role === "waiter") {

@@ -179,11 +179,13 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="h-full w-[30%] flex flex-col gap-3 items-center max-md:w-full">
-        <button onClick={()=>nav("/waiter/addtable")} className="text-white uppercase bg-[#9747FF] w-[90%] max-md:w-full boldf flex items-center justify-center gap-2 p-5 rounded-md">
-          <i className="ri-add-line"></i>
+        <button onClick={()=>nav("/waiter/addtable")} className="text-white uppercase bg-[#9747FF] w-[90%] max-md:w-full boldf flex items-center justify-center gap-2 px-5 py-2 rounded-md">
           Create New Orders
         </button>
-        <div className="h-[37%] w-[90%] max-md:w-full bg-white rounded-xl p-4 overflow-hidden">
+        <button onClick={()=>nav("/waiter/addtable")} className="text-white uppercase bg-[#9747FF] w-[90%] max-md:w-full boldf flex items-center justify-center gap-2 px-5 py-2 rounded-md">
+          Go to Chef
+        </button>
+        <div className="h-[35%] w-[90%] max-md:w-full bg-white rounded-xl p-4 overflow-hidden">
           <div className="w-full flex items-end justify-between">
             <h1 className="text-xl font-bold ">Popular Dishes</h1>
           </div>
@@ -194,11 +196,11 @@ const Dashboard = () => {
                 return <DashboardDishes key={idx} number={idx+1} dish={dish}/>
               }
             })}
-            
+
           </div>
           {/* <DashboardDishes /> */}
         </div>
-        <div className="h-[40vh] w-[90%] max-md:w-full bg-white rounded-xl p-4 relative max-md:overflow-y-auto">
+        <div className="h-[38vh] w-[90%] max-md:w-full bg-white rounded-xl p-4 relative max-md:overflow-y-auto">
           <div className="w-full flex items-end justify-between">
             <h1 className="text-xl font-bold ">Out of Stock</h1>
             <h3 onClick={viewAllOutOfStock} className="text-[#9747FF] text-sm">View all</h3>

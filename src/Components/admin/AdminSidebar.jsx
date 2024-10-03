@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { logoutUser } from "../../store/actions/userActions";
 import { useDispatch } from "react-redux";
 
@@ -90,6 +90,7 @@ export function MaterialSymbolsLightTableBar(props, { height, width }) {
 const AdminSidebar = ({ data }) => {
   const [open, setopen] = useState(false);
   const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     const success = await dispatch(logoutUser());

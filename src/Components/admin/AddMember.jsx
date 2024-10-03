@@ -94,6 +94,9 @@ const AddMember = ({ add, setadd }) => {
       if (error.response.data.message == "Email already Exists") {
         setFormErrors({ email: "Email already exists" });
       }
+      if (error.response.data.message == "Email already Exists") {
+        setFormErrors({ email: "Email already exists" });
+      }
       console.error("Error uploading image:", error);
     }
   };

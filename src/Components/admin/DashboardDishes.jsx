@@ -7,7 +7,7 @@ const DashboardDishes = ({number,dish}) => {
 
     <div className="w-full flex items-center gap-3 justify-start mont">
       <h1 className="boldf text-xs text-[#9747FF]">{number}</h1>
-      <div className="h-12 w-12 rounded-md relative overflow-hidden bg-red-500">
+      <div className="h-12 w-12 rounded-md relative overflow-hidden">
         <img src={dish.menuDetails?.image} className="object-cover h-full w-full" alt="" />
       </div>
       <h1 className="font-bold leading-tight">
