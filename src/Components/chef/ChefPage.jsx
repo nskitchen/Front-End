@@ -2,13 +2,21 @@ import React, { useEffect } from "react";
 import ChefCard from "./ChefCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrdersss } from "../../store/actions/orderActions";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../../store/actions/userActions";
 
 const ChefPage = () => {
 
   const {allOrders} = useSelector((state) => state.orders);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(allOrders)
+  const handleLogout = async () => {
+    const success = await dispatch(logoutUser());
+    if (success) {
+      navigate('/login'); // Navigate to login page after logout
+    }
+  };
+
   useEffect(() => {
     let intervalId;
 
@@ -35,11 +43,14 @@ const ChefPage = () => {
         >
           Pending Order
         </h1>
-        <h3 className="text-xl mont max-md:text-base">
-          Total Orders{" "}
+        <h3 className="text-xl flex items-center gap-5 mont max-md:text-base">
+          <div>
+            Total Orders{" "}
           <span className="text-[#FF8144]" style={{ fontWeight: "900" }}>
             {allOrders.reduce((acc, order) => { const pendingItemsCount = order.orders.reduce((count, item) => {   return count + item.items.filter(i => i.status === "pending").length; }, 0); return acc + pendingItemsCount; }, 0)}
           </span>
+          </div>
+          <button onClick={handleLogout} className="w-12 h-12 rounded-md text-white bg-black flex items-center justify-center"><i className="ri-logout-box-r-line text-xl"></i></button>
         </h3>
       </nav>
       <div className="grid grid-cols-5 text-center place-items-center place-content-center items-center justify-between w-full text-gray-500 max-md:hidden">

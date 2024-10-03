@@ -77,7 +77,7 @@ const AdminMenu = ({outOfStock ,setAddItem,setcategory, setedit }) => {
               className="flex items-center justify-between px-4 bg-white rounded-md p-2"
             >
               <div className="flex w-1/3 items-center gap-4 justify-left">
-                <div className="w-24 h-20 rounded-md bg-red-500 relative overflow-hidden">
+                <div className="w-24 h-20 rounded-md relative overflow-hidden">
                   <img
                     src={`${i?.image}`}
                     className="h-full w-full object-cover"

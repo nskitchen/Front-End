@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { logoutUser } from "../../store/actions/userActions";
+import { useDispatch } from "react-redux";
 
 export function LetsIconsOrderFill(props, { height, width }) {
   return (
@@ -87,6 +89,15 @@ export function MaterialSymbolsLightTableBar(props, { height, width }) {
 }
 const AdminSidebar = ({ data }) => {
   const [open, setopen] = useState(false);
+  const dispatch = useDispatch()
+
+  const handleLogout = async () => {
+    const success = await dispatch(logoutUser());
+    if (success) {
+      navigate('/login'); // Navigate to login page after logout
+    }
+  };
+
   return (
     <>
       <i
@@ -173,6 +184,7 @@ const AdminSidebar = ({ data }) => {
           <MaterialSymbolsLightTableBar height="1.3rem" width="1.3rem" />
           <h1 className="mont text-base font-medium">Table Management</h1>
         </NavLink>
+        <button onClick={handleLogout} className=" absolute bottom-10 -translate-x-1/2 bg-[#FF8144] left-1/2 px-6 py-1 w-4/5 text-white rounded-md">Logout</button>
       </div>
     </>
   );

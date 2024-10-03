@@ -12,7 +12,7 @@ const WaiterOrder = () => {
   const dispatch = useDispatch()
   const [detail, setdetail] = useState("");
   const {allOrders} = useSelector(state => state.orders)
-
+  const totalOrders = allOrders.filter(order => order.status !== "completed" && order.status !== "paid").length
   const handleDetailOpen = (dets)=>{
     setdetail(dets);
   }
@@ -30,10 +30,16 @@ const WaiterOrder = () => {
           <>
             <WaiterHeader data="Order List" />
             {/* <WaiterOrderHeader data={"Order List"} /> */}
+            {totalOrders > 0 ? (
             <div className="w-full flex items-center justify-between font-semibold px-4">
               <h3>Current Order List</h3>
-              <h3>{allOrders.filter(order => order.status !== "completed" && order.status !== "paid").length}</h3>
+              <h3>{totalOrders}</h3>
             </div>
+            ) : (
+              <div className="absolute text-xl text-neutral-300 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center font-semibold px-4">
+                <h3>No Ongoing Orders</h3>
+              </div>
+            )}
             <div className="flex h-full flex-col gap-3 py-2 overflow-y-auto pb-48">
               {allOrders.map((data,idx)=>{
                 if(data.status !== "completed" && data.status !== "paid"){

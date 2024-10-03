@@ -48,13 +48,13 @@ const CompletedDetail = ({details,count}) => {
       </div>
       {details.items.map((orderDetails,idx)=>( 
         <div key={idx} className="flex w-full mt-1 items-start justify-between">
-          <h1 className="w-[40%] text-sm">{orderDetails.id.name}</h1>
+          <h1 className="w-[40%] text-sm">{orderDetails.id?.name}</h1>
           <div className="flex w-[30%] px-1 items-center justify-between gap-3 ">
             <h3 className="w-[15%] text-center">{orderDetails.count}</h3>
             <h3 className="w-[15%] text-center">
             {orderDetails.parcel ? <SolarBagBold /> : <SimpleIconsJusteat/>}
             </h3>
-            <h3 className="w-[70%] text-center">₹ {orderDetails.id.price * orderDetails.count}</h3>
+            <h3 className="w-[70%] text-center">₹ {orderDetails.id?.price * orderDetails.count}</h3>
           </div>
         </div>
       ))}

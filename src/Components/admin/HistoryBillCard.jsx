@@ -3,8 +3,9 @@ import { Divider } from "antd";
 import CompletedDetail from "./CompletedDetail";
 
 const HistoryBillCard = ({ data, user, payment, setShowBill }) => {
+
   const totalPrice = data.orders.reduce((total, perOrder) => {
-    return total + perOrder.items.reduce((sum, item) => sum + Number(item.count) * Number(item.id.price), 0);
+    return total + perOrder.items.reduce((sum, item) => sum + (Number(item.count) * Number(item.id?.price)), 0);
   }, 0).toLocaleString('en-IN')
 
   const totalQuantity = data.orders.reduce((total, perOrder) => {

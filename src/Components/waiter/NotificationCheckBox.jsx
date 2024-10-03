@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {  getUserOrders, serveOrder } from '../../store/actions/orderActions';
 
 const NotificationCheckBox = ({orderId,itemId,id}) => {
@@ -7,7 +7,8 @@ const NotificationCheckBox = ({orderId,itemId,id}) => {
     const [check, setcheck] = useState(false);
     const [timer, setTimer] = useState(null);
     const dispatch = useDispatch();
-
+    const {allOrders} = useSelector((state) => state.orders)
+    console.log(allOrders)
     const handleCheck = () => {
         setcheck(!check);
         if (!check) {
@@ -15,7 +16,6 @@ const NotificationCheckBox = ({orderId,itemId,id}) => {
             const newTimer = setTimeout(() => {
                 dispatch(serveOrder(orderId, itemId, id))
             }, 1000);
-            dispatch(getUserOrders())
             setTimer(newTimer);
         } else {
             console.log("Timer cancelled");

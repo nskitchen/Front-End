@@ -29,6 +29,7 @@ export const getAllOrdersss = (type) => async (dispatch) => {
 
 export const getUserOrders = (type) => async (dispatch) => {
     try {
+
         const params = {type: type}
         const {data} = await orderAPI.get("/userorder",{params});
         dispatch(setAllOrders(data.data.orders));
@@ -59,7 +60,9 @@ export const completeOrder = (orderId,itemId,id) => async (dispatch) => {
 export const serveOrder = (orderId,itemId,id) => async (dispatch) => {
     try {
         const {data} = await orderAPI.put(`/served-order/${id}`,{orderId,itemId});
-        dispatch(getAllOrdersss());
+        // dispatch(getAllOrdersss());
+        dispatch(getUserOrders())
+
         
     } catch (error) {
         console.log(error);

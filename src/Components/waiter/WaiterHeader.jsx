@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../store/actions/userActions";
 
 export function TdesignNotificationFilled({color}) {
   return (
@@ -20,10 +22,17 @@ export function TdesignNotificationFilled({color}) {
 }
 const WaiterHeader = ({data}) => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const {user} = useSelector((state)=>state.auth)
   const {allOrders} = useSelector(state => state.orders)
   const isCompletedExist = allOrders.some((order) => order.orders.some((item) => item.items.some((i) => i.status === "completed") ) );
-  console.log(isCompletedExist)
+  
+  const handleLogout = async () => {
+    const success = await dispatch(logoutUser());
+    if (success) {
+      navigate('/login'); // Navigate to login page after logout
+    }
+  };
 
   return (
     <div className="w-full mont flex items-center justify-between py-4">
@@ -42,6 +51,9 @@ const WaiterHeader = ({data}) => {
             {isCompletedExist && <div className="h-3 w-3 bg-red-500 absolute rounded-full right-3"></div>}
             <TdesignNotificationFilled color={isCompletedExist ? "white" : "black"} />
         </NavLink>
+        <button onClick={handleLogout} className="w-12 h-12 rounded-md text-white bg-black flex items-center justify-center">
+          <i className="ri-logout-box-r-line text-xl"></i>
+        </button>
       </div>
     </div>
   );

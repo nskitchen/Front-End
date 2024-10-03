@@ -23,7 +23,7 @@ const MenuPage = () => {
         <button className="bg-black border-[1px] border-orange-400 text-white flex items-center justify-center gap-2 px-6 py-2 rounded-lg uppercase font-bold">
           <img src="/fire.png" alt="" />
           Offers
-          <div className="h-3 w-3 bg-red-500 rounded-full absolute -top-1 right-2"></div>
+          <div className="h-3 w-3 rounded-full absolute -top-1 right-2"></div>
         </button>
       </div>
       <div className="w-full h-fit py-2 relative overflow-y-auto pb-20">

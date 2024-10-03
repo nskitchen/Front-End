@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Main from "../Components/Main";
 import ChefHome from "../Pages/ChefHome";
 import AdminStaff from "../Pages/AdminStaff";
@@ -22,6 +22,11 @@ import AdminOrderHistory from "../Pages/AdminOrderHistory";
 
 function Routing() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
+
+  // if(!isAuthenticated){
+  //   return <Navigate to="/login" />
+  // }
+
   return (
     <>
       <Routes>

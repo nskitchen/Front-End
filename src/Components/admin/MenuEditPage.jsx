@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { addMenuItems } from "../../utils/Axios";
+import { Oval } from "react-loader-spinner";
+
 
 const MenuEditPage = ({ edit, setedit, setAddItem }) => {
 
@@ -12,7 +14,8 @@ const MenuEditPage = ({ edit, setedit, setAddItem }) => {
     const [formErrors, setFormErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [image, setImage] = useState(edit?.image);
-  
+    const [loading, setLoading] = useState(false)
+
     const [menuForm, setMenuForm] = useState({
         name: edit.name || "",
         description: edit.description || "",
@@ -66,7 +69,7 @@ const MenuEditPage = ({ edit, setedit, setAddItem }) => {
       try{
         if(isSubmitting) return
         setIsSubmitting(true)
-
+        setLoading(true)
         const form = new FormData()
         form.append("name", menuForm.name);
         form.append("description", menuForm.description);
@@ -81,12 +84,17 @@ const MenuEditPage = ({ edit, setedit, setAddItem }) => {
         }else{
           await addMenuItems.post("/create",form)
         }
-        
+        console.log("upl;oaded")
         setedit(false)
+        setAddItem(false)
         setIsSubmitting(false)
+        setLoading(false)
       }catch(err){
         console.error("Error adding Items:",err)
+        setedit(false)
+        setAddItem(false)
         setIsSubmitting(false)
+        setLoading(false)
       }
     }
 
@@ -130,7 +138,7 @@ const MenuEditPage = ({ edit, setedit, setAddItem }) => {
                             <Input name="price" onChange={(e) => inputHandler(e)} value={menuForm.price} type="number" />
                             <small className="text-red-600">{formErrors.price}</small>
                         </div>
-                        <button className="px-8 p-2 bg-[#FF8144] w-fit text-white text-lg rounded-md" onClick={submitHandler}>{edit ? "Update" : "Create"}</button>
+                        <button className="px-8 p-2 bg-[#FF8144] flex items-center justify-center w-fit text-white text-lg rounded-md" onClick={submitHandler}>{loading ? <Oval strokeWidth={4} strokeWidthSecondary={4} visible={true} secondaryColor="#dadada" height="20" width="20" color="#ffffff" ariaLabel="oval-loading" /> : edit ? "Update" : "Create"}</button>
                     </div>
                     <div className="w-[30%] flex flex-col items-center">
                         {edit?.img ? <Image src={`${edit ? edit.img : ""}`} height={"10vw"} width={"10vw"} className="rounded-md object-cover" /> : <div className="h-[10vw] w-[10vw] flex justify-center items-center border-2 border-slate rounded">Upload</div>}
@@ -146,9 +154,5 @@ const MenuEditPage = ({ edit, setedit, setAddItem }) => {
     );
 };
 
-MenuEditPage.propTypes = {
-    edit: PropTypes.object.isRequired, // Expecting a boolean
-    setedit: PropTypes.func.isRequired, // Expecting a function
-};
 
 export default MenuEditPage;
