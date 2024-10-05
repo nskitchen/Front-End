@@ -2,8 +2,9 @@ import { Input, Select } from "antd";
 import { useEffect, useState } from "react";
 import { createUserAPI } from "../../utils/Axios";
 import { useNavigate } from "react-router-dom";
+import { Oval } from "react-loader-spinner";
+
 const AddMember = ({ add, setadd }) => {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     gender: "",
@@ -84,15 +85,22 @@ const AddMember = ({ add, setadd }) => {
     form.append("profilePic", profilePic);
 
     try {
-      const response = await createUserAPI.post("/create", form);
+      setUploading(true);
+      await createUserAPI.post("/create", form);
       setadd(!add);
+      setUploading(false);
     } catch (error) {
+      setUploading(false);
+      if (error.response.data.message == "Email already Exists") {
+        setFormErrors({ email: "Email already exists" });
+      }
       if (error.response.data.message == "Email already Exists") {
         setFormErrors({ email: "Email already exists" });
       }
       console.error("Error uploading image:", error);
     }
   };
+
   const submitHandler = async () => {
     let errors = validate(formData);
     if (!profilePic) {
@@ -127,10 +135,10 @@ const AddMember = ({ add, setadd }) => {
             </div>
             <div className="w-full flex flex-col gap-0.5">
               <label
-                className="ant-input css-dev-only-do-not-override-11lehqq ant-input-outlined"
+                className={`ant-input text-sm text-neutral-800 font-extrabold border-[0.09rem] px-3 py-[5px] border-neutral-300 rounded-md css-dev-only-do-not-override-11lehqq ant-input-outlined`}
                 htmlFor="profileDP"
               >
-                <p className="opacity-40 font-light">
+                <p className={`${profilePic.name ? "opacity-100" : "opacity-40"} font-light`}>
                   {profilePic.name
                     ? profilePic.name.slice(0, 30) + "..."
                     : "Upload profile pic"}
@@ -243,9 +251,9 @@ const AddMember = ({ add, setadd }) => {
             </div>
             <button
               onClick={submitHandler}
-              className="bg-black text-white boldf w-[90%] py-2 mt-10 text-base"
+              className="bg-black rounded flex items-center justify-center text-white boldf w-[90%] py-2 mt-10 text-base"
             >
-              {uploading ? "Uploading..." : "Create User"}
+              {uploading ? <Oval strokeWidth={4} strokeWidthSecondary={4} visible={true} secondaryColor="#dadada" height="20" width="20" color="#ffffff" ariaLabel="oval-loading" /> : "Create User"}
             </button>
           </div>
         </div>

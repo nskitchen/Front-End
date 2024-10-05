@@ -7,7 +7,8 @@ export const orderSlice = createSlice({
     currentOrder: null,
     setOrderID: null,
     allOrders: [],
-    cart:[]
+    cart:[],
+    bills:[]
   },
   reducers: {
     setOrder: (state, action) => {
@@ -22,6 +23,9 @@ export const orderSlice = createSlice({
     setAllOrders: (state, action) => {
       state.allOrders = action.payload;
     },
+    setAllBills: (state, action) => {
+      state.bills = action.payload;
+    },
     setCartItems: (state, action) => {
       state.cart = action.payload;
     },
@@ -29,6 +33,6 @@ export const orderSlice = createSlice({
   },
 });
 
-export const { setOrder, setCurrentOrder,setCartItems, setOrderID, setAllOrders } = orderSlice.actions;
+export const { setOrder,setAllBills, setCurrentOrder,setCartItems, setOrderID, setAllOrders } = orderSlice.actions;
 
 export default orderSlice.reducer;

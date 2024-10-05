@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Main from "../Components/Main";
 import ChefHome from "../Pages/ChefHome";
 import AdminStaff from "../Pages/AdminStaff";
@@ -18,9 +18,15 @@ import OrderListDetail from "../Components/waiter/OrderListDetail";
 import WaiterOrder from "../Pages/Waiter/WaiterOrder";
 import Notification from "../Pages/Waiter/Notification";
 import MenuItems from "../Pages/Menu/MenuItems";
+import AdminOrderHistory from "../Pages/AdminOrderHistory";
 
 function Routing() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
+
+  // if(!isAuthenticated){
+  //   return <Navigate to="/login" />
+  // }
+
   return (
     <>
       <Routes>
@@ -35,6 +41,7 @@ function Routing() {
             <Route path="edit-chef/:id" element={<AdminStaff />} />
             <Route path="currentorder" element={<AdminOrderPage />} />
             <Route path="completedorder" element={<AdminCompletedOrder />} />
+            <Route path="allorders" element={<AdminOrderHistory />} />
             <Route path="menu" element={<AdminMenuPage />} />
             <Route path='table' element={<AdminTable/>}/>
             <Route path='menu/:id' element={<MenuPage/>}/>
@@ -54,8 +61,7 @@ function Routing() {
         <Route path="/menu" element={<MenuItems/>}/>
         <Route path="/pos" element={<OrderRecipt/>}/>
         <Route path="/login" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        {/* <Route path="/register" element={<Register />} /> */}
       </Routes>
     </>
   );

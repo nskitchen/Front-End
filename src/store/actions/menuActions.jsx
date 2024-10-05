@@ -38,10 +38,10 @@ export const getMenu = (isVeg = null, isSpecial = null, isAvailable = null) => a
   }
 };
 
-export const getUpdateMenuById = (id, data2) => async (dispatch) => {
+export const getMenuByName = (name) => async (dispatch) => {
   try {
-    const { data } = await menuAPI.put(`/${id}`, data2);
-    dispatch(getMenu())
+      const { data } = await menuAPI.get(`/name/${name || "all"}`);
+      dispatch(setMenu(data.data.menu))
   } catch (error) {
     console.error("Error fetching menu by id:", error);
   }

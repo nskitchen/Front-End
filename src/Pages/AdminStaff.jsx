@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminSidebar from "../Components/admin/AdminSidebar";
 import StaffList from "../Components/admin/StaffList";
 import StaffDetail from "../Components/admin/StaffDetail";
@@ -6,6 +6,11 @@ import AddMember from "../Components/admin/AddMember";
 
 const AdminStaff = () => {
   const [add, setadd] = useState(false);
+  
+  useEffect(() => {
+    console.log(window.location.pathname)
+  }, [])
+
   return (
     <div className="h-screen w-full bg-[#EEEEEE] flex relative overflow-y-auto">
       <AdminSidebar data={"staff"} />
@@ -25,8 +30,9 @@ const AdminStaff = () => {
           </div>
         ) : (
           <div className="flex w-full h-full gap-4 p-2 pb-1 mt-2 max-md:flex-col ">
-            <StaffList />
-            <StaffDetail />
+            <StaffList className="w-full"/>
+            {window.location.pathname.includes('/edit-chef') && <StaffDetail />}
+            {/* <StaffDetail /> */}
           </div>
         )}
       </div>

@@ -19,16 +19,10 @@ const WaiterMenuPage = () => {
   const [selectedItem, setSelectedItem] = useState(null); // State to track the current item
   const navigate = useNavigate()
 
-  
+  console.log(menu)
   const dispatch = useDispatch();
   const showModal = () => {
     setIsModalOpen(!isModalOpen);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
   };
   const handleRemark = (item) => {
     setSelectedItem(item)

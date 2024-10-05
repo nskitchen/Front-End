@@ -1,7 +1,9 @@
 import axios from "axios";
+const hostName = "https://nskitchen.in/back-end"
 
 // Axios instance for User API
-const hostName = process.env.NODE_ENV === "development" ? "http://localhost:8001" : process.env.URL;
+// const hostName = "https://plankton-app-t3x8j.ondigitalocean.app"
+// const hostName = "http://localhost:8001"
 export const userAPI = axios.create({
   baseURL: hostName + "/api/v1/users",
   timeout: 5000,

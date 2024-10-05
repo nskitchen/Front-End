@@ -137,14 +137,14 @@ const Dashboard = () => {
           <div className="w-full bg-white p-3 rounded-lg h-full">
             <div className="flex w-full h-[10%] items-center justify-between max-md:overflow-y-auto">
               <h1 className="text-xl boldf">Order List</h1>
-              <div className="flex items-center justify-center border-2 w-40 py-1 p-2 rounded-full text-gray-500">
+              {/* <div className="flex items-center justify-center border-2 w-40 py-1 p-2 rounded-full text-gray-500">
                 <input
                   type="search"
                   placeholder="Search an Order"
                   className="w-full outline-none text-xs"
                 />
                 <i className="ri-search-line"></i>
-              </div>
+              </div> */}
             </div>
             <div className="h-[90%] overflow-scroll">
               <Divider className="bg-gray-200 mt-3 mb-1" />
@@ -159,14 +159,14 @@ const Dashboard = () => {
           <div className="w-full bg-white rounded-lg h-full p-3">
             <div className="flex h-[10%] w-full items-center justify-between max-md:overflow-y-auto">
               <h1 className="text-xl boldf">Payment</h1>
-              <div className="flex items-center justify-center border-2 w-40 py-1 p-2 rounded-full text-gray-500">
+              {/* <div className="flex items-center justify-center border-2 w-40 py-1 p-2 rounded-full text-gray-500">
                 <input
                   type="search"
                   placeholder="Search an Order"
                   className="w-full outline-none text-xs"
                 />
                 <i className="ri-search-line"></i>
-              </div>
+              </div> */}
             </div>
             <div className={`h-[90%] overflow-scroll`}>
               <Divider className="bg-gray-200 mt-3 mb-1" />
@@ -179,23 +179,28 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="h-full w-[30%] flex flex-col gap-3 items-center max-md:w-full">
-        <button onClick={()=>nav("/waiter/addtable")} className="text-white uppercase bg-[#9747FF] w-[90%] max-md:w-full boldf flex items-center justify-center gap-2 p-5 rounded-md">
-          <i className="ri-add-line"></i>
+        <button onClick={()=>nav("/waiter/addtable")} className="text-white uppercase bg-[#9747FF] w-[90%] max-md:w-full boldf flex items-center justify-center gap-2 px-5 py-2 rounded-md">
           Create New Orders
         </button>
-        <div className="h-[37%] w-[90%] max-md:w-full bg-white rounded-xl p-4 overflow-hidden">
+        <button onClick={()=>nav("/chef")} className="text-white uppercase bg-[#9747FF] w-[90%] max-md:w-full boldf flex items-center justify-center gap-2 px-5 py-2 rounded-md">
+          Go to Chef
+        </button>
+        <div className="h-[35%] w-[90%] max-md:w-full bg-white rounded-xl p-4 overflow-hidden">
           <div className="w-full flex items-end justify-between">
             <h1 className="text-xl font-bold ">Popular Dishes</h1>
           </div>
           <div className="h-[90%] overflow-scroll">
             <Divider className="my-2 bg-gray-200" />
-            {popular.map((dish,idx)=>(
-              <DashboardDishes key={idx} number={idx+1} dish={dish}/>
-            ))}
+            {popular.map((dish,idx)=>{
+              if(dish.menuDetails){
+                return <DashboardDishes key={idx} number={idx+1} dish={dish}/>
+              }
+            })}
+
           </div>
           {/* <DashboardDishes /> */}
         </div>
-        <div className="h-[40vh] w-[90%] max-md:w-full bg-white rounded-xl p-4 relative max-md:overflow-y-auto">
+        <div className="h-[38vh] w-[90%] max-md:w-full bg-white rounded-xl p-4 relative max-md:overflow-y-auto">
           <div className="w-full flex items-end justify-between">
             <h1 className="text-xl font-bold ">Out of Stock</h1>
             <h3 onClick={viewAllOutOfStock} className="text-[#9747FF] text-sm">View all</h3>

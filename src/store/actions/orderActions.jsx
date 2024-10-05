@@ -1,5 +1,5 @@
 import { billingAPI, orderAPI } from "../../utils/Axios";
-import { setAllOrders } from "../slices/orderSlice";
+import { setAllBills, setAllOrders } from "../slices/orderSlice";
 
 export const CreateNewOrders = () => async (dispatch,getValue) => {
     try {
@@ -29,6 +29,7 @@ export const getAllOrdersss = (type) => async (dispatch) => {
 
 export const getUserOrders = (type) => async (dispatch) => {
     try {
+
         const params = {type: type}
         const {data} = await orderAPI.get("/userorder",{params});
         dispatch(setAllOrders(data.data.orders));
@@ -59,8 +60,63 @@ export const completeOrder = (orderId,itemId,id) => async (dispatch) => {
 export const serveOrder = (orderId,itemId,id) => async (dispatch) => {
     try {
         const {data} = await orderAPI.put(`/served-order/${id}`,{orderId,itemId});
-        dispatch(getAllOrdersss());
+        // dispatch(getAllOrdersss());
+        dispatch(getUserOrders())
+
         
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getAllBills = (status,search,startDate,endDate) => async (dispatch) => {
+    try {
+        console.log("gettingAllBills")
+        const params = {filter: {
+            ...(status && {paymentStatus: status}),
+            ...(search && {search: search}),
+            ...(startDate && {startDate: startDate}),
+            ...(endDate && {endDate: endDate}),
+        }}
+        console.log(params)
+        const {data} = await billingAPI.get(`/`,{params});
+        console.log(data.length)
+        dispatch(setAllBills(data.data.billings));
+        dispatch(getAllOrdersss())
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getFilterExcel = (startDate,endDate) => async (dispatch) => {
+    try {
+        console.log("getting csvFiles")
+        const params = {filter: {
+            ...(startDate && {startDate: startDate}),
+            ...(endDate && {endDate: endDate}),
+        }}
+        const response = await billingAPI.get(`/csv`,{params,responseType: 'blob' });
+        const blob = new Blob([response.data], { type: 'text/csv' });
+        
+        // Create a link element
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        
+        // Set the link attributes
+        link.href = url;
+        link.setAttribute('download', 'bills_data.csv'); // Set the file name
+        
+        // Append to the document
+        document.body.appendChild(link);
+        
+        // Programmatically click the link to trigger the download
+        link.click();
+        
+        // Cleanup: remove the link after downloading
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url); // Free up memory
+        return true        
     } catch (error) {
         console.log(error);
     }

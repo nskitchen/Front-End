@@ -7,6 +7,7 @@ import { CreateNewOrders } from '../../store/actions/orderActions'
 import { useNavigate } from 'react-router-dom'
 import { setCartItems } from '../../store/slices/orderSlice'
 import { setTableNumber } from '../../store/slices/tableSlice'
+import { notification } from 'antd';
 
 
 const WaiterSummary = () => {
@@ -14,19 +15,28 @@ const WaiterSummary = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const [api, contextHolder] = notification.useNotification();
+  const BookedTable = (type) => {
+    api["error"]({
+      message: 'Table Already Booked',
+      description:
+        'This is a active table, please select another table from the table section below',
+    })
+}
   const handleSubmit = async () => {
     const success = await dispatch(CreateNewOrders())
     if (success) {
-      navigate("/waiter/addtable"); // Replace with your desired route
+      navigate("/waiter/orderlist"); // Replace with your desired route
       dispatch(setCartItems([]))
       dispatch(setTableNumber(""))
     } else {
-      console.error("Order creation failed");
+      BookedTable()
     }
   }
 
   return (
     <>
+      {contextHolder}
       <div className="w-full max-w-[600px] m-auto px-4 h-screen relative">
         <WaiterHeader data="Order Summary" />
         <SummaryWaiter />

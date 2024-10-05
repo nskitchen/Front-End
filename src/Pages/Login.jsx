@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser, loginUser } from "../store/actions/userActions";
 import { useNavigate } from "react-router-dom";
+import {Oval} from "react-loader-spinner"
+
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,12 +17,16 @@ const Login = () => {
   // console.log(isAuthenticated);
 
   const loginHandler = async () => {
-    dispatch(loginUser(email, password));
+    setLoading(true);
+    const res = await dispatch(loginUser(email, password))
+    if(!res){
+      setLoading(false)
+    }
   };
   
   useEffect(() => {
     if (user?.role === "chef") {
-      navigate("/chef/home");
+      navigate("/chef");
     } else if (user?.role === "admin") {
       navigate("/admin/dashboard");
     } else if (user?.role === "waiter") {
@@ -35,13 +42,10 @@ const Login = () => {
         <h1 className="text-4xl boldf text-left w-1/2 max-md:w-full">
           Login
           <br />
-          <span className="text-sm font-light">
-            How do i get started lorem ipsum dolor at?
-          </span>
         </h1>
 
         <div className="flex flex-col gap-3 w-1/2 max-md:w-full">
-          <Typography.Text className="text-base">Name/Id</Typography.Text>
+          <Typography.Text className="text-base">Email ID</Typography.Text>
           <Input
             value={email}
             onInput={(e) => setEmail(e.target.value)}
@@ -64,9 +68,10 @@ const Login = () => {
         </NavLink> */}
         <button
           onClick={loginHandler}
-          className="px-8 p-2 bg-[#FF8144]  text-white text-lg rounded-md w-1/2 max-md:w-full"
+          className="flex items-center justify-center px-8 p-2 bg-[#FF8144]  text-white text-lg rounded-md w-1/2 max-md:w-full"
         >
-          Login
+          {loading ? <Oval strokeWidth={4} strokeWidthSecondary={4} visible={true} secondaryColor="#dadada" height="20" width="20" color="#ffffff" ariaLabel="oval-loading" /> : "Login"}
+
         </button>
       </div>
       <div className="w-1/2 h-full flex items-center justify-center p-4 max-md:hidden">

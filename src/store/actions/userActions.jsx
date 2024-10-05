@@ -1,6 +1,6 @@
-import { setLoginError, setUser } from "../slices/userSlice";
+import { setLoginError, setUser, removeUser } from "../slices/userSlice";
 import { userAPI } from "../../utils/Axios";
-
+import { useNavigate } from "react-router-dom";
 // export const refreshToken = () => async (dispatch) => {
 //   try {
 //     const response = await userAPI.put("/tokens/refresh");
@@ -19,16 +19,29 @@ export const loginUser = (email, password) => async (dispatch) => {
     console.log(error)
     dispatch(setLoginError(error.response.data.message));
     console.error("Error refreshing token:", error);
+    return false
+  }
+};
+
+export const deleteUser = (userId) => async () => {
+  try {
+    console.log(userId)
+    await userAPI.delete(`/delete/${userId}`);
+    return true
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    return false
   }
 };
 
 export const logoutUser = () => async (dispatch) => {
   try {
-    await userAPI.post("/logout");
-    // console.log(response);
-    dispatch(setIsAuthenticated(false));
+    await userAPI.delete("/logout");
+    dispatch(removeUser());
+    return true
   } catch (error) {
     console.error("Error refreshing token:", error);
+    return false
   }
 };
 
