@@ -52,6 +52,7 @@ function Routing() {
         )}
         <Route path="/" index element={<Main />} />
         <Route path="/menu" element={<MenuItems/>}/>
+        <Route path="/pos" element={<OrderRecipt/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

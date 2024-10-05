@@ -83,7 +83,7 @@ const WaiterMenuCard = ({handleRemark,item}) => {
       <h1 className="bold text-lg">₹ {item.price}</h1>
       <div className="flex">
         <button className={`${parcel ? "bg-[#9747FF] text-white" : ""} flex border-2 items-center justify-center gap-2 p-2 px-4 rounded-lg`} onClick={()=>parcelToggle()}>
-          Parcel <IconParkOutlineMallBag />
+          Parcel 
         </button>
         <button className="flex border-2 items-center justify-center gap-2 p-3 rounded-lg ml-4">
           <HugeiconsCommentAdd01 onClick={()=>handleRemark(item)} />

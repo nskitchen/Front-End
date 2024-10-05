@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Divider } from "antd";
 import CompletedDetail from "./CompletedDetail";
-
+import { useReactToPrint } from "react-to-print";
+import OrderReceipt from "../POS/OrderRecipt";
 const CompletedBillCard = ({data, setShowBill}) => {
 
   const totalPrice = data.orders.reduce((total, perOrder) => {
     return total + perOrder.items.reduce((sum, item) => sum + Number(item.count) * Number(item.id.price), 0);
-  }, 0).toLocaleString('en-IN')
+  }, 0)
 
   const totalQuantity = data.orders.reduce((total, perOrder) => {
     return total + perOrder.items.reduce((sum, item) => sum + Number(item.count), 0);
   }, 0)
 
+  const contentRef = useRef();
+  const reactToPrintFn = useReactToPrint({ contentRef });
+  console.log(data)
+  
+ 
   return (
     <div className="w-full bg-white mont p-3">
       <div className="w-full flex items-center justify-between">
@@ -56,7 +62,7 @@ const CompletedBillCard = ({data, setShowBill}) => {
             {data.orders.length} Servings
         </h3>
         <h1 className="text-[#FF8144] boldf">
-          <span className="text-gray-400 text-xs">Total Amount</span> ₹{totalPrice}
+          <span className="text-gray-400 text-xs">Total Amount</span> ₹{Math.floor(Number(totalPrice) + Number(totalPrice)*(0.025) + Number(totalPrice) *(0.025) + Number(totalPrice) * (0.05)).toLocaleString()}
           <br />
         </h1>
     
@@ -65,10 +71,14 @@ const CompletedBillCard = ({data, setShowBill}) => {
       <button onClick={()=>setShowBill(data)} className="border-2 p-2 rounded-md text-black w-[50%]">
           See Details
         </button>
-      <button className="bg-[#FF8144] p-2 rounded-md w-[50%] text-white">
-          Print Bill
-        </button>
+            <button onClick={reactToPrintFn} className="bg-[#FF8144] p-2 rounded-md w-[50%] text-white">
+              Print Bill
+            </button>
+      
       </div>
+
+      <OrderReceipt order={data} ref={contentRef} />
+
     </div>
   );
 };

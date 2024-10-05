@@ -1,13 +1,26 @@
 import { Select } from 'antd'
 import Typography from 'antd/es/typography/Typography'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { generateBill } from '../../store/actions/billActions'
+<<<<<<< Updated upstream
+=======
+import { Oval } from 'react-loader-spinner'
+import { useReactToPrint } from 'react-to-print';
+import OrderReceipt from '../POS/OrderRecipt'
+
+>>>>>>> Stashed changes
 
 const BillReceipt = ({setShowBillReceipt,order}) => {
   const dispatch = useDispatch()
   const [paymentMethod, setPaymentMethod] = useState('cash')
+<<<<<<< Updated upstream
   console.log(paymentMethod)
+=======
+  const [loading, setLoading] = useState(false)
+  const contentRef = useRef();
+  const reactToPrintFn = useReactToPrint({ contentRef });
+>>>>>>> Stashed changes
 
   const itemPrice = order.orders.reduce((orderSum, orderItem) => {
     return orderSum + orderItem.items.reduce((itemSum, item) => {
@@ -16,9 +29,9 @@ const BillReceipt = ({setShowBillReceipt,order}) => {
   }, 0);
 
   const [totalPrice, setTotalPrice] = useState(itemPrice)
-  const [cgst, setCgst] = useState(9)
-  const [sgst, setSgst] = useState(9)
-  const [serviceCharge,setServiceCharge] = useState(8)
+  const [cgst, setCgst] = useState(2.5)
+  const [sgst, setSgst] = useState(2.5)
+  const [serviceCharge,setServiceCharge] = useState(5)
 
   const handleGenerateBill = () => {
     dispatch(generateBill({total:totalPrice,cgst:totalPrice*cgst/100,sgst:totalPrice*sgst/100,serviceCharge:totalPrice*serviceCharge/100,paymentMethod,order}))
@@ -29,6 +42,11 @@ const BillReceipt = ({setShowBillReceipt,order}) => {
     setTotalPrice(Math.floor(itemPrice + totalPrice*cgst/100 + totalPrice*sgst/100 + totalPrice*serviceCharge/100))
   },[cgst,sgst,serviceCharge])
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
   return (
     <div className='fixed inset-0 z-50 top-0 left-0 w-screen h-screen bg-black/50 flex items-center justify-center'>
         <div className='w-[50%] px-8 py-8 h-[90%] bg-white rounded-md'>
@@ -108,10 +126,18 @@ const BillReceipt = ({setShowBillReceipt,order}) => {
                     <Select.Option value="other"><i className="ri-coin-line"></i> Other</Select.Option>
                   </Select>
                 </div>
+<<<<<<< Updated upstream
                 <button onClick={handleGenerateBill} className='bg-[#FF8144] text-white px-4 py-2 rounded-md'>Confirm Payment</button>
+=======
+                <div className='flex gap-5 justify-center'>
+                  <button onClick={reactToPrintFn} className='bg-[#FF8144] flex items-center justify-center text-white px-4 py-2 rounded-md'>Print Bill</button>
+                  <button onClick={handleGenerateBill} className='bg-[#FF8144] flex items-center justify-center text-white px-4 py-2 rounded-md'>{loading ? <Oval strokeWidth={4} strokeWidthSecondary={4} visible={true} secondaryColor="#dadada" height="20" width="20" color="#ffffff" ariaLabel="oval-loading" /> : "Confirm Payment"}</button>
+                </div>
+>>>>>>> Stashed changes
               </div>
             </div>
         </div>
+        <OrderReceipt order={order} sgst={sgst} cgst={cgst} service={serviceCharge} mode={paymentMethod.toUpperCase()} ref={contentRef} />
     </div>
   )
 }
