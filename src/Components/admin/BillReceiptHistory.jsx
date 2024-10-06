@@ -1,8 +1,10 @@
 import { Select } from 'antd'
 import Typography from 'antd/es/typography/Typography'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { generateBill } from '../../store/actions/billActions'
+import { useReactToPrint } from 'react-to-print'
+import OrderReceipt from '../POS/OrderRecipt'
 
 const BillReceiptHistory = ({setShowBillReceipt,order}) => {
   const dispatch = useDispatch()
@@ -10,9 +12,12 @@ const BillReceiptHistory = ({setShowBillReceipt,order}) => {
 
   const itemPrice = order.order.orders.reduce((orderSum, orderItem) => {
     return orderSum + orderItem.items.reduce((itemSum, item) => {
-      return itemSum + Number(item.id.price * item.count); // Assuming `item.id.price` is the price you want
+      return itemSum + Number(item.half ? item.id.halfPrice * item.count : item.id.price * item.count); // Assuming `item.id.price` is the price you want
     }, 0);
   }, 0);
+
+  const contentRef = useRef();
+  const reactToPrintFn = useReactToPrint({ contentRef });
 
   return (
     <div className='fixed inset-0 z-50 top-0 left-0 w-screen h-screen bg-black/50 flex items-center justify-center'>
@@ -48,7 +53,7 @@ const BillReceiptHistory = ({setShowBillReceipt,order}) => {
                               <div key={idx} className='flex justify-between gap-1 mb-3'>
                                 <div>
                                   <p className='font-semibold text-sm opacity-60'>{stuff.id.name}</p>
-                                  <p className='font-semibold text-xs'>₹{stuff.id.price}</p>
+                                  <p className='font-semibold text-xs'>₹{stuff.half ? stuff.id.halfPrice : stuff.id.price}</p>
                                 </div>
                                 <p className='font-semibold text-sm'>x{stuff.count}</p>
                               </div>
@@ -96,6 +101,7 @@ const BillReceiptHistory = ({setShowBillReceipt,order}) => {
                 </div>
                 {/* <button className='bg-[#FF8144] text-white px-4 py-2 rounded-md'>Confirm Payment</button> */}
               </div>
+              {/* <OrderReceipt order={order} ref={contentRef} /> */}
             </div>
         </div>
     </div>

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Divider } from "antd";
 import CompletedDetail from "./CompletedDetail";
+import { useReactToPrint } from "react-to-print";
+import OrderReceipt from "../POS/OrderRecipt";
 
 const HistoryBillCard = ({ data, user, payment, setShowBill }) => {
 
@@ -11,6 +13,10 @@ const HistoryBillCard = ({ data, user, payment, setShowBill }) => {
   const totalQuantity = data.orders.reduce((total, perOrder) => {
     return total + perOrder.items.reduce((sum, item) => sum + Number(item.count), 0);
   }, 0)
+
+
+  const contentRef = useRef();
+  const reactToPrintFn = useReactToPrint({ contentRef });
 
   return (
     <div className="w-full bg-white mont p-3">
@@ -74,10 +80,12 @@ const HistoryBillCard = ({ data, user, payment, setShowBill }) => {
         <button onClick={() => setShowBill(payment)} className="border-2 p-2 rounded-md text-black w-[50%]">
           See Details
         </button>
-        <button className="bg-[#FF8144] p-2 rounded-md w-[50%] text-white">
+        <button onClick={reactToPrintFn} className="bg-[#FF8144] p-2 rounded-md w-[50%] text-white">
           Re-print Bill
         </button>
       </div>
+      <OrderReceipt order={data} ref={contentRef} />
+
     </div>
   );
 };

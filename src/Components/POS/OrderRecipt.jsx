@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 const OrderReceipt = forwardRef(({order,mode,sgst,cgst,service}, ref) => {
 
     const totalPrice = order.orders.reduce((total, perOrder) => {
-        return total + perOrder.items.reduce((sum, item) => sum + Number(item.count) * Number(item.id.price), 0);
+        return total + perOrder.items.reduce((sum, item) => sum + Number(item.count) * Number(item.half ? item.id.halfPrice : item.id.price), 0);
       }, 0)
     
     const totalQuantity = order.orders.reduce((total, perOrder) => {
@@ -40,8 +40,8 @@ const OrderReceipt = forwardRef(({order,mode,sgst,cgst,service}, ref) => {
             {order.orders.map((details, idx) => (
                 details.items.map((orderDetails,idx)=>( 
                     <div key={idx} className='mb-1 flex justify-between '>
-                        <p className='max-w-[65%] leading-3 text-xs'><span className='font-semibold'>{orderDetails.count}</span> {orderDetails.id?.name}</p>
-                        <p className='text-xs'>₹{orderDetails.id?.price * orderDetails.count}.00</p>
+                        <p className='max-w-[65%] leading-3 text-xs'><span className='font-semibold'>{orderDetails.count}</span> {orderDetails.id?.name} {orderDetails.id.halfPrice && "(H)"}</p>
+                        <p className='text-xs'>₹{orderDetails.half ? orderDetails.id.halfPrice * orderDetails.count : orderDetails.id?.price * orderDetails.count}.00</p>
                     </div>
                 ))
             ))}

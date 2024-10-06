@@ -40,7 +40,7 @@ const WaiterSummary = () => {
       <div className="w-full max-w-[600px] m-auto px-4 h-screen relative">
         <WaiterHeader data="Order Summary" />
         <SummaryWaiter />
-        <div className="h-16 max-w-[600px] left-1/2 -translate-x-1/2 w-screen boldf mont bottom-20 flex items-center justify-between fixed px-8 py-4">
+        <div className="h-16 bg-white max-w-[600px] left-1/2 -translate-x-1/2 w-screen boldf mont bottom-20 flex items-center justify-between fixed px-8 py-4">
           <div className="flex flex-col">
             <h1 className='text-[#FF8144] text-lg'>₹{cart.reduce((acc, red) => (acc + (red.price * red.count)), 0)}</h1>
             <h3 className='font-medium'>Total {cart.reduce((acc, red) => (acc + red.count), 0)} Items</h3>

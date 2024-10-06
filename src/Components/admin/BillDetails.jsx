@@ -46,7 +46,7 @@ const BillDetails = ({details,count}) => {
       {details.items.map((orderDetails,idx)=>(
         <div key={idx} className="flex w-full mt-1 items-start justify-between">
 
-          <h1 className="w-[45%] text-sm">{orderDetails.id.name}</h1>
+          <h1 className="w-[45%] text-sm">{orderDetails.id.name} {orderDetails.id.halfPrice && "(H)"}</h1>
           <div className="flex w-[45%] px-1 items-center justify-between gap-3 ">
             <h3 className="w-[10%]">{orderDetails.count}</h3>
             <h3 className="w-[10%]">

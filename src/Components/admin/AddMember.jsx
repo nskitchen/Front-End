@@ -103,9 +103,6 @@ const AddMember = ({ add, setadd }) => {
 
   const submitHandler = async () => {
     let errors = validate(formData);
-    if (!profilePic) {
-      errors = { ...errors, profilePic: "Profile pic is needed" };
-    }
     setFormErrors(errors);
     if (Object.keys(errors).length === 0) {
       uploadData();

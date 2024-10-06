@@ -15,7 +15,7 @@ const TokenRecipt = forwardRef(({order,mode,sgst,cgst,service}, ref) => {
     const {user} = useSelector(state => state.auth)
     console.log(user)
     return (
-        <div ref={ref} className="content  w-[58mm] h-[210mm] font-mono bg-white shadow-md text-sm" style={{ '@page': { size: '58mm 210mm', margin: 0 } }}>
+        <div ref={ref} className="content hidden w-[58mm] h-[210mm] font-mono bg-white shadow-md text-sm" style={{ '@page': { size: '58mm 210mm', margin: 0 } }}>
             <h1 className='text-center leading-4 mt-5 font-black text-2xl '>ORDER {order.billId}</h1>
             <p className='text-center text-base font-semibold'>Table {order.table}</p>
             <div className='mt-5 flex justify-between items-center'>

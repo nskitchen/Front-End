@@ -13,8 +13,7 @@ const CompletedBillCard = ({data, setShowBill}) => {
     return total + perOrder.items.reduce((sum, item) => sum + Number(item.count), 0);
   }, 0)
 
-  const contentRef = useRef();
-  const reactToPrintFn = useReactToPrint({ contentRef });
+  
   console.log(data)
   
  

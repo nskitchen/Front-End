@@ -58,7 +58,7 @@ const WaiterList = () => {
               ></i>
               <div className="img h-[3vw] w-[3vw] rounded-full overflow-hidden relative">
                 <img
-                  src={i?.avatar}
+                  src={i.avatar ? i.avatar : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
                   className="h-full w-full object-cover"
                   alt="profile image"
                 />

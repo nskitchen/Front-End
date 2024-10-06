@@ -23,16 +23,13 @@ const SummaryWaiter = () => {
   console.log(cart)
 
   return (
-    <div className="w-full mont">
+    <div className="w-full h-[68%] mont">
       <div className="w-full flex items-center justify-between">
         <h1 className="text-2xl boldf">Table {tableNumber}</h1>
         <h3>{new Date().toLocaleTimeString('en-US', { hour12: true,hour: '2-digit',minute: '2-digit', })}</h3>
       </div>
-      {/* <div className="w-full text-lg flex items-center justify-between">
-        <h3>Serve 01</h3>
-        <h3>Order no. #315</h3>
-      </div> */}
-      <div className="flex flex-col gap-3 mt-4">
+
+      <div className="flex flex-col h-full overflow-y-auto gap-3 mt-4">
         {newMenu?.map((item)=>(
           <SummaryCard item={item} handleRemark={handleRemark} />
         ))}

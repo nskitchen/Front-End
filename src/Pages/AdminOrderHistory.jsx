@@ -8,6 +8,7 @@ import { getAllBills, getAllOrdersss, getFilterExcel } from "../store/actions/or
 import HistoryBillCard from "../Components/admin/HistoryBillCard";
 import BillReceiptHistory from "../Components/admin/BillReceiptHistory";
 import { DatePicker, Modal, Button, Spin } from "antd";
+import OrderReceipt from "../Components/POS/OrderRecipt";
 
 const AdminOrderHistory = () => {
   const { RangePicker } = DatePicker;

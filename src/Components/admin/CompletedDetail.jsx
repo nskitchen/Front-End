@@ -46,9 +46,11 @@ const CompletedDetail = ({details,count}) => {
         <span className="h-3 w-[1px] bg-black"></span>
         <h3>{count} Serve</h3>
       </div>
+      
       {details.items.map((orderDetails,idx)=>( 
         <div key={idx} className="flex w-full mt-1 items-start justify-between">
-          <h1 className="w-[40%] text-sm">{orderDetails.id?.name}</h1>
+          {console.log(orderDetails)}
+          <h1 className="w-[40%] text-sm">{orderDetails.id?.name} {orderDetails.half &&"(H)"}</h1>
           <div className="flex w-[30%] px-1 items-center justify-between gap-3 ">
             <h3 className="w-[15%] text-center">{orderDetails.count}</h3>
             <h3 className="w-[15%] text-center">

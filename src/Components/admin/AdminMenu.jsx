@@ -73,16 +73,18 @@ const AdminMenu = ({outOfStock ,setAddItem,setcategory, setedit }) => {
         {menu &&
           menu.map((i, index) => (
             <div
-              key={index}
-              className="flex items-center justify-between px-4 bg-white rounded-md p-2"
+            key={index}
+            className="flex items-center justify-between px-4 bg-white rounded-md p-2"
             >
               <div className="flex w-1/3 items-center gap-4 justify-left">
                 <div className="w-24 flex-shrink-0 h-20 rounded-md relative overflow-hidden">
+                  {i.image != "no-image.jpg" ?
                   <img
                     src={`${i?.image}`}
                     className="h-full w-full object-cover"
                     alt=""
                   />
+                : <div className="h-full w-full flex items-center justify-center text-lg text-center bg-neutral-300 text-white">No <br /> Image</div> }
                 </div>
                 <h1 className="text-base font-semibold">
                   {i?.name}
@@ -90,7 +92,7 @@ const AdminMenu = ({outOfStock ,setAddItem,setcategory, setedit }) => {
                   <p className="text-xs font-light">{i?.description}</p>
                 </h1>
               </div>
-              <h1 className="w-1/3 text-center text-xl font-semibold">₹{i?.price}</h1>
+              <h1 className="w-1/3 text-center text-xl font-semibold">{i.halfPrice && `₹${i.halfPrice} / `} ₹{i?.price}</h1>
               <div className="flex w-1/3 items-center justify-end gap-3">
                 <button onClick={() => handleOutOfStock(i._id,i?.isAvailable)} className={`border-[0.1rem] h-[42px] font-medium rounded-md px-5 py-1 text-base ${i?.isAvailable ? 'text-[#828282] border-[#aaaaaa] ' : 'text-red-500 border-red-400'}`}>
                   Out of Stock
