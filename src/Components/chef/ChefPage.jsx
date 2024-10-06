@@ -53,7 +53,13 @@ const ChefPage = () => {
           <div>
             Total Orders{" "}
           <span className="text-[#FF8144]" style={{ fontWeight: "900" }}>
-            {allOrders.reduce((acc, order) => { const pendingItemsCount = order.orders.reduce((count, item) => {   return count + item.items.filter(i => i.status === "pending").length; }, 0); return acc + pendingItemsCount; }, 0)}
+            {allOrders.reduce((acc, order) => { 
+              if (order.status !== "pending") return acc
+              const pendingItemsCount = order.orders.reduce((count, item) => {   
+                return count + item.items.filter(i => i.status === "pending").length 
+              }, 0); 
+              return acc + pendingItemsCount; 
+            }, 0)}
           </span>
           </div>
           <button onClick={handleLogout} className="w-12 h-12 rounded-md text-white bg-black flex items-center justify-center"><i className="ri-logout-box-r-line text-xl"></i></button>

@@ -5,14 +5,15 @@ import { useDispatch } from 'react-redux'
 import { generateBill } from '../../store/actions/billActions'
 import { Oval } from 'react-loader-spinner'
 import { useReactToPrint } from 'react-to-print';
+import OrderReceipt from '../POS/OrderRecipt'
 
 
 const BillReceipt = ({setShowBillReceipt,order}) => {
   const dispatch = useDispatch()
   const [paymentMethod, setPaymentMethod] = useState('cash')
+  console.log(paymentMethod)
   const [loading, setLoading] = useState(false)
   const contentRef = useRef();
-
   const reactToPrintFn = useReactToPrint({ contentRef });
 
   const itemPrice = order.orders.reduce((orderSum, orderItem) => {
@@ -23,9 +24,9 @@ const BillReceipt = ({setShowBillReceipt,order}) => {
   }, 0);
 
   const [totalPrice, setTotalPrice] = useState(itemPrice)
-  const [cgst, setCgst] = useState(9)
-  const [sgst, setSgst] = useState(9)
-  const [serviceCharge,setServiceCharge] = useState(8)
+  const [cgst, setCgst] = useState(2.5)
+  const [sgst, setSgst] = useState(2.5)
+  const [serviceCharge,setServiceCharge] = useState(5)
 
   const handleGenerateBill = () => {
     setLoading(true)
@@ -127,6 +128,7 @@ const BillReceipt = ({setShowBillReceipt,order}) => {
               </div>
             </div>
         </div>
+        <OrderReceipt order={order} sgst={sgst} cgst={cgst} service={serviceCharge} mode={paymentMethod.toUpperCase()} ref={contentRef} />
     </div>
   )
 }
