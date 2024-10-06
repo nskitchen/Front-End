@@ -50,11 +50,18 @@ const WaiterMenuCard = ({handleRemark,item}) => {
   const { cart } = useSelector((state) => state.orders);
   const dispatch = useDispatch()
   const [parcel, setParcel] = useState(false)
+  const [half, setHalf] = useState(false)
 
   useEffect(() => {
     if(item){
       const parcel = cart.find((foundItem) => foundItem.id === item._id)?.parcel || '';
       setParcel(parcel); // Set remark to the found remark or empty if not found
+    }
+    if(item.halfPrice){
+      const half = cart.find((foundItem) => foundItem.id === item._id) || '';
+      if(half.half){
+        setHalf(true)
+      }
     }
   }, [item,cart]);
 
@@ -74,18 +81,47 @@ const WaiterMenuCard = ({handleRemark,item}) => {
     }
   }
 
+  console.log(cart)
+  const halfToggle = ()=>{
+    const existingItem = cart.find((foundItem) => foundItem.id === item._id);
+    if (existingItem) {
+      if(half){
+        const updatedCart = cart.map((foundItem) =>
+          foundItem.id === item._id ? { ...foundItem,half:false, price: item.price } : foundItem
+        );
+        setHalf(false)
+        dispatch(setCartItems(updatedCart));
+      }else{
+        const updatedCart = cart.map((foundItem) =>
+          foundItem.id === item._id ? { ...foundItem,half:true, price: item.halfPrice} : foundItem
+        );
+        setHalf(true)
+        dispatch(setCartItems(updatedCart));
+      }
+    } else {
+      const newItem = { id: item._id, count: 1,price:item.halfPrice, half:true,name:item.name };
+      dispatch(setCartItems([...cart, newItem]));
+      setHalf(true)
+    }
+  }
+
   return (
     <div className="w-full border-2 p-4 rounded-xl flex flex-col gap-3">
         <h1 className="text-lg boldf">{item.name}</h1>
       <p className="text-base">
         {item.description}
       </p>
-      <h1 className="bold text-lg">₹ {item.price}</h1>
+      <h1 className="bold text-lg">{item.halfPrice && `₹${item.halfPrice} / `}₹{item.price} </h1>
       <div className="flex">
-        <button className={`${parcel ? "bg-[#9747FF] text-white" : ""} flex border-2 items-center justify-center gap-2 p-2 px-4 rounded-lg`} onClick={()=>parcelToggle()}>
+        {item.halfPrice && 
+          <button className={`${half ? "bg-[#9747FF] text-white" : ""} flex border-2 items-center justify-center mr-3 p-2 px-4 rounded-lg`} onClick={()=>halfToggle()}> 
+            Half
+          </button>
+        }
+        <button className={`${parcel ? "bg-[#9747FF] text-white" : ""} mr-3 flex border-2 items-center justify-center p-2 px-4 rounded-lg`} onClick={()=>parcelToggle()}>
           Parcel <IconParkOutlineMallBag />
         </button>
-        <button onClick={()=>handleRemark(item)} className="flex border-2 items-center justify-center gap-2 p-3 rounded-lg ml-4">
+        <button onClick={()=>handleRemark(item)} className="flex border-2  items-center justify-center p-3 rounded-lg">
           <HugeiconsCommentAdd01  />
         </button>
         <>{item.quantity}</>

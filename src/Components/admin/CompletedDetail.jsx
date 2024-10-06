@@ -54,7 +54,7 @@ const CompletedDetail = ({details,count}) => {
             <h3 className="w-[15%] text-center">
             {orderDetails.parcel ? <SolarBagBold /> : <SimpleIconsJusteat/>}
             </h3>
-            <h3 className="w-[70%] text-center">₹ {orderDetails.id?.price * orderDetails.count}</h3>
+            <h3 className="w-[70%] text-center">₹ {orderDetails.half ? orderDetails.id?.halfPrice * orderDetails.count : orderDetails.id?.price * orderDetails.count}</h3>
           </div>
         </div>
       ))}

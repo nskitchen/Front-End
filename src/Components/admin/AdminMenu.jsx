@@ -47,13 +47,13 @@ const AdminMenu = ({outOfStock ,setAddItem,setcategory, setedit }) => {
     dispatch(getMenu(null,null,outOfStock));
   };
   
-  console.log(outOfStock)
   useEffect(() => {
     dispatch(getMenu(null,null,outOfStock));
     dispatch(setFood(food));
     dispatch(getCategory())
   }, [dispatch]);
 
+  console.log(menu)
   return (
   <>
     <div className="w-full">
@@ -77,7 +77,7 @@ const AdminMenu = ({outOfStock ,setAddItem,setcategory, setedit }) => {
               className="flex items-center justify-between px-4 bg-white rounded-md p-2"
             >
               <div className="flex w-1/3 items-center gap-4 justify-left">
-                <div className="w-24 h-20 rounded-md relative overflow-hidden">
+                <div className="w-24 flex-shrink-0 h-20 rounded-md relative overflow-hidden">
                   <img
                     src={`${i?.image}`}
                     className="h-full w-full object-cover"

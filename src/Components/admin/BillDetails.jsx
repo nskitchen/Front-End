@@ -45,13 +45,14 @@ const BillDetails = ({details,count}) => {
       </div>
       {details.items.map((orderDetails,idx)=>(
         <div key={idx} className="flex w-full mt-1 items-start justify-between">
+
           <h1 className="w-[45%] text-sm">{orderDetails.id.name}</h1>
           <div className="flex w-[45%] px-1 items-center justify-between gap-3 ">
             <h3 className="w-[10%]">{orderDetails.count}</h3>
             <h3 className="w-[10%]">
               {orderDetails.parcel ? <SolarBagBold /> : <SimpleIconsJusteat/>}
             </h3>
-            <h3 className="w-[70%] text-center">₹ {orderDetails.id.price * orderDetails.count}</h3>
+            <h3 className="w-[70%] text-center">₹ {(orderDetails.half ? orderDetails.id.halfPrice : orderDetails.id.price) * orderDetails.count}</h3>
             <h3 className="w-[10%]">
               {orderDetails.status == "completed" || orderDetails.status == "served" ? <i className="ri-checkbox-circle-fill text-base text-green-600"></i> : <i className="ri-timer-line text-base mr-0.5"></i> }
             </h3>

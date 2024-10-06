@@ -9,7 +9,7 @@ const OrderBillCard = ({ order, handleDetailOpen }) => {
   const dispatch = useDispatch()
 
   const totalPrice = order.orders.reduce((total, perOrder) => {
-    return total + perOrder.items.reduce((sum, item) => sum + Number(item.count) * Number(item.id.price), 0);
+    return total + perOrder.items.reduce((sum, item) => sum + Number(item.count) * Number(item.half ? item.id.halfPrice : item.id.price), 0);
   }, 0).toLocaleString('en-IN')
 
   const totalQuantity = order.orders.reduce((total, perOrder) => {

@@ -1,20 +1,24 @@
 import { Select } from 'antd'
 import Typography from 'antd/es/typography/Typography'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { generateBill } from '../../store/actions/billActions'
 import { Oval } from 'react-loader-spinner'
+import { useReactToPrint } from 'react-to-print';
+
 
 const BillReceipt = ({setShowBillReceipt,order}) => {
   const dispatch = useDispatch()
   const [paymentMethod, setPaymentMethod] = useState('cash')
   const [loading, setLoading] = useState(false)
-  console.log(paymentMethod)
+  const contentRef = useRef();
+
+  const reactToPrintFn = useReactToPrint({ contentRef });
 
   const itemPrice = order.orders.reduce((orderSum, orderItem) => {
     return orderSum + orderItem.items.reduce((itemSum, item) => {
       console.log(item)
-      return itemSum + Number(item.id.price * item.count); // Assuming `item.id.price` is the price you want
+      return itemSum + Number(item.half ? item.id.halfPrice : item.id.price * item.count); // Assuming `item.id.price` is the price you want
     }, 0);
   }, 0);
 
@@ -35,7 +39,8 @@ const BillReceipt = ({setShowBillReceipt,order}) => {
     setTotalPrice(Math.floor(itemPrice + (itemPrice*(cgst/100)) + (itemPrice*(sgst/100)) + (itemPrice*(serviceCharge/100))))
   },[cgst,sgst,serviceCharge])
 
-  console.log(order)
+
+
   return (
     <div className='fixed inset-0 z-50 top-0 left-0 w-screen h-screen bg-black/50 flex items-center justify-center'>
         <div className='w-[50%] px-8 py-8 h-[90%] bg-white rounded-md'>
@@ -61,7 +66,7 @@ const BillReceipt = ({setShowBillReceipt,order}) => {
                         <p className='text-gray-500 text-xs'>{new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</p>
                       </div>
                     </div>
-                    <div className='bg-neutral-100 h-[87%] p-[5%]'>
+                    <div ref={contentRef} className='bg-neutral-100 h-[87%] p-[5%]'>
                       <p className=''>Transaction Details</p>
                       <div className='mt-4 h-[60%] overflow-y-auto'>
                         {
@@ -70,7 +75,7 @@ const BillReceipt = ({setShowBillReceipt,order}) => {
                               <div key={idx} className='flex justify-between gap-1 mb-3'>
                                 <div>
                                   <p className='font-semibold text-sm opacity-60'>{stuff.id.name}</p>
-                                  <p className='font-semibold text-xs'>₹{stuff.id.price}</p>
+                                  <p className='font-semibold text-xs'>₹{stuff.half ? stuff.id.halfPrice : stuff.id.price}</p>
                                 </div>
                                 <p className='font-semibold text-sm'>x{stuff.count}</p>
                               </div>
@@ -115,7 +120,10 @@ const BillReceipt = ({setShowBillReceipt,order}) => {
                     <Select.Option value="other"><i className="ri-coin-line"></i> Other</Select.Option>
                   </Select>
                 </div>
-                <button onClick={handleGenerateBill} className='bg-[#FF8144] flex items-center justify-center text-white px-4 py-2 rounded-md'>{loading ? <Oval strokeWidth={4} strokeWidthSecondary={4} visible={true} secondaryColor="#dadada" height="20" width="20" color="#ffffff" ariaLabel="oval-loading" /> : "Confirm Payment"}</button>
+                <div className='flex gap-5 justify-center'>
+                  <button onClick={reactToPrintFn} className='bg-[#FF8144] flex items-center justify-center text-white px-4 py-2 rounded-md'>Print Bill</button>
+                  <button onClick={handleGenerateBill} className='bg-[#FF8144] flex items-center justify-center text-white px-4 py-2 rounded-md'>{loading ? <Oval strokeWidth={4} strokeWidthSecondary={4} visible={true} secondaryColor="#dadada" height="20" width="20" color="#ffffff" ariaLabel="oval-loading" /> : "Confirm Payment"}</button>
+                </div>
               </div>
             </div>
         </div>

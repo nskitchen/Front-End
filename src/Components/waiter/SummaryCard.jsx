@@ -27,12 +27,43 @@ const SummaryCard = ({item,handleRemark}) => {
   const [cartItem, setCartItem] = useState(false)
   const {cart} = useSelector(state => state.orders)
   const dispatch = useDispatch()
+  const [half, setHalf] = useState(false)
+
   useEffect(() => {
     if(item){
       const parcel = cart.find((foundItem) => foundItem.id === item._id) || '';
       setCartItem(parcel); // Set remark to the found remark or empty if not found
     }
+    if(item.halfPrice){
+      const half = cart.find((foundItem) => foundItem.id === item._id) || '';
+      if(half.half){
+        setHalf(true)
+      }
+    }
   }, [cart,item]);
+
+  const halfToggle = ()=>{
+    const existingItem = cart.find((foundItem) => foundItem.id === item._id);
+    if (existingItem) {
+      if(half){
+        const updatedCart = cart.map((foundItem) =>
+          foundItem.id === item._id ? { ...foundItem, half:false, price: item.price} : foundItem
+        );
+        setHalf(false)
+        dispatch(setCartItems(updatedCart));
+      }else{
+        const updatedCart = cart.map((foundItem) =>
+          foundItem.id === item._id ? { ...foundItem, half: true, price: item.halfPrice} : foundItem
+        );
+        setHalf(true)
+        dispatch(setCartItems(updatedCart));
+      }
+    } else {
+      const newItem = { id: item._id, count: 1,price:item.halfPrice,name:item.name };
+      dispatch(setCartItems([...cart, newItem]));
+      setHalf(true)
+    }
+  }
 
   const deleteItem = (id)=>{
     dispatch(setCartItems(cart.filter((itm)=>itm.id != id)))
@@ -52,11 +83,16 @@ const SummaryCard = ({item,handleRemark}) => {
           <button onClick={()=>handleRemark(item)} className="flex border-2 items-center justify-center gap-2 p-3 rounded-lg ml-4">
             <HugeiconsCommentAdd01  />
           </button>
+          {item.halfPrice && 
+          <button className={`${half ? "bg-[#9747FF] text-white" : ""} flex ml-3 border-2 items-center justify-center mr-3 p-3 px-4 rounded-lg`} onClick={()=>halfToggle()}> 
+            Half
+          </button>
+        }
         </div>
         <div className="flex items-center text-lg justify-between gap-2">
           <h1 className="bold">₹{cartItem.price * cartItem.count}</h1>
-          {cartItem.parcel && <><span className="w-[1px] h-3 bg-black"></span> <h1 className="text-[#9747FF] boldf">Parcel</h1></>}
-          
+          {cartItem.parcel && <><span className="w-[1px] h-3 bg-black"></span> 
+          <h1 className="text-[#9747FF] boldf">Parcel</h1></>}
         </div>
       </div>
     </div>

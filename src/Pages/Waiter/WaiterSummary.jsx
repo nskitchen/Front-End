@@ -42,7 +42,7 @@ const WaiterSummary = () => {
         <SummaryWaiter />
         <div className="h-16 max-w-[600px] left-1/2 -translate-x-1/2 w-screen boldf mont bottom-20 flex items-center justify-between fixed px-8 py-4">
           <div className="flex flex-col">
-            <h1 className='text-[#FF8144] text-lg'>₹{cart.reduce((acc, red) => (acc + red.price), 0)}</h1>
+            <h1 className='text-[#FF8144] text-lg'>₹{cart.reduce((acc, red) => (acc + (red.price * red.count)), 0)}</h1>
             <h3 className='font-medium'>Total {cart.reduce((acc, red) => (acc + red.count), 0)} Items</h3>
           </div>
           <button className='px-8 py-2 bg-[#FF8144] text-white rounded-md' onClick={handleSubmit}>

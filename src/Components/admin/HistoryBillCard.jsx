@@ -5,7 +5,7 @@ import CompletedDetail from "./CompletedDetail";
 const HistoryBillCard = ({ data, user, payment, setShowBill }) => {
 
   const totalPrice = data.orders.reduce((total, perOrder) => {
-    return total + perOrder.items.reduce((sum, item) => sum + (Number(item.count) * Number(item.id?.price)), 0);
+    return total + perOrder.items.reduce((sum, item) => sum + (Number(item.count) * Number(item.half ? item.id?.halfPrice : item.id?.price)), 0);
   }, 0).toLocaleString('en-IN')
 
   const totalQuantity = data.orders.reduce((total, perOrder) => {
@@ -60,7 +60,7 @@ const HistoryBillCard = ({ data, user, payment, setShowBill }) => {
         <h1 className="text-[#FF8144] boldf">Item price: ₹{totalPrice}
           <br />
           <span className="font-extralight text-sm text-gray-400">
-            Tax ₹{payment.sgst + payment.cgst + payment.serviceCharge}
+            Tax ₹{(payment.sgst + payment.cgst + payment.serviceCharge).toFixed(2)}
           </span>
         </h1>
 

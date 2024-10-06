@@ -6,7 +6,7 @@ export const CreateNewOrders = () => async (dispatch,getValue) => {
         const cart = getValue().orders.cart
         const table = getValue().tables.tableNumber
         const userId = getValue().auth.user._id
-
+        console.log(cart)
         if(!cart || !table || !userId) return 
         const {data} = await orderAPI.post("/", {table: table, items:cart, user:userId});
         

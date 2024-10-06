@@ -20,6 +20,7 @@ const MenuEditPage = ({ edit, setedit, setAddItem }) => {
         name: edit.name || "",
         description: edit.description || "",
         price: edit.price || "",
+        halfPrice: edit.halfPrice || "",
         category: edit.category || "",
         isVeg: true,
         isSpecial: false,
@@ -56,15 +57,11 @@ const MenuEditPage = ({ edit, setedit, setAddItem }) => {
 
     const submitHandler = ()=>{
       let errors = validateFields(menuForm);
-      if (!image) {
-        errors = { ...errors, image: "Image is needed" };
-      }
       setFormErrors(errors);
       if (Object.keys(errors).length === 0) {
         uploadData();
       }
     }
-
     const uploadData = async()=>{
       try{
         if(isSubmitting) return
@@ -77,7 +74,12 @@ const MenuEditPage = ({ edit, setedit, setAddItem }) => {
         form.append("category", menuForm.category);
         form.append("isVeg", menuForm.isVeg);
         form.append("isSpecial", menuForm.isSpecial);
-        form.append("image", image);
+        if(menuForm.halfPrice){
+          form.append("halfPrice", menuForm.halfPrice);
+        }
+        if(image){
+          form.append("image", image);
+        }
 
         if(edit){
           await addMenuItems.put(`/update/${edit._id}`,form)
@@ -133,20 +135,25 @@ const MenuEditPage = ({ edit, setedit, setAddItem }) => {
                             />
                             <small className="text-red-600">{formErrors.category}</small>
                         </div>
-                        <div className="flex flex-col gap-1">
-                            <Typography.Text className="text-base">Enter Amount</Typography.Text>
+                        <div className="flex gap-5">
+                          <div className="w-1/2">
+                            <Typography.Text className="text-base">Enter Price</Typography.Text>
                             <Input name="price" onChange={(e) => inputHandler(e)} value={menuForm.price} type="number" />
                             <small className="text-red-600">{formErrors.price}</small>
+                          </div>
+                          <div className="w-1/2">
+                            <Typography.Text className="text-base">Enter Half Price (Opt)</Typography.Text>
+                            <Input name="halfPrice" onChange={(e) => inputHandler(e)} value={menuForm.halfPrice} type="number" />
+                          </div>
                         </div>
                         <button className="px-8 p-2 bg-[#FF8144] flex items-center justify-center w-fit text-white text-lg rounded-md" onClick={submitHandler}>{loading ? <Oval strokeWidth={4} strokeWidthSecondary={4} visible={true} secondaryColor="#dadada" height="20" width="20" color="#ffffff" ariaLabel="oval-loading" /> : edit ? "Update" : "Create"}</button>
                     </div>
                     <div className="w-[30%] flex flex-col items-center">
-                        {edit?.img ? <Image src={`${edit ? edit.img : ""}`} height={"10vw"} width={"10vw"} className="rounded-md object-cover" /> : <div className="h-[10vw] w-[10vw] flex justify-center items-center border-2 border-slate rounded">Upload</div>}
+                        {edit?.image ? <Image src={`${edit ? edit.image : ""}`} height={"10vw"} width={"10vw"} className="rounded-md object-cover" /> : <div className="h-[10vw] w-[10vw] flex justify-center items-center border-2 border-slate rounded">Upload</div>}
                         <label htmlFor="img" className="div flex items-center justify-center p-2 rounded-md px-4 mt-10 gap-2 text-base border-[1px] border-black font-semibold">
                             Upload Item Image
                             <input onChange={(e)=>setImage(e.target.files[0])} id="img" type="file" name="img" accept=".png, .jpg, .jpeg .avif" className="hidden" />
                         </label>
-                        <small className="text-red-600">{formErrors.image}</small>
                     </div>
                 </div>
             </div>
