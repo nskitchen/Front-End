@@ -68,15 +68,15 @@ const BillReceiptHistory = ({setShowBillReceipt,order}) => {
                         </div>
                         <div className='flex justify-between gap-1 mb-2'>
                           <p className='font-bold text-xs opacity-70 flex items-center '>Service Charge</p>
-                          <p className='font-bold text-xs'>₹{order.serviceCharge}</p>
+                          <p className='font-bold text-xs'>₹{order.serviceCharge.toFixed(2)}</p>
                         </div>
                         <div className='flex justify-between gap-1 mb-2'>
                           <p className='font-bold text-xs opacity-70 flex items-center '>CGST</p>
-                          <p className='font-bold text-xs'>₹{order.cgst}</p>
+                          <p className='font-bold text-xs'>₹{order.cgst.toFixed(2)}</p>
                         </div>
                         <div className='flex justify-between gap-1 mb-2'>
                           <p className='font-bold text-xs opacity-70 flex items-center '>SGST</p>
-                          <p className='font-bold text-xs'>₹{order.sgst}</p>
+                          <p className='font-bold text-xs'>₹{order.sgst.toFixed(2)}</p>
                         </div>
                         <div className='flex justify-between gap-1 mb-3'>
                           <p className='font-bold text-sm'>Total</p>

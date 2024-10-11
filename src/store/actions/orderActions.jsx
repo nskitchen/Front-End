@@ -27,6 +27,15 @@ export const getAllOrdersss = (type) => async (dispatch) => {
     }
 }
 
+export const deleteItems = (orderId,id) => async (dispatch) => {
+    try {
+        const {data} = await orderAPI.delete(`/items/${orderId}/${id}`);
+        dispatch(getAllOrdersss(data.data.orders));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const getUserOrders = (type) => async (dispatch) => {
     try {
 

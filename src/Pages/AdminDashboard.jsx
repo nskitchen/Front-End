@@ -1,8 +1,11 @@
 import React from "react";
 import Dashboard from "../Components/admin/Dashboard";
 import AdminSidebar from "../Components/admin/AdminSidebar";
+import { useSelector } from "react-redux";
 
 const AdminDashboard = () => {
+  const {user} = useSelector((state)=>state.auth)
+  console.log(user)
   return (
     <div className="w-full h-screen bg-[#EEEEEE] flex"
     >

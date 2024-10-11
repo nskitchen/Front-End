@@ -45,10 +45,11 @@ const CompletedBillCard = ({data, setShowBill}) => {
           <span className="h-3 w-[1px] bg-black"></span>
           <h3>Serve No.</h3>
         </div>
-        <div className="flex w-[35%] items-center justify-center gap-3 ">
+        <div className="flex w-[42%] items-center justify-center gap-3 ">
           <h3 className="w-[20%] text-center">Qua.</h3>
-          <h3 className="w-[20%] text-center">DT</h3>
+          <h3 className="w-[15%] text-center">DT</h3>
           <h3 className="w-[30%] text-center">Price</h3>
+          <h3 className="w-[30%] text-center"></h3>
         </div>
       </div>
       <Divider className="bg-gray-200 my-1 mb-3" />

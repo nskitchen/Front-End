@@ -1,6 +1,7 @@
 import { Divider } from "antd";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { deleteItems } from "../../store/actions/orderActions";
 
 export function SolarBagBold(props) {
   return (
@@ -37,26 +38,31 @@ export function SimpleIconsJusteat(props) {
   );
 }
 const CompletedDetail = ({details,count}) => {
+  console.log(details)
+  const dispatch = useDispatch()
 
-
+  const handleItemDelete = (orderId,id)=>{
+    dispatch(deleteItems(orderId,id))
+  }
+  console.log(details)
   return (
     <div className="w-full text-xs">
       <div className="flex items-center  gap-2 pb-2">
-        <h3 className="boldf">Order#351</h3>
+        <h3 className="boldf">Order   #{details.orderId}</h3>
         <span className="h-3 w-[1px] bg-black"></span>
         <h3>{count} Serve</h3>
       </div>
       
       {details.items.map((orderDetails,idx)=>( 
         <div key={idx} className="flex w-full mt-1 items-start justify-between">
-          {console.log(orderDetails)}
           <h1 className="w-[40%] text-sm">{orderDetails.id?.name} {orderDetails.half &&"(H)"}</h1>
-          <div className="flex w-[30%] px-1 items-center justify-between gap-3 ">
-            <h3 className="w-[15%] text-center">{orderDetails.count}</h3>
-            <h3 className="w-[15%] text-center">
+          <div className="flex w-[40%] px-1 items-center justify-between gap-3 ">
+            <h3 className="w-[20%] text-center">{orderDetails.count}</h3>
+            <h3 className="w-[20%] text-center">
             {orderDetails.parcel ? <SolarBagBold /> : <SimpleIconsJusteat/>}
             </h3>
             <h3 className="w-[70%] text-center">₹ {orderDetails.half ? orderDetails.id?.halfPrice * orderDetails.count : orderDetails.id?.price * orderDetails.count}</h3>
+            <h3 onClick={()=>handleItemDelete(details._id,orderDetails._id)} className="w-[70%] cursor-pointer text-center"><i className="ri-delete-bin-line"></i></h3>
           </div>
         </div>
       ))}

@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Main from "../Components/Main";
 import ChefHome from "../Pages/ChefHome";
 import AdminStaff from "../Pages/AdminStaff";
@@ -20,13 +20,17 @@ import Notification from "../Pages/Waiter/Notification";
 import MenuItems from "../Pages/Menu/MenuItems";
 import AdminOrderHistory from "../Pages/AdminOrderHistory";
 import OrderReceipt from "../Components/POS/OrderRecipt";
+import { useEffect } from "react";
 
 function Routing() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const nav = useNavigate()
 
-  // if(!isAuthenticated){
-  //   return <Navigate to="/login" />
-  // }
+  useEffect(() => {
+    if (!isAuthenticated && window.location.pathname !== "/login") {
+      nav("/login");
+    }
+  }, [isAuthenticated, nav]);
 
   return (
     <>
