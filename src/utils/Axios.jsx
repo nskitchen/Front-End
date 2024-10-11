@@ -1,6 +1,6 @@
 import axios from "axios";
-const hostName = "https://nskitchen.in/back-end"
 
+const hostName = "https://nskitchen.in/back-end"
 // Axios instance for User API
 // const hostName = "https://plankton-app-t3x8j.ondigitalocean.app"
 // const hostName = "http://localhost:8001"

@@ -29,11 +29,6 @@ const AdminMenuPage = () => {
           <h1 className="text-2xl">Menu Management</h1>
           <h1 onClick={handleOutOfStock} className={`${outOfStock ? 'bg-[#FF8144] text-white' : 'bg-white'} cursor-pointer text-[#FF8144] border-[1px] border-[#FF8144]  px-3 py-1 rounded-md`}>Out Of Stock Item</h1>
         </div>
-        {addCategory &&
-          <div className="fixed inset-0 z-50">
-            <AddCategoryPage edit={addCategory} setedit={setAddCategory} />
-          </div>
-        }
         {edit || addItem ? (
           <div className="fixed inset-0 z-50">
             <MenuEditPage edit={edit} setAddItem={setAddItem} setedit={setedit} />

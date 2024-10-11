@@ -3,14 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setFood } from "../../store/slices/menuSlice";
 import { getMenu } from "../../store/actions/menuActions";
 
-const AdminMenuBar = ({outOfStock,setcategory}) => {
+const AdminMenuBar = ({outOfStock}) => {
   const dispatch = useDispatch();
 
-  const { menuCategory,food } = useSelector((state) => state.menu);
+  const {menuCategory,food,menu } = useSelector((state) => state.menu);
   const handelClickFood = (name) => {
     dispatch(setFood(name));
     dispatch(getMenu(null,null,outOfStock));
   };
+
 
   return (
     <>
@@ -25,10 +26,6 @@ const AdminMenuBar = ({outOfStock,setcategory}) => {
             <h3 className={`${food.toLowerCase() == index.toLowerCase() ? "text-orange-400" : "text-black"}  capitalize text-base px-4 py-1`}>{index}</h3>
           </div>
         ))}
-      </div>
-      <div className="menu-item text-xs flex pl-2 ml-2 items-center justify-center cursor-pointer bg-[#ffffff] rounded-md">
-        <i className="ri-add-large-line"></i>
-        <h3 className="text-black text-base px-2 py-1" onClick={()=>setcategory(true)}>Add Category</h3>
       </div>
       </div>
     </>

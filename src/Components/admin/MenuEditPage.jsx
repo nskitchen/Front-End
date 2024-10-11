@@ -36,6 +36,7 @@ const MenuEditPage = ({ edit, setedit, setAddItem }) => {
     };
 
     const validateFields = (values)=>{
+      console.log(values)
       let errors = {}
       if(!values.name){
         errors.name = "Name is required"
@@ -46,7 +47,7 @@ const MenuEditPage = ({ edit, setedit, setAddItem }) => {
       if(values.description && values.description < 50){
         errors.description = "Description should be greater than 50 words"
       }
-      if(!values.category){
+      if(!values.category || values.category.length == 0){
         errors.category = "Select a category"
       }
       if(!values.price){
@@ -71,7 +72,7 @@ const MenuEditPage = ({ edit, setedit, setAddItem }) => {
         form.append("name", menuForm.name);
         form.append("description", menuForm.description);
         form.append("price", menuForm.price);
-        form.append("category", menuForm.category);
+        form.append("category", menuForm.category.toLowerCase());
         form.append("isVeg", menuForm.isVeg);
         form.append("isSpecial", menuForm.isSpecial);
         if(menuForm.halfPrice){
@@ -122,12 +123,15 @@ const MenuEditPage = ({ edit, setedit, setAddItem }) => {
                         <div className="flex flex-col gap-1">
                             <Typography.Text className="text-base">Select Item Category</Typography.Text>
                             <Select
-
-                                onChange={(e) => inputHandler(e,"category")}
-                                style={{
-                                    width: 120,
-                                }}
+                                mode="tags"
+                                style={{ width: 200 }}
+                                placeholder="Type or select an option"
                                 value={menuForm.category}
+                                notFoundContent={null}
+                                showSearch
+                                optionFilterProp="children"
+                                onChange={(e) => inputHandler(e,"category")}
+                                onSelect={(e) => inputHandler(e,"category")}
                                 options={menuCategory?.map((index) => ({
                                     value: index,
                                     label: index,

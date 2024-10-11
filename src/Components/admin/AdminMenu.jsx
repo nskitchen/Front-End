@@ -31,7 +31,7 @@ export function IcBaselineDelete(props) {
   );
 }
 
-const AdminMenu = ({outOfStock ,setAddItem,setcategory, setedit }) => {
+const AdminMenu = ({outOfStock ,setAddItem, setedit }) => {
   
   const dispatch = useDispatch();
   const { food, menu } = useSelector((state) => state.menu);
@@ -58,7 +58,7 @@ const AdminMenu = ({outOfStock ,setAddItem,setcategory, setedit }) => {
   <>
     <div className="w-full">
       <div className="flex ">
-        <AdminMenuBar outOfStock={outOfStock} setcategory={setcategory}/>
+        <AdminMenuBar outOfStock={outOfStock}/>
       </div>
       <div className="flex items-center justify-between px-7 py-5 mt-5">
         <h1 className="font-semibold capitalize">{food}</h1>
