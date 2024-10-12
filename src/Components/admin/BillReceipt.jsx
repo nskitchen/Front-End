@@ -75,7 +75,7 @@ const BillReceipt = ({setShowBillReceipt,order}) => {
                               return item.items.map((stuff,idx)=>(
                               <div key={idx} className='flex justify-between gap-1 mb-3'>
                                 <div>
-                                  <p className='font-semibold text-sm opacity-60'>{stuff.id.name}</p>
+                                  <p className='font-semibold text-sm opacity-60'>{stuff.id.name}{stuff.half ? " (H)" : ""}</p>
                                   <p className='font-semibold text-xs'>₹{stuff.half ? stuff.id.halfPrice : stuff.id.price}</p>
                                 </div>
                                 <p className='font-semibold text-sm'>x{stuff.count}</p>

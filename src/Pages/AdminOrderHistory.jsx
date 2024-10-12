@@ -15,6 +15,7 @@ const AdminOrderHistory = () => {
   const { bills, allOrders } = useSelector((state) => state.orders)
   const completedOrders = allOrders?.filter((i) => i.status === "completed")
   const currentOrders = allOrders?.filter((i) => i.status === "pending")
+  const [allBills, setAllBills] = useState(bills)
   const [showBill, setShowBill] = useState("")
   const dispatch = useDispatch()
   const location = useLocation();
@@ -44,6 +45,7 @@ const handleCancel = () => {
 
 useEffect(() => {
   dispatch(getAllBills("completed", search, startDate, endDate));
+  setAllBills(bills)
 }, [dispatch, startDate, endDate, search]);
 
 const debounce = (func, delay) => {
@@ -57,7 +59,7 @@ const debounce = (func, delay) => {
     }, delay);
   };
 };
-console.log(bills)
+
 const handleSearchChange = debounce((value) => {
   setSearch(value);
 }, 400);
@@ -137,7 +139,7 @@ return (
       <div className="grid grid-cols-3 gap-4 relative overflow-y-auto pr-4 max-md:grid-cols-1 max-md:p-0">
         {showBill && <BillReceiptHistory order={showBill} setShowBillReceipt={setShowBill} />}
         {
-          bills?.map((i) => (
+          [...bills]?.reverse().map((i) => (
             <>
               <HistoryBillCard setShowBill={setShowBill} key={i._id} payment={i} user={i.user} data={i.order} />
             </>

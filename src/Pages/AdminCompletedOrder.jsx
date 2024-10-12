@@ -63,7 +63,7 @@ const AdminCompletedOrder = () => {
         <div className="grid grid-cols-3 gap-4 relative overflow-y-auto pr-4 max-md:grid-cols-1 max-md:p-0">
           {showBill && <BillReceipt order={showBill} setShowBillReceipt={setShowBill}/>}
           {
-            completedOrders?.map((i)=>(
+            completedOrders?.reverse().map((i)=>(
               <CompletedBillCard setShowBill={setShowBill} key={i._id} data={i}/>
             ))
           }
