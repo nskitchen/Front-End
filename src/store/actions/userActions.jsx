@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 // export const refreshToken = () => async (dispatch) => {
 //   try {
 //     const response = await userAPI.put("/tokens/refresh");
-//     // console.log(response);
 //     // dispatch(getCurrentUser(true));
 //   } catch (error) {
 //     console.error("Error refreshing token:", error);
@@ -25,7 +24,6 @@ export const loginUser = (email, password) => async (dispatch) => {
 
 export const deleteUser = (userId) => async () => {
   try {
-    console.log(userId)
     await userAPI.delete(`/delete/${userId}`);
     return true
   } catch (error) {
@@ -48,7 +46,6 @@ export const logoutUser = () => async (dispatch) => {
 export const registerUser = (data) => async (dispatch) => {
   try {
     const response = await userAPI.post("/registration", data);
-    // console.log(response);
     dispatch(setIsAuthenticated(true));
     dispatch(setCurrentuser(response.data.user));
   } catch (error) {
@@ -60,7 +57,6 @@ export const registerUser = (data) => async (dispatch) => {
 export const getCurrentUser = () => async (dispatch) => {
   try {
     const { data } = await userAPI.get("/info");
-    console.log(data)
     dispatch(setUser(data.data.user));
   } catch (error) {
     console.error("Error fetching user info:", error);

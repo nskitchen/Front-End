@@ -6,7 +6,6 @@ export const CreateNewOrders = () => async (dispatch,getValue) => {
         const cart = getValue().orders.cart
         const table = getValue().tables.tableNumber
         const userId = getValue().auth.user._id
-        console.log(cart)
         if(!cart || !table || !userId) return 
         const {data} = await orderAPI.post("/", {table: table, items:cart, user:userId});
         
@@ -80,16 +79,13 @@ export const serveOrder = (orderId,itemId,id) => async (dispatch) => {
 
 export const getAllBills = (status,search,startDate,endDate) => async (dispatch) => {
     try {
-        console.log("gettingAllBills")
         const params = {filter: {
             ...(status && {paymentStatus: status}),
             ...(search && {search: search}),
             ...(startDate && {startDate: startDate}),
             ...(endDate && {endDate: endDate}),
         }}
-        console.log(params)
         const {data} = await billingAPI.get(`/`,{params});
-        console.log(data.length)
         dispatch(setAllBills(data.data.billings));
         dispatch(getAllOrdersss())
         
@@ -100,7 +96,6 @@ export const getAllBills = (status,search,startDate,endDate) => async (dispatch)
 
 export const getFilterExcel = (startDate,endDate) => async (dispatch) => {
     try {
-        console.log("getting csvFiles")
         const params = {filter: {
             ...(startDate && {startDate: startDate}),
             ...(endDate && {endDate: endDate}),

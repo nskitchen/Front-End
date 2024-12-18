@@ -5,7 +5,6 @@ import {useDispatch,useSelector} from "react-redux"
 import { checkoutOrder, getAllOrdersss, getUserOrders } from "../../store/actions/orderActions";
 
 const OrderBillCard = ({ order, handleDetailOpen }) => {
-  console.log(order)
   const dispatch = useDispatch()
 
   const totalPrice = order.orders.reduce((total, perOrder) => {

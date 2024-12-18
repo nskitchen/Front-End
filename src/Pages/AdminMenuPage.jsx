@@ -17,7 +17,6 @@ const AdminMenuPage = () => {
 
   const handleOutOfStock = () => {
     setOutOfStock(!outOfStock);
-    console.log(!outOfStock);
     dispatch(getMenu(null, null, !outOfStock));
   };
   

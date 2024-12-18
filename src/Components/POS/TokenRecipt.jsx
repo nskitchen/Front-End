@@ -13,7 +13,6 @@ const TokenRecipt = forwardRef(({order,mode,sgst,cgst,service}, ref) => {
     }, 0) 
 
     const {user} = useSelector(state => state.auth)
-    console.log(user)
     return (
         <div ref={ref} className="content hidden w-[58mm] h-[210mm] font-mono bg-white shadow-md text-sm" style={{ '@page': { size: '58mm 210mm', margin: 0 } }}>
             <h1 className='text-center leading-4 mt-5 font-black text-2xl '>ORDER {order.billId}</h1>

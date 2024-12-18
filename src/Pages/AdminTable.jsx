@@ -7,7 +7,6 @@ import { setTables } from '../store/actions/tableActions'
 const AdminTable = () => {
   const dispatch = useDispatch();
   const { tables } = useSelector((state) => state.tables);
-  console.log(tables)
   useEffect(() => {
     dispatch(setTables())
   }, []);

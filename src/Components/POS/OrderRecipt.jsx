@@ -3,17 +3,21 @@ import React, { forwardRef } from 'react';
 import { useSelector } from 'react-redux';
 
 const OrderReceipt = forwardRef(({order,mode,sgst,cgst,service}, ref) => {
-
+    console.log(order)
     const totalPrice = order.orders.reduce((total, perOrder) => {
-        return total + perOrder.items.reduce((sum, item) => sum + Number(item.count) * Number(item.half ? item.id.halfPrice : item.id.price), 0);
-      }, 0)
+        return total + perOrder.items.reduce((sum, item) => {
+            if (item.id) {
+                return sum + Number(item.count) * Number(item.half ? item.id.halfPrice : item.id.price);
+            }
+            return sum; // Skip items with null or undefined id
+        }, 0);
+    }, 0);
     
     const totalQuantity = order.orders.reduce((total, perOrder) => {
-    return total + perOrder.items.reduce((sum, item) => sum + Number(item.count), 0);
-    }, 0) 
+        return total + perOrder.items.reduce((sum, item) => sum + Number(item.count || 0), 0);
+    }, 0);
 
     const {user} = useSelector(state => state.auth)
-    console.log(user)
     return (
         <div ref={ref} className="content hidden w-[58mm] h-[210mm] font-mono bg-white shadow-md text-sm" style={{ '@page': { size: '58mm 210mm', margin: 0 } }}>
             <h1 className='text-center font-black text-3xl '>NSKitchen</h1>
@@ -40,8 +44,8 @@ const OrderReceipt = forwardRef(({order,mode,sgst,cgst,service}, ref) => {
             {order.orders.map((details, idx) => (
                 details.items.map((orderDetails,idx)=>( 
                     <div key={idx} className='mb-1 flex justify-between '>
-                        <p className='max-w-[65%] leading-3 text-xs'><span className='font-semibold'>{orderDetails.count}</span> {orderDetails.id?.name} {orderDetails.id.halfPrice && "(H)"}</p>
-                        <p className='text-xs'>₹{orderDetails.half ? orderDetails.id.halfPrice * orderDetails.count : orderDetails.id?.price * orderDetails.count}.00</p>
+                        <p className='max-w-[65%] leading-3 text-xs'><span className='font-semibold'>{orderDetails.count}</span> {orderDetails.id?.name} {orderDetails.id?.halfPrice && "(H)"}</p>
+                        <p className='text-xs'>₹{orderDetails?.half ? orderDetails.id?.halfPrice * orderDetails.count : orderDetails.id?.price * orderDetails.count}.00</p>
                     </div>
                 ))
             ))}

@@ -8,17 +8,14 @@ const NotificationCheckBox = ({orderId,itemId,id}) => {
     const [timer, setTimer] = useState(null);
     const dispatch = useDispatch();
     const {allOrders} = useSelector((state) => state.orders)
-    console.log(allOrders)
     const handleCheck = () => {
         setcheck(!check);
         if (!check) {
-            console.log("Timer started");
             const newTimer = setTimeout(() => {
                 dispatch(serveOrder(orderId, itemId, id))
             }, 1000);
             setTimer(newTimer);
         } else {
-            console.log("Timer cancelled");
             if (timer) {
                 clearTimeout(timer);
                 setTimer(null);

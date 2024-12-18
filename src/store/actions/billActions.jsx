@@ -2,7 +2,6 @@ import { billingAPI } from "../../utils/Axios";
 import { getAllOrdersss } from "./orderActions";
 
 export const generateBill = ({total,sgst,cgst,serviceCharge,paymentMethod,order}) => async (dispatch) => {
-    console.log(paymentMethod)
     try {
         const {data} = await billingAPI.post(`/`,{
             order:order._id,

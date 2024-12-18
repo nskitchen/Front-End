@@ -14,7 +14,6 @@ const Login = () => {
   const { loginError, isAuthenticated, user } = useSelector(
     (state) => state.auth
   );
-  // console.log(isAuthenticated);
 
   const loginHandler = async () => {
     setLoading(true);
